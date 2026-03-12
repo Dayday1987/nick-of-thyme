@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nick of Thyme | Oil · Vinegar · Spices · Wetumpka, AL</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+:root {
+  --cream:#f5f0e8; --parchment:#ede6d5; --bark:#2c1e0f; --bark-light:#3d2b15;
+  --olive:#5a6b3a; --olive-light:#7a8f52; --gold:#c8972a; --gold-light:#e6b84a;
+  --wine:#6b2d2d; --warm-white:#faf7f2; --text-dark:#1a1208; --text-mid:#4a3520;
+  --shadow:0 20px 60px rgba(44,30,15,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Cormorant Garamond',Georgia,serif;background:var(--warm-white);color:var(--text-dark);overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.55;}
+
+/* ── ANNOUNCEMENT BAR ── */
+.ann-bar{background:var(--gold);color:var(--bark);text-align:center;padding:0.55rem 1rem;font-family:'Jost',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;position:fixed;top:0;left:0;right:0;z-index:102;}
+.ann-bar a{color:var(--bark);text-decoration:underline;cursor:pointer;}
+
+/* ── NAV ── */
+nav{position:fixed;top:34px;left:0;right:0;z-index:101;background:rgba(44,30,15,0.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(200,151,42,0.18);padding:0 3rem;height:66px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'Playfair Display',serif;color:var(--cream);font-size:1.35rem;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:0.4rem;letter-spacing:0.01em;}
+.nav-logo em{color:var(--gold);font-style:italic;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{font-family:'Jost',sans-serif;font-size:0.7rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,240,232,0.68);text-decoration:none;transition:color 0.22s;cursor:pointer;}
+.nav-links a:hover{color:var(--gold);}
+.nav-actions{display:flex;align-items:center;gap:1rem;}
+.nav-search{background:none;border:none;color:rgba(245,240,232,0.55);font-size:1.05rem;cursor:pointer;padding:0.3rem;transition:color 0.2s;}
+.nav-search:hover{color:var(--gold);}
+.cart-btn{background:none;border:1px solid rgba(200,151,42,0.38);color:var(--cream);padding:0.48rem 1.1rem;border-radius:2px;font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.22s;display:flex;align-items:center;gap:0.55rem;}
+.cart-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--bark);}
+.cart-count{background:var(--gold);color:var(--bark);font-size:0.6rem;font-weight:700;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Jost',sans-serif;transition:transform 0.2s;}
+.cart-count.bump{transform:scale(1.4);}
+
+/* ── HERO ── */
+.hero{min-height:100vh;background:var(--bark);position:relative;display:flex;align-items:center;overflow:hidden;padding-top:100px;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 78% 45%,rgba(200,151,42,0.1) 0%,transparent 55%),radial-gradient(ellipse at 18% 75%,rgba(90,107,58,0.13) 0%,transparent 50%),linear-gradient(138deg,#180e05 0%,#2c1e0f 42%,#1e1408 100%);}
+.hero-content{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 5rem;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4rem;width:100%;}
+.hero-eyebrow{font-family:'Jost',sans-serif;font-size:0.65rem;font-weight:400;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem;display:flex;align-items:center;gap:1rem;animation:fadeUp 0.8s ease both;}
+.hero-eyebrow::before{content:'';display:block;width:34px;height:1px;background:var(--gold);flex-shrink:0;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5vw,5.2rem);font-weight:900;color:var(--cream);line-height:1.04;margin-bottom:1.4rem;animation:fadeUp 0.8s ease 0.12s both;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero-sub{font-size:1.12rem;font-weight:300;color:rgba(245,240,232,0.58);line-height:1.78;max-width:460px;margin-bottom:1.8rem;animation:fadeUp 0.8s ease 0.25s both;}
+.hero-founder{display:flex;align-items:center;gap:1rem;margin-bottom:2.4rem;animation:fadeUp 0.8s ease 0.35s both;padding:1rem 1.3rem;background:rgba(245,240,232,0.05);border:1px solid rgba(200,151,42,0.18);border-radius:3px;max-width:380px;}
+.founder-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.founder-info strong{font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.15rem;}
+.founder-info span{color:rgba(245,240,232,0.5);font-size:0.88rem;font-weight:300;}
+.hero-ctas{display:flex;gap:1rem;animation:fadeUp 0.8s ease 0.45s both;}
+.btn-gold{background:var(--gold);color:var(--bark);padding:0.88rem 2rem;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:0.73rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all 0.28s;text-decoration:none;display:inline-block;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 26px rgba(200,151,42,0.3);}
+.btn-outline-light{background:transparent;color:var(--cream);padding:0.88rem 2rem;border:1px solid rgba(245,240,232,0.28);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.73rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all 0.28s;}
+.btn-outline-light:hover{border-color:var(--cream);background:rgba(245,240,232,0.07);}
+/* Hero visual */
+.hero-visual{display:flex;justify-content:center;align-items:center;animation:fadeUp 0.8s ease 0.18s both;}
+.bottle-scene{position:relative;width:340px;height:470px;}
+.bottle-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:190px;height:370px;background:radial-gradient(ellipse,rgba(200,151,42,0.13) 0%,transparent 68%);border-radius:50%;}
+.bottle-float{position:absolute;top:50%;left:50%;filter:drop-shadow(0 26px 52px rgba(0,0,0,0.52));animation:float 6s ease-in-out infinite;}
+.hero-badges{position:absolute;bottom:-15px;left:0;right:0;display:flex;gap:0.8rem;}
+.h-badge{background:rgba(245,240,232,0.05);border:1px solid rgba(200,151,42,0.2);border-radius:3px;padding:0.7rem 0.9rem;text-align:center;flex:1;}
+.h-badge-num{font-family:'Playfair Display',serif;font-size:1.55rem;color:var(--gold);font-weight:700;display:block;line-height:1;}
+.h-badge-lbl{font-family:'Jost',sans-serif;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,240,232,0.42);margin-top:0.2rem;display:block;}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.4rem;z-index:2;}
+.scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,rgba(200,151,42,0.55),transparent);animation:scrollPulse 2.2s ease-in-out infinite;}
+.hero-scroll span{font-family:'Jost',sans-serif;font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,240,232,0.32);}
+
+/* ── HOURS BAND ── */
+.hours-band{background:var(--olive);padding:1.5rem 3rem;}
+.hours-band-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+.hb-section{display:flex;flex-direction:column;}
+.hb-label{font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,240,232,0.55);margin-bottom:0.35rem;}
+.hb-hours{display:flex;gap:1.6rem;flex-wrap:wrap;}
+.hb-item{font-family:'Jost',sans-serif;font-size:0.75rem;color:var(--cream);}
+.hb-item span{color:rgba(245,240,232,0.58);margin-right:0.3rem;}
+.hb-contact{text-align:right;}
+.hb-phone{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--gold-light);text-decoration:none;font-weight:700;display:block;}
+.hb-phone:hover{color:var(--cream);}
+.hb-address{font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.06em;color:rgba(245,240,232,0.5);margin-top:0.2rem;}
+
+/* ── CATEGORIES ── */
+.cats{background:var(--cream);padding:2.8rem 0;border-top:3px solid var(--gold);}
+.cats-inner{max-width:1280px;margin:0 auto;padding:0 3rem;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;}
+.cat-card{background:var(--parchment);padding:2rem 1.5rem;text-align:center;cursor:pointer;transition:all 0.28s;position:relative;overflow:hidden;}
+.cat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transition:transform 0.28s;}
+.cat-card:hover::after{transform:scaleX(1);}
+.cat-card:hover{background:var(--bark);}
+.cat-card:hover .cat-icon,.cat-card:hover .cat-name,.cat-card:hover .cat-sub{color:var(--cream) !important;}
+.cat-icon{font-size:1.9rem;margin-bottom:0.6rem;display:block;}
+.cat-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--bark);display:block;margin-bottom:0.25rem;transition:color 0.28s;}
+.cat-sub{font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.1em;color:var(--text-mid);transition:color 0.28s;}
+
+/* ── TASTING NOTE ── */
+.tasting-band{background:var(--bark);padding:2.2rem 3rem;}
+.tasting-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:2rem;}
+.tasting-olive{font-size:2rem;flex-shrink:0;}
+.tasting-text{font-family:'Cormorant Garamond',serif;font-size:1.12rem;font-style:italic;color:rgba(245,240,232,0.7);line-height:1.65;}
+.tasting-text strong{color:var(--gold);font-style:normal;font-family:'Jost',sans-serif;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;display:block;margin-bottom:0.3rem;}
+
+/* ── SHOP ── */
+.shop{padding:5.5rem 0;background:var(--warm-white);}
+.sec-header{max-width:1280px;margin:0 auto;padding:0 3rem 2.8rem;display:flex;align-items:flex-end;justify-content:space-between;}
+.sec-eyebrow{font-family:'Jost',sans-serif;font-size:0.62rem;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.42rem;}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:800;color:var(--bark);line-height:1.1;}
+.sec-title em{color:var(--olive);font-style:italic;}
+.filter-row{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.ftab{font-family:'Jost',sans-serif;font-size:0.67rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.45rem 1.05rem;border:1px solid var(--parchment);background:transparent;color:var(--text-mid);cursor:pointer;border-radius:2px;transition:all 0.2s;}
+.ftab.active,.ftab:hover{background:var(--bark);color:var(--cream);border-color:var(--bark);}
+.pgrid{max-width:1280px;margin:0 auto;padding:0 3rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;}
+
+/* Product Card */
+.pcard{background:var(--cream);border:1px solid var(--parchment);position:relative;overflow:hidden;transition:all 0.32s;cursor:pointer;}
+.pcard:hover{box-shadow:var(--shadow);transform:translateY(-4px);}
+.pbadge{position:absolute;top:0.85rem;left:0.85rem;z-index:2;font-family:'Jost',sans-serif;font-size:0.58rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:0.26rem 0.72rem;border-radius:1px;}
+.pb-best{background:var(--gold);color:var(--bark);}
+.pb-new{background:var(--olive);color:#fff;}
+.pb-staff{background:var(--wine);color:#fff;}
+.pimg{height:215px;background:var(--parchment);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;transition:background 0.3s;}
+/* Photo slot overlay */
+.photo-slot{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(44,30,15,0.0);transition:background 0.25s;pointer-events:none;}
+.photo-slot-icon{font-size:2.2rem;opacity:0.25;margin-bottom:0.4rem;}
+.photo-slot-text{font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(74,53,32,0.35);}
+.pinfo{padding:1.3rem;border-top:1px solid rgba(200,151,42,0.13);}
+.pcat{font-family:'Jost',sans-serif;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--olive);margin-bottom:0.32rem;}
+.pname{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:700;color:var(--bark);margin-bottom:0.3rem;line-height:1.3;}
+.pdesc{font-size:0.86rem;color:var(--text-mid);line-height:1.55;margin-bottom:0.85rem;font-weight:300;}
+.pfoot{display:flex;align-items:center;justify-content:space-between;}
+.pprice{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--bark);}
+.pprice small{font-size:0.8rem;color:var(--text-mid);font-weight:300;font-family:'Cormorant Garamond',serif;}
+.addbtn{background:var(--bark);color:var(--cream);border:none;padding:0.58rem 1.15rem;font-family:'Jost',sans-serif;font-size:0.63rem;letter-spacing:0.13em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all 0.2s;}
+.addbtn:hover{background:var(--gold);color:var(--bark);}
+.addbtn.added{background:var(--olive);color:#fff;}
+
+/* ── REFILL PROMO ── */
+.refill{background:var(--bark);padding:5rem 3rem;position:relative;overflow:hidden;}
+.refill::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 22% 50%,rgba(200,151,42,0.08) 0%,transparent 58%);}
+.refill-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr;align-items:center;gap:5rem;position:relative;z-index:1;}
+.re{font-family:'Jost',sans-serif;font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.85rem;display:flex;align-items:center;gap:0.9rem;}
+.re::before{content:'';width:28px;height:1px;background:var(--gold);}
+.refill-text h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3.2rem);color:var(--cream);font-weight:800;line-height:1.1;margin-bottom:1rem;}
+.refill-text h2 em{color:var(--gold);font-style:italic;}
+.refill-text p{color:rgba(245,240,232,0.58);font-size:1.02rem;line-height:1.78;margin-bottom:1.6rem;font-weight:300;}
+.refill-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.6rem;}
+.ri{border:1px solid rgba(200,151,42,0.2);padding:0.85rem 1rem;border-radius:2px;}
+.ri strong{font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:0.2rem;}
+.ri span{color:var(--cream);font-size:0.92rem;}
+.savings-card{background:rgba(245,240,232,0.05);border:1px solid rgba(200,151,42,0.25);border-radius:4px;padding:2.5rem;text-align:center;}
+.savings-big{font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;color:var(--gold);line-height:1;display:block;}
+.savings-big sub{font-size:2.4rem;vertical-align:super;}
+.savings-lbl{font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,240,232,0.5);margin-top:0.4rem;display:block;}
+.savings-note{margin-top:1.1rem;padding-top:1.1rem;border-top:1px solid rgba(200,151,42,0.18);font-size:0.82rem;color:rgba(245,240,232,0.4);line-height:1.65;}
+
+/* ── ABOUT ── */
+.about{padding:6.5rem 3rem;background:var(--parchment);}
+.about-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:6rem;align-items:center;}
+.about-img-wrap{position:relative;}
+.about-img{width:100%;aspect-ratio:4/5;background:var(--bark-light);border-radius:3px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.about-accent{position:absolute;bottom:-1.8rem;right:-1.8rem;width:42%;aspect-ratio:1;background:var(--gold);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:1.2rem;text-align:center;}
+.about-accent strong{font-family:'Playfair Display',serif;font-size:2rem;color:var(--bark);font-weight:900;}
+.about-accent span{font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--bark);margin-top:0.2rem;}
+.about-text h2{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3vw,2.7rem);color:var(--bark);font-weight:800;line-height:1.14;margin-bottom:1.2rem;}
+.about-text h2 em{color:var(--olive);font-style:italic;}
+.about-text p{font-size:1.05rem;color:var(--text-mid);line-height:1.85;margin-bottom:1rem;font-weight:300;}
+.about-quote{border-left:3px solid var(--gold);padding-left:1.2rem;margin:1.6rem 0;}
+.about-quote blockquote{font-family:'Playfair Display',serif;font-style:italic;font-size:1.08rem;color:var(--bark);line-height:1.6;font-weight:400;}
+.about-quote cite{font-family:'Jost',sans-serif;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-top:0.5rem;display:block;font-style:normal;}
+.about-feats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.8rem;}
+.af{display:flex;gap:0.7rem;align-items:flex-start;}
+.af-icon{width:34px;height:34px;background:var(--bark);border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.95rem;}
+.af-text strong{font-family:'Jost',sans-serif;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--bark);display:block;margin-bottom:0.12rem;}
+.af-text span{font-size:0.86rem;color:var(--text-mid);font-weight:300;}
+
+/* ── REVIEWS ── */
+.reviews{padding:5.5rem 3rem;background:var(--warm-white);}
+.reviews-grid{max-width:1280px;margin:2.5rem auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+.rcard{background:var(--cream);border:1px solid var(--parchment);padding:1.8rem;border-radius:2px;position:relative;}
+.rcard::before{content:'"';position:absolute;top:1rem;right:1.3rem;font-family:'Playfair Display',serif;font-size:4rem;color:rgba(200,151,42,0.12);line-height:1;font-weight:900;}
+.rstars{color:var(--gold);font-size:0.82rem;letter-spacing:0.1em;margin-bottom:0.7rem;}
+.rtext{font-size:0.97rem;color:var(--text-mid);line-height:1.68;font-style:italic;margin-bottom:0.9rem;font-weight:300;}
+.rauthor{font-family:'Jost',sans-serif;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--bark);font-weight:500;}
+.rsource{font-family:'Jost',sans-serif;font-size:0.58rem;letter-spacing:0.08em;color:rgba(74,53,32,0.38);margin-top:0.18rem;}
+
+/* ── GIFTS ── */
+.gifts{padding:5.5rem 3rem;background:var(--olive);position:relative;overflow:hidden;text-align:center;}
+.gifts::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(255,255,255,0.05) 0%,transparent 65%);}
+.gifts-inner{max-width:660px;margin:0 auto;position:relative;z-index:1;}
+.gifts .sec-eyebrow{color:rgba(245,240,232,0.6);}
+.gifts h2{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.5rem);color:var(--cream);font-weight:900;line-height:1.1;margin:0.6rem 0 1rem;}
+.gifts h2 em{font-style:italic;color:var(--gold-light);}
+.gifts p{color:rgba(245,240,232,0.68);font-size:1.08rem;line-height:1.75;margin-bottom:2.2rem;font-weight:300;}
+.gift-btns{display:flex;gap:1rem;justify-content:center;}
+.btn-cream{background:var(--cream);color:var(--bark);padding:0.88rem 2rem;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:0.73rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all 0.28s;}
+.btn-cream:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-ghost-c{background:transparent;color:var(--cream);padding:0.88rem 2rem;border:1px solid rgba(245,240,232,0.35);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.73rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all 0.28s;}
+.btn-ghost-c:hover{border-color:var(--cream);background:rgba(245,240,232,0.1);}
+
+/* ── EMAIL SIGNUP ── */
+.email-section{padding:4.5rem 3rem;background:var(--bark);}
+.email-inner{max-width:680px;margin:0 auto;text-align:center;}
+.email-inner .sec-eyebrow{margin-bottom:0.6rem;}
+.email-inner h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);color:var(--cream);font-weight:800;line-height:1.15;margin-bottom:0.8rem;}
+.email-inner p{color:rgba(245,240,232,0.55);font-size:1rem;line-height:1.7;margin-bottom:2rem;font-weight:300;}
+.email-form{display:flex;gap:0;max-width:480px;margin:0 auto;}
+.email-input{flex:1;background:rgba(245,240,232,0.07);border:1px solid rgba(200,151,42,0.3);border-right:none;color:var(--cream);padding:0.88rem 1.2rem;font-family:'Jost',sans-serif;font-size:0.8rem;outline:none;border-radius:2px 0 0 2px;transition:border-color 0.2s;}
+.email-input::placeholder{color:rgba(245,240,232,0.35);}
+.email-input:focus{border-color:var(--gold);}
+.email-submit{background:var(--gold);color:var(--bark);border:none;padding:0.88rem 1.6rem;font-family:'Jost',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;border-radius:0 2px 2px 0;white-space:nowrap;}
+.email-submit:hover{background:var(--gold-light);}
+.email-note{font-family:'Jost',sans-serif;font-size:0.62rem;letter-spacing:0.08em;color:rgba(245,240,232,0.3);margin-top:0.8rem;}
+.email-success{display:none;font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;color:var(--gold-light);}
+
+/* ── VISIT ── */
+.visit{padding:5.5rem 3rem;background:var(--parchment);}
+.visit-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.visit-text h2{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3vw,2.7rem);color:var(--bark);font-weight:800;line-height:1.1;margin-bottom:1.5rem;}
+.visit-text h2 em{color:var(--olive);font-style:italic;}
+.visit-details{display:flex;flex-direction:column;gap:1.3rem;}
+.vi{display:flex;gap:1rem;align-items:flex-start;}
+.vi-icon{width:40px;height:40px;background:var(--bark);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.vi-text strong{font-family:'Jost',sans-serif;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--bark);display:block;margin-bottom:0.28rem;}
+.vi-text span,.vi-text a{color:var(--text-mid);font-size:0.93rem;font-weight:300;line-height:1.72;text-decoration:none;}
+.vi-text a{color:var(--olive);font-weight:500;}
+.vi-text a:hover{text-decoration:underline;}
+.hours-box{background:var(--bark);border-radius:3px;padding:2rem;color:var(--cream);}
+.hours-box h3{font-family:'Jost',sans-serif;font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;}
+.hrow{display:flex;justify-content:space-between;padding:0.52rem 0;border-bottom:1px solid rgba(200,151,42,0.1);font-family:'Jost',sans-serif;font-size:0.78rem;}
+.hrow:last-of-type{border-bottom:none;}
+.hrow .day{color:rgba(245,240,232,0.5);}
+.hrow .time{color:var(--cream);font-weight:500;}
+.hrow .closed{color:#c0444a;}
+.refill-note{margin-top:1rem;padding:0.8rem;background:rgba(200,151,42,0.1);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.67rem;letter-spacing:0.05em;color:rgba(245,240,232,0.62);text-align:center;}
+.refill-note strong{color:var(--gold);}
+/* Map placeholder */
+.map-placeholder{margin-top:1.5rem;background:var(--bark-light);border-radius:3px;height:180px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;cursor:pointer;transition:background 0.2s;text-decoration:none;}
+.map-placeholder:hover{background:#4a3520;}
+.map-placeholder span{font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
+.map-placeholder p{font-size:0.82rem;color:rgba(245,240,232,0.45);}
+
+/* ── FOOTER ── */
+footer{background:#180e05;color:var(--cream);padding:4.5rem 3rem 2rem;}
+.footer-inner{max-width:1280px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3.5rem;padding-bottom:3.5rem;border-bottom:1px solid rgba(200,151,42,0.1);}
+.f-logo{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--cream);}
+.f-logo em{color:var(--gold);}
+.f-tagline{font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,240,232,0.35);margin-bottom:1rem;display:block;margin-top:0.2rem;}
+.f-desc{color:rgba(245,240,232,0.48);font-size:0.88rem;line-height:1.78;font-weight:300;margin-bottom:1.2rem;}
+.f-addr{font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.04em;color:rgba(245,240,232,0.38);line-height:1.9;}
+.f-addr strong{color:var(--gold);display:block;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.2rem;}
+.fcol h4{font-family:'Jost',sans-serif;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:0.65rem;}
+.fcol ul li a{color:rgba(245,240,232,0.47);text-decoration:none;font-size:0.87rem;font-weight:300;transition:color 0.2s;cursor:pointer;}
+.fcol ul li a:hover{color:var(--cream);}
+.footer-bottom{padding-top:1.8rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-bottom p{font-family:'Jost',sans-serif;font-size:0.62rem;letter-spacing:0.06em;color:rgba(245,240,232,0.22);}
+.f-socials{display:flex;gap:0.7rem;}
+.fsoc{background:rgba(245,240,232,0.05);border:1px solid rgba(245,240,232,0.1);color:rgba(245,240,232,0.42);width:33px;height:33px;border-radius:2px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:0.78rem;transition:all 0.2s;cursor:pointer;font-family:'Jost',sans-serif;font-weight:700;}
+.fsoc:hover{background:var(--gold);border-color:var(--gold);color:var(--bark);}
+
+/* ── CART DRAWER ── */
+.cart-overlay{position:fixed;inset:0;background:rgba(26,18,8,0.58);z-index:200;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(5px);}
+.cart-overlay.open{opacity:1;pointer-events:all;}
+.cart-drawer{position:fixed;right:0;top:0;bottom:0;width:420px;background:var(--warm-white);z-index:201;transform:translateX(100%);transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;}
+.cart-drawer.open{transform:translateX(0);}
+.cdhead{background:var(--bark);padding:1.3rem 1.8rem;display:flex;align-items:center;justify-content:space-between;}
+.cdhead h3{font-family:'Playfair Display',serif;color:var(--cream);font-size:1.15rem;}
+.cd-close{background:none;border:none;color:rgba(245,240,232,0.52);font-size:1.4rem;cursor:pointer;transition:color 0.18s;line-height:1;}
+.cd-close:hover{color:var(--cream);}
+.cd-items{flex:1;overflow-y:auto;padding:1.2rem;}
+.cd-empty{text-align:center;padding:3.5rem 2rem;}
+.cd-empty p{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text-mid);font-style:italic;}
+.cd-empty span{font-family:'Jost',sans-serif;font-size:0.67rem;letter-spacing:0.1em;color:rgba(74,53,32,0.42);margin-top:0.38rem;display:block;}
+.cd-item{display:flex;gap:0.85rem;padding:0.85rem 0;border-bottom:1px solid var(--parchment);align-items:center;}
+.cd-thumb{width:62px;height:62px;background:var(--parchment);border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;}
+.cd-info{flex:1;}
+.cd-name{font-family:'Playfair Display',serif;font-weight:700;color:var(--bark);font-size:0.88rem;margin-bottom:0.12rem;line-height:1.3;}
+.cd-price{color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:0.92rem;}
+.cd-qty{display:flex;align-items:center;gap:0.4rem;margin-top:0.4rem;}
+.qbtn{background:var(--parchment);border:none;width:22px;height:22px;border-radius:2px;cursor:pointer;font-size:0.82rem;display:flex;align-items:center;justify-content:center;transition:background 0.16s;}
+.qbtn:hover{background:var(--bark);color:var(--cream);}
+.qnum{font-family:'Jost',sans-serif;font-size:0.8rem;min-width:17px;text-align:center;}
+.rm-item{background:none;border:none;color:rgba(74,53,32,0.32);cursor:pointer;font-size:0.82rem;transition:color 0.16s;padding:0.22rem;}
+.rm-item:hover{color:var(--wine);}
+.cdfooter{padding:1.2rem 1.8rem;background:var(--cream);border-top:1px solid var(--parchment);}
+.cd-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+.cd-total-lbl{font-family:'Jost',sans-serif;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-mid);}
+.cd-total-val{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;color:var(--bark);}
+.checkout-btn{width:100%;background:var(--bark);color:var(--cream);padding:0.92rem;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all 0.26s;margin-bottom:0.65rem;}
+.checkout-btn:hover{background:var(--gold);color:var(--bark);}
+.cd-note{text-align:center;font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.09em;color:rgba(74,53,32,0.38);}
+
+/* ── CHECKOUT MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(26,18,8,0.72);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(6px);}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%);width:min(550px,95vw);background:var(--warm-white);z-index:301;border-radius:4px;overflow:hidden;transition:transform 0.35s cubic-bezier(0.4,0,0.2,1),opacity 0.35s;opacity:0;}
+.modal-overlay.open .modal{transform:translate(-50%,-50%);opacity:1;}
+.modal-head{background:var(--bark);padding:1.3rem 1.8rem;display:flex;align-items:center;justify-content:space-between;}
+.modal-head h3{font-family:'Playfair Display',serif;color:var(--cream);font-size:1.1rem;}
+.modal-close{background:none;border:none;color:rgba(245,240,232,0.5);font-size:1.4rem;cursor:pointer;transition:color 0.18s;line-height:1;}
+.modal-close:hover{color:var(--cream);}
+.modal-body{padding:2rem;}
+.stripe-notice{background:var(--parchment);border:1px solid rgba(200,151,42,0.2);border-radius:3px;padding:1.2rem;margin-bottom:1.5rem;font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.06em;color:var(--text-mid);line-height:1.6;}
+.stripe-notice strong{color:var(--bark);display:block;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:0.3rem;}
+.stripe-notice code{background:rgba(44,30,15,0.08);padding:0.1rem 0.4rem;border-radius:2px;font-family:monospace;font-size:0.78rem;color:var(--bark);}
+.form-group{margin-bottom:1.2rem;}
+.form-label{font-family:'Jost',sans-serif;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-mid);display:block;margin-bottom:0.4rem;}
+.form-input{width:100%;background:var(--cream);border:1px solid var(--parchment);color:var(--text-dark);padding:0.75rem 1rem;font-family:'Jost',sans-serif;font-size:0.82rem;outline:none;border-radius:2px;transition:border-color 0.2s;}
+.form-input:focus{border-color:var(--gold);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.card-element-wrap{background:var(--cream);border:1px solid var(--parchment);padding:0.75rem 1rem;border-radius:2px;transition:border-color 0.2s;}
+.card-element-wrap.focused{border-color:var(--gold);}
+.modal-total{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-top:1px solid var(--parchment);border-bottom:1px solid var(--parchment);margin-bottom:1.2rem;}
+.modal-total span{font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-mid);}
+.modal-total strong{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;color:var(--bark);}
+.pay-btn{width:100%;background:var(--bark);color:var(--cream);padding:1rem;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all 0.26s;display:flex;align-items:center;justify-content:center;gap:0.7rem;}
+.pay-btn:hover{background:var(--gold);color:var(--bark);}
+.pay-btn:disabled{opacity:0.6;cursor:not-allowed;}
+.stripe-badge{display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:0.8rem;font-family:'Jost',sans-serif;font-size:0.62rem;letter-spacing:0.08em;color:rgba(74,53,32,0.4);}
+.success-screen{text-align:center;padding:2rem;}
+.success-screen .check{font-size:3rem;margin-bottom:1rem;}
+.success-screen h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--bark);font-weight:700;margin-bottom:0.5rem;}
+.success-screen p{font-size:1rem;color:var(--text-mid);font-weight:300;line-height:1.6;}
+
+/* ── ADMIN PANEL ── */
+.admin-btn-hidden{position:fixed;bottom:1.5rem;left:1.5rem;width:36px;height:36px;background:rgba(44,30,15,0.6);border:none;border-radius:50%;cursor:pointer;z-index:400;opacity:0.25;transition:opacity 0.2s;font-size:1rem;}
+.admin-btn-hidden:hover{opacity:0.8;}
+.admin-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:500;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.admin-modal-overlay.open{opacity:1;pointer-events:all;}
+.admin-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(800px,96vw);max-height:90vh;background:#1a1208;z-index:501;border-radius:6px;overflow:hidden;display:flex;flex-direction:column;}
+.admin-head{background:#2c1e0f;padding:1.2rem 1.8rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(200,151,42,0.2);}
+.admin-head h3{font-family:'Playfair Display',serif;color:var(--cream);font-size:1.1rem;}
+.admin-head h3 em{color:var(--gold);font-style:italic;}
+.admin-close{background:none;border:none;color:rgba(245,240,232,0.45);font-size:1.4rem;cursor:pointer;}
+.admin-close:hover{color:var(--cream);}
+.admin-body{padding:1.8rem;overflow-y:auto;flex:1;}
+.admin-tabs{display:flex;gap:0.4rem;margin-bottom:1.5rem;border-bottom:1px solid rgba(200,151,42,0.15);padding-bottom:1rem;}
+.atab{font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.45rem 1.1rem;border:1px solid rgba(200,151,42,0.25);background:transparent;color:rgba(245,240,232,0.55);cursor:pointer;border-radius:2px;transition:all 0.2s;}
+.atab.active,.atab:hover{background:var(--gold);color:var(--bark);border-color:var(--gold);}
+.admin-panel{display:none;}
+.admin-panel.active{display:block;}
+.admin-product-list{display:flex;flex-direction:column;gap:0.8rem;margin-bottom:1.5rem;}
+.apl-item{background:rgba(245,240,232,0.05);border:1px solid rgba(200,151,42,0.15);border-radius:3px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;}
+.apl-emoji{font-size:1.4rem;flex-shrink:0;}
+.apl-info{flex:1;}
+.apl-name{font-family:'Playfair Display',serif;color:var(--cream);font-size:0.95rem;font-weight:700;}
+.apl-meta{font-family:'Jost',sans-serif;font-size:0.62rem;letter-spacing:0.1em;color:rgba(245,240,232,0.4);margin-top:0.15rem;}
+.apl-price{font-family:'Playfair Display',serif;color:var(--gold);font-size:1rem;font-weight:700;flex-shrink:0;}
+.apl-actions{display:flex;gap:0.5rem;}
+.apl-edit,.apl-del{background:none;border:1px solid rgba(200,151,42,0.2);color:rgba(245,240,232,0.5);padding:0.3rem 0.7rem;border-radius:2px;font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.18s;}
+.apl-edit:hover{background:var(--gold);border-color:var(--gold);color:var(--bark);}
+.apl-del:hover{background:var(--wine);border-color:var(--wine);color:#fff;}
+.admin-add-form{background:rgba(245,240,232,0.04);border:1px solid rgba(200,151,42,0.18);border-radius:3px;padding:1.5rem;}
+.admin-add-form h4{font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;}
+.af-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-bottom:0.9rem;}
+.af-field{display:flex;flex-direction:column;gap:0.35rem;}
+.af-label{font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,240,232,0.5);}
+.af-input{background:rgba(245,240,232,0.07);border:1px solid rgba(200,151,42,0.2);color:var(--cream);padding:0.62rem 0.85rem;font-family:'Jost',sans-serif;font-size:0.78rem;outline:none;border-radius:2px;transition:border-color 0.18s;}
+.af-input:focus{border-color:var(--gold);}
+.af-input option{background:#2c1e0f;}
+.af-full{grid-column:1/-1;}
+.af-add-btn{background:var(--gold);color:var(--bark);border:none;padding:0.75rem 1.5rem;font-family:'Jost',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all 0.22s;margin-top:0.5rem;}
+.af-add-btn:hover{background:var(--gold-light);}
+.admin-hours-grid{display:flex;flex-direction:column;gap:0.6rem;}
+.ahour-row{display:flex;align-items:center;gap:1rem;}
+.ahour-day{font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,240,232,0.6);min-width:100px;}
+.ahour-input{background:rgba(245,240,232,0.07);border:1px solid rgba(200,151,42,0.2);color:var(--cream);padding:0.5rem 0.8rem;font-family:'Jost',sans-serif;font-size:0.75rem;outline:none;border-radius:2px;flex:1;}
+.admin-save-btn{background:var(--gold);color:var(--bark);border:none;padding:0.75rem 1.5rem;font-family:'Jost',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;border-radius:2px;margin-top:1rem;transition:all 0.22s;}
+.admin-save-btn:hover{background:var(--gold-light);}
+.admin-login{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;gap:1.2rem;}
+.admin-login h4{font-family:'Playfair Display',serif;color:var(--cream);font-size:1.2rem;}
+.admin-login p{font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.08em;color:rgba(245,240,232,0.45);text-align:center;}
+.admin-pin-input{background:rgba(245,240,232,0.07);border:1px solid rgba(200,151,42,0.3);color:var(--cream);padding:0.8rem 1.2rem;font-family:'Jost',sans-serif;font-size:1rem;outline:none;border-radius:2px;width:200px;text-align:center;letter-spacing:0.3em;}
+.admin-pin-input:focus{border-color:var(--gold);}
+.admin-login-btn{background:var(--gold);color:var(--bark);border:none;padding:0.75rem 2rem;font-family:'Jost',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;border-radius:2px;}
+.admin-err{font-family:'Jost',sans-serif;font-size:0.7rem;color:#e05555;letter-spacing:0.08em;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--bark);color:var(--cream);padding:0.92rem 1.4rem;border-radius:3px;font-family:'Jost',sans-serif;font-size:0.73rem;letter-spacing:0.06em;z-index:600;transform:translateY(110px);opacity:0;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);border-left:3px solid var(--gold);display:flex;align-items:center;gap:0.65rem;max-width:300px;box-shadow:0 8px 30px rgba(0,0,0,0.25);}
+.toast.show{transform:translateY(0);opacity:1;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-13px)}}
+@keyframes scrollPulse{0%,100%{opacity:0.28}50%{opacity:1}}
+@keyframes bumpIn{0%{transform:scale(1)}50%{transform:scale(1.35)}100%{transform:scale(1)}}
+
+@media(max-width:900px){
+  nav{padding:0 1.2rem;}
+  .nav-links{display:none;}
+  .hero-content{grid-template-columns:1fr;padding:0 1.8rem;text-align:center;}
+  .hero-visual{display:none;}
+  .hero-eyebrow{justify-content:center;}
+  .hero-founder{margin:0 auto 2.4rem;}
+  .hero-ctas{justify-content:center;}
+  .cats-inner{grid-template-columns:repeat(2,1fr);}
+  .pgrid{grid-template-columns:repeat(2,1fr);padding:0 1.5rem;}
+  .sec-header{flex-direction:column;align-items:flex-start;gap:0.8rem;padding:0 1.5rem 2rem;}
+  .refill-inner,.about-inner,.visit-inner{grid-template-columns:1fr;}
+  .about-img-wrap{display:none;}
+  .reviews-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2rem;}
+  .cart-drawer{width:100%;}
+  .modal{width:95vw;}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann-bar">🫒 Refill Day every Wednesday 10am–3pm — <a onclick="smoothScroll('refill')">Save $2 per bottle →</a></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Nick <em>of</em> Thyme</a>
+  <ul class="nav-links">
+    <li><a onclick="smoothScroll('shop')">Shop</a></li>
+    <li><a onclick="smoothScroll('refill')">Refill Day</a></li>
+    <li><a onclick="smoothScroll('about')">Our Story</a></li>
+    <li><a onclick="smoothScroll('gifts')">Gifts</a></li>
+    <li><a onclick="smoothScroll('visit')">Visit Us</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="cart-btn" onclick="openCart()">
+      🛒 Cart <div class="cart-count" id="cartCount">0</div>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow">Historic Downtown Wetumpka, Alabama</div>
+      <h1>Taste What <em>Fresh</em> Really Means</h1>
+      <p class="hero-sub">Premium olive oils, aged balsamic vinegars, hand-blended spices and teas — all available for tasting before you buy. Founded with love in April 2020.</p>
+      <div class="hero-founder">
+        <div class="founder-avatar">🌿</div>
+        <div class="founder-info">
+          <strong>Founded by Nicky Godwin</strong>
+          <span>Bringing world-class flavors to the Heart of Alabama</span>
+        </div>
+      </div>
+      <div class="hero-ctas">
+        <button class="btn-gold" onclick="smoothScroll('shop')">Shop Now</button>
+        <button class="btn-outline-light" onclick="smoothScroll('about')">Our Story</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="bottle-scene">
+        <div class="bottle-glow"></div>
+        <svg class="bottle-float" width="155" height="370" viewBox="0 0 155 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="56" y="0" width="43" height="16" rx="8" fill="#a07020"/>
+          <rect x="52" y="14" width="51" height="55" rx="10" fill="url(#ng)"/>
+          <rect x="26" y="62" width="103" height="278" rx="22" fill="url(#nb)"/>
+          <rect x="33" y="80" width="89" height="248" rx="16" fill="url(#nl)" opacity="0.88"/>
+          <rect x="36" y="138" width="83" height="130" rx="6" fill="rgba(245,240,232,0.08)"/>
+          <text x="77" y="172" textAnchor="middle" fill="#c8972a" fontFamily="Georgia" fontSize="9" fontWeight="bold">NICK of</text>
+          <text x="77" y="186" textAnchor="middle" fill="#c8972a" fontFamily="Georgia" fontSize="12" fontWeight="bold">THYME</text>
+          <text x="77" y="198" textAnchor="middle" fill="rgba(245,240,232,0.45)" fontFamily="Georgia" fontSize="6.5">OIL · VINEGAR · SPICES</text>
+          <text x="77" y="210" textAnchor="middle" fill="rgba(245,240,232,0.3)" fontFamily="Georgia" fontSize="6">WETUMPKA, AL</text>
+          <rect x="36" y="72" width="13" height="258" rx="6" fill="rgba(255,255,255,0.07)"/>
+          <defs>
+            <linearGradient id="ng" x1="52" y1="14" x2="103" y2="14" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1a3a0a"/><stop offset="100%" stop-color="#2d5c14"/></linearGradient>
+            <linearGradient id="nb" x1="26" y1="62" x2="129" y2="62" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#101e06"/><stop offset="50%" stop-color="#1e400e"/><stop offset="100%" stop-color="#0d1a05"/></linearGradient>
+            <linearGradient id="nl" x1="33" y1="80" x2="33" y2="328" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#c8972a" stop-opacity="0.55"/><stop offset="25%" stop-color="#8aad3a" stop-opacity="0.65"/><stop offset="100%" stop-color="#3a6015" stop-opacity="0.88"/></linearGradient>
+          </defs>
+        </svg>
+        <div class="hero-badges">
+          <div class="h-badge"><span class="h-badge-num">50+</span><span class="h-badge-lbl">Olive Oils</span></div>
+          <div class="h-badge"><span class="h-badge-num">30+</span><span class="h-badge-lbl">Vinegars</span></div>
+          <div class="h-badge"><span class="h-badge-num">100+</span><span class="h-badge-lbl">Spices</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Explore</span></div>
+</section>
+
+<!-- HOURS BAND -->
+<div class="hours-band">
+  <div class="hours-band-inner">
+    <div class="hb-section">
+      <div class="hb-label">Store Hours</div>
+      <div class="hb-hours">
+        <span class="hb-item"><span>Mon–Fri</span> 10am – 6pm</span>
+        <span class="hb-item"><span>Saturday</span> 10am – 5pm</span>
+        <span class="hb-item"><span>Sunday</span> Closed</span>
+      </div>
+    </div>
+    <div class="hb-contact">
+      <a class="hb-phone" href="tel:3344783258">(334) 478-3258</a>
+      <div class="hb-address">112 Company Street · Wetumpka, AL 36092</div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="cats">
+  <div class="cats-inner">
+    <div class="cat-card" onclick="setFilter('olive-oil',null)">
+      <span class="cat-icon">🫒</span>
+      <span class="cat-name">Olive Oils</span>
+      <span class="cat-sub">50+ varieties, fresh pressed</span>
+    </div>
+    <div class="cat-card" onclick="setFilter('vinegar',null)">
+      <span class="cat-icon">🍇</span>
+      <span class="cat-name">Balsamic Vinegars</span>
+      <span class="cat-sub">Aged & infused varieties</span>
+    </div>
+    <div class="cat-card" onclick="setFilter('spices',null)">
+      <span class="cat-icon">🌿</span>
+      <span class="cat-name">Spices & Rubs</span>
+      <span class="cat-sub">Hand-blended blends</span>
+    </div>
+    <div class="cat-card" onclick="setFilter('tea',null)">
+      <span class="cat-icon">🍵</span>
+      <span class="cat-name">Teas</span>
+      <span class="cat-sub">Loose leaf & specialty</span>
+    </div>
+    <div class="cat-card" onclick="smoothScroll('gifts')">
+      <span class="cat-icon">🎁</span>
+      <span class="cat-name">Gift Sets</span>
+      <span class="cat-sub">Curated gourmet gifts</span>
+    </div>
+  </div>
+</div>
+
+<!-- TASTING NOTE -->
+<div class="tasting-band">
+  <div class="tasting-inner">
+    <div class="tasting-olive">🫒</div>
+    <div class="tasting-text">
+      <strong>Founder's Note — Nicky Godwin</strong>
+      Everything at Nick of Thyme is available to taste in-store before you buy. We believe the best way to discover your new favorite flavor is to experience it — no commitment, just curiosity.
+    </div>
+  </div>
+</div>
+
+<!-- SHOP SECTION -->
+<section class="shop" id="shop">
+  <div class="sec-header">
+    <div>
+      <div class="sec-eyebrow">Artisan Collection</div>
+      <h2 class="sec-title">Shop Our <em>Finest</em></h2>
+    </div>
+    <div class="filter-row">
+      <button class="ftab active" onclick="setFilter('all',this)">All</button>
+      <button class="ftab" onclick="setFilter('olive-oil',this)">Olive Oil</button>
+      <button class="ftab" onclick="setFilter('vinegar',this)">Vinegar</button>
+      <button class="ftab" onclick="setFilter('spices',this)">Spices</button>
+      <button class="ftab" onclick="setFilter('tea',this)">Tea</button>
+      <button class="ftab" onclick="setFilter('gift',this)">Gifts</button>
+    </div>
+  </div>
+  <div class="pgrid" id="productGrid"></div>
+</section>
+
+<!-- REFILL PROMO -->
+<section class="refill" id="refill">
+  <div class="refill-inner">
+    <div class="refill-text">
+      <div class="re">Every Wednesday</div>
+      <h2><em>Refill Day</em> at Nick of Thyme</h2>
+      <p>Bring your clean, dry, empty bottle and we'll refill it at a $2.00 discount per bottle. It's our way of rewarding loyal customers and keeping things sustainable. In-stock products only — sample bottles excluded.</p>
+      <div class="refill-grid">
+        <div class="ri"><strong>When</strong><span>Every Wednesday</span></div>
+        <div class="ri"><strong>Hours</strong><span>10:00 am – 3:00 pm</span></div>
+        <div class="ri"><strong>Savings</strong><span>$2.00 off per bottle</span></div>
+        <div class="ri"><strong>What to Bring</strong><span>Clean, dry, empty bottle</span></div>
+      </div>
+      <button class="btn-gold" onclick="smoothScroll('visit')">Find Us in Wetumpka</button>
+    </div>
+    <div>
+      <div class="savings-card">
+        <span class="savings-big"><sub>$</sub>2</span>
+        <span class="savings-lbl">Off Every Refill Bottle</span>
+        <div class="savings-note">Valid every Wednesday on all in-stock products. Sample bottles excluded. Bottle must be clean and dry.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-img-wrap">
+      <div class="about-img">
+        <!-- PHOTO SLOT: Replace with store interior photo -->
+        <div style="text-align:center;padding:2rem;">
+          <div style="font-size:3rem;opacity:0.2;margin-bottom:0.8rem;">📸</div>
+          <div style="font-family:'Jost',sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,240,232,0.25);">Add store photo here</div>
+        </div>
+      </div>
+      <div class="about-accent">
+        <strong>2020</strong>
+        <span>Founded in Wetumpka</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="sec-eyebrow">Our Story</div>
+      <h2>Born from Passion, <em>Bottled</em> with Care</h2>
+      <p>Nick of Thyme was born in April 2020 when Nicky Godwin opened the doors of her dream shop in the heart of historic Downtown Wetumpka. What began as a passion for great food and exceptional ingredients has grown into one of Alabama's most beloved specialty food destinations.</p>
+      <p>We source our ultra-premium olive oils and aged balsamic vinegars from a trusted supplier in Oakland, California — ensuring every bottle that hits our shelves meets the highest standards of freshness, quality, and flavor.</p>
+      <div class="about-quote">
+        <blockquote>"The fresher the olive oil, the better the flavor — we bottle ours right here and get it to you at peak freshness."</blockquote>
+        <cite>— Nicky Godwin, Founder</cite>
+      </div>
+      <div class="about-feats">
+        <div class="af"><div class="af-icon">🫒</div><div class="af-text"><strong>Fresh Pressed</strong><span>Sourced from Oakland, CA supplier</span></div></div>
+        <div class="af"><div class="af-icon">🏘️</div><div class="af-text"><strong>Downtown Wetumpka</strong><span>112 Company Street</span></div></div>
+        <div class="af"><div class="af-icon">🧪</div><div class="af-text"><strong>Taste Before You Buy</strong><span>Free in-store tastings always</span></div></div>
+        <div class="af"><div class="af-icon">♻️</div><div class="af-text"><strong>Refill Program</strong><span>Sustainable & wallet-friendly</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="sec-header" style="padding-bottom:0;">
+    <div>
+      <div class="sec-eyebrow">What Customers Say</div>
+      <h2 class="sec-title">Loved by <em>Locals</em></h2>
+    </div>
+  </div>
+  <div class="reviews-grid">
+    <div class="rcard">
+      <div class="rstars">★★★★★</div>
+      <p class="rtext">"This little gem in Downtown Wetumpka is absolutely wonderful. The variety of olive oils and vinegars is incredible — and being able to taste everything before buying is such a treat. Nicky is so knowledgeable and passionate."</p>
+      <div class="rauthor">Sarah M.</div>
+      <div class="rsource">Google Review</div>
+    </div>
+    <div class="rcard">
+      <div class="rstars">★★★★★</div>
+      <p class="rtext">"I drove over an hour to visit and it was completely worth it. The fig balsamic and the blood orange olive oil are unlike anything I've ever tasted. Already planning my next visit for Refill Day!"</p>
+      <div class="rauthor">James T.</div>
+      <div class="rsource">Facebook Review</div>
+    </div>
+    <div class="rcard">
+      <div class="rstars">★★★★★</div>
+      <p class="rtext">"Perfect gift shop. I bought three gift sets for Christmas and every single person raved about them. The packaging is beautiful and the products are genuinely top quality. Nick of Thyme is a hidden treasure!"</p>
+      <div class="rauthor">Linda K.</div>
+      <div class="rsource">Google Review</div>
+    </div>
+  </div>
+</section>
+
+<!-- GIFT SECTION -->
+<section class="gifts" id="gifts">
+  <div class="gifts-inner">
+    <div class="sec-eyebrow">The Gift of Flavor</div>
+    <h2>Gourmet Gifts for the <em>Heart & Home</em></h2>
+    <p>Curated gift sets featuring our finest olive oils, aged balsamics, and artisan spices — beautifully packaged and ready to delight. Perfect for holidays, birthdays, housewarmings, and any occasion that deserves something extraordinary.</p>
+    <div class="gift-btns">
+      <button class="btn-cream" onclick="addGiftSet()">Add Gift Set to Cart — $54.95</button>
+      <button class="btn-ghost-c" onclick="smoothScroll('visit')">Custom Orders In-Store</button>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL SIGNUP -->
+<section class="email-section" id="email">
+  <div class="email-inner">
+    <div class="sec-eyebrow" style="color:rgba(200,151,42,0.7)">Stay in the Loop</div>
+    <h2 style="color:var(--cream);font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;line-height:1.15;margin-bottom:0.8rem;">New Flavors. <em style="color:var(--gold);font-style:italic;">Special Events.</em> First to Know.</h2>
+    <p>Be the first to hear about new olive oil arrivals, seasonal specials, Refill Day reminders, holiday hours, and exclusive offers — delivered straight to your inbox.</p>
+    <div class="email-form" id="emailForm">
+      <input class="email-input" type="email" id="emailInput" placeholder="your@email.com">
+      <button class="email-submit" onclick="submitEmail()">Subscribe</button>
+    </div>
+    <div class="email-success" id="emailSuccess">🫒 Welcome to the Nick of Thyme family! You're all set.</div>
+    <p class="email-note">No spam, ever. Unsubscribe anytime. We respect your inbox.</p>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section class="visit" id="visit">
+  <div class="visit-inner">
+    <div class="visit-text">
+      <div class="sec-eyebrow">Find Us</div>
+      <h2>Come <em>Taste</em> for Yourself</h2>
+      <div class="visit-details">
+        <div class="vi">
+          <div class="vi-icon">📍</div>
+          <div class="vi-text">
+            <strong>Address</strong>
+            <span>112 Company Street<br>Historic Downtown Wetumpka, AL 36092</span>
+          </div>
+        </div>
+        <div class="vi">
+          <div class="vi-icon">📞</div>
+          <div class="vi-text">
+            <strong>Phone</strong>
+            <a href="tel:3344783258">(334) 478-3258</a>
+          </div>
+        </div>
+        <div class="vi">
+          <div class="vi-icon">📘</div>
+          <div class="vi-text">
+            <strong>Facebook</strong>
+            <a href="https://fb.com/nickofthymestore" target="_blank">facebook.com/nickofthymestore</a>
+          </div>
+        </div>
+        <div class="vi">
+          <div class="vi-icon">📸</div>
+          <div class="vi-text">
+            <strong>Instagram</strong>
+            <a href="https://instagram.com/nick.ofthyme" target="_blank">@nick.ofthyme</a>
+          </div>
+        </div>
+      </div>
+      <a class="map-placeholder" href="https://maps.google.com/?q=112+Company+Street+Wetumpka+AL" target="_blank">
+        <span>🗺 Open in Google Maps</span>
+        <p>112 Company St · Wetumpka, AL 36092</p>
+      </a>
+    </div>
+    <div class="hours-box">
+      <h3>Store Hours</h3>
+      <div class="hrow"><span class="day">Monday</span><span class="time">10:00 am – 6:00 pm</span></div>
+      <div class="hrow"><span class="day">Tuesday</span><span class="time">10:00 am – 6:00 pm</span></div>
+      <div class="hrow"><span class="day">Wednesday</span><span class="time">10:00 am – 6:00 pm</span></div>
+      <div class="hrow"><span class="day">Thursday</span><span class="time">10:00 am – 6:00 pm</span></div>
+      <div class="hrow"><span class="day">Friday</span><span class="time">10:00 am – 6:00 pm</span></div>
+      <div class="hrow"><span class="day">Saturday</span><span class="time">10:00 am – 5:00 pm</span></div>
+      <div class="hrow"><span class="day">Sunday</span><span class="closed">Closed</span></div>
+      <div class="refill-note"><strong>🫒 Refill Day</strong> — Every Wednesday 10am–3pm · $2 off per bottle</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="f-logo">Nick <em>of</em> Thyme</div>
+        <span class="f-tagline">Oil · Vinegar · Spices</span>
+        <p class="f-desc">A specialty food shop in the heart of historic Downtown Wetumpka, Alabama. Founded by Nicky Godwin in April 2020 with a passion for premium culinary ingredients and a belief that great food starts with great flavors.</p>
+        <div class="f-addr"><strong>Visit Us</strong>112 Company Street<br>Wetumpka, AL 36092<br>(334) 478-3258</div>
+      </div>
+      <div class="fcol">
+        <h4>Shop</h4>
+        <ul>
+          <li><a onclick="setFilter('olive-oil',null);smoothScroll('shop')">Olive Oils</a></li>
+          <li><a onclick="setFilter('vinegar',null);smoothScroll('shop')">Balsamic Vinegars</a></li>
+          <li><a onclick="setFilter('spices',null);smoothScroll('shop')">Spices & Rubs</a></li>
+          <li><a onclick="setFilter('tea',null);smoothScroll('shop')">Teas</a></li>
+          <li><a onclick="setFilter('gift',null);smoothScroll('shop')">Gift Sets</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Visit</h4>
+        <ul>
+          <li><a onclick="smoothScroll('visit')">Hours & Location</a></li>
+          <li><a onclick="smoothScroll('refill')">Refill Day</a></li>
+          <li><a onclick="smoothScroll('about')">Our Story</a></li>
+          <li><a onclick="smoothScroll('reviews')">Reviews</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://fb.com/nickofthymestore" target="_blank">Facebook</a></li>
+          <li><a href="https://instagram.com/nick.ofthyme" target="_blank">Instagram</a></li>
+          <li><a href="tel:3344783258">Call Us</a></li>
+          <li><a onclick="smoothScroll('email')">Newsletter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Nick of Thyme · 112 Company St, Wetumpka, AL · All rights reserved</p>
+      <div class="f-socials">
+        <div class="fsoc" onclick="window.open('https://fb.com/nickofthymestore')">f</div>
+        <div class="fsoc" onclick="window.open('https://instagram.com/nick.ofthyme')">ig</div>
+        <div class="fsoc" onclick="window.open('tel:3344783258')">☎</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cdhead">
+    <h3>Your Cart</h3>
+    <button class="cd-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cd-items" id="cdItems">
+    <div class="cd-empty"><p>Your cart is empty</p><span>Add some artisan goodness above</span></div>
+  </div>
+  <div class="cdfooter" id="cdFooter" style="display:none;">
+    <div class="cd-total-row">
+      <span class="cd-total-lbl">Order Total</span>
+      <span class="cd-total-val" id="cdTotal">$0.00</span>
+    </div>
+    <button class="checkout-btn" onclick="openCheckout()">Proceed to Checkout 🔒</button>
+    <p class="cd-note">Free local pickup · Shipping calculated at checkout</p>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkoutOverlay">
+  <div class="modal" id="checkoutModal">
+    <div class="modal-head">
+      <h3>🔒 Secure Checkout</h3>
+      <button class="modal-close" onclick="closeCheckout()">✕</button>
+    </div>
+    <div class="modal-body" id="checkoutBody">
+      <div class="stripe-notice">
+        <strong>⚙️ Stripe Setup Required</strong>
+        To activate payments, replace <code>YOUR_STRIPE_KEY</code> in the script below with your Stripe publishable key from <code>dashboard.stripe.com</code>. All checkout logic is wired and ready.
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input class="form-input" type="text" id="firstName" placeholder="Nicky">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input class="form-input" type="text" id="lastName" placeholder="Godwin">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-input" type="email" id="checkoutEmail" placeholder="you@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Shipping Address</label>
+        <input class="form-input" type="text" id="address" placeholder="123 Main Street, Wetumpka, AL 36092">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Card Details</label>
+        <div class="card-element-wrap" id="cardElement">
+          <!-- Stripe Card Element mounts here -->
+          <div style="font-family:'Jost',sans-serif;font-size:0.75rem;color:rgba(74,53,32,0.4);padding:0.15rem 0;letter-spacing:0.05em;">
+            💳 Stripe card element loads here with your publishable key
+          </div>
+        </div>
+      </div>
+      <div class="modal-total">
+        <span>Order Total</span>
+        <strong id="modalTotal">$0.00</strong>
+      </div>
+      <button class="pay-btn" onclick="handlePayment()">
+        <span>Complete Purchase</span> <span id="payTotal"></span>
+      </button>
+      <div class="stripe-badge">🔒 Secured by Stripe · SSL Encrypted · PCI Compliant</div>
+    </div>
+    <div class="modal-body success-screen" id="successScreen" style="display:none;">
+      <div class="check">✅</div>
+      <h3>Order Confirmed!</h3>
+      <p>Thank you for your purchase! You'll receive a confirmation email shortly. We can't wait for you to taste the difference.</p>
+      <br>
+      <button class="btn-gold" onclick="closeCheckout();resetCart()">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN BUTTON (hidden) -->
+<button class="admin-btn-hidden" onclick="openAdmin()" title="Admin">⚙</button>
+
+<!-- ADMIN MODAL -->
+<div class="admin-modal-overlay" id="adminOverlay">
+  <div class="admin-modal">
+    <div class="admin-head">
+      <h3>Nick <em>of</em> Thyme — Admin Panel</h3>
+      <button class="admin-close" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="admin-body" id="adminBody">
+      <!-- Login screen -->
+      <div class="admin-login" id="adminLogin">
+        <h4>🔐 Admin Access</h4>
+        <p>Enter the admin PIN to manage your store</p>
+        <input class="admin-pin-input" type="password" id="adminPin" placeholder="••••" maxlength="4" onkeyup="if(event.key==='Enter')checkPin()">
+        <button class="admin-login-btn" onclick="checkPin()">Unlock</button>
+        <span class="admin-err" id="pinErr"></span>
+        <p style="color:rgba(245,240,232,0.25);font-size:0.6rem;margin-top:0.5rem;">Default PIN: 1234</p>
+      </div>
+      <!-- Admin content (hidden until login) -->
+      <div id="adminContent" style="display:none;">
+        <div class="admin-tabs">
+          <button class="atab active" onclick="switchAdminTab('products',this)">Products</button>
+          <button class="atab" onclick="switchAdminTab('hours',this)">Hours</button>
+          <button class="atab" onclick="switchAdminTab('announce',this)">Announcement</button>
+        </div>
+        <!-- Products panel -->
+        <div class="admin-panel active" id="tab-products">
+          <div class="admin-product-list" id="adminProductList"></div>
+          <div class="admin-add-form">
+            <h4>+ Add New Product</h4>
+            <div class="af-grid">
+              <div class="af-field"><label class="af-label">Product Name</label><input class="af-input" id="np-name" placeholder="e.g. Sicilian Lemon Olive Oil"></div>
+              <div class="af-field"><label class="af-label">Category</label>
+                <select class="af-input" id="np-cat">
+                  <option value="olive-oil">Olive Oil</option>
+                  <option value="vinegar">Vinegar</option>
+                  <option value="spices">Spices</option>
+                  <option value="tea">Tea</option>
+                  <option value="gift">Gift Set</option>
+                </select>
+              </div>
+              <div class="af-field"><label class="af-label">Price ($)</label><input class="af-input" id="np-price" type="number" step="0.01" placeholder="19.95"></div>
+              <div class="af-field"><label class="af-label">Size / Unit</label><input class="af-input" id="np-size" placeholder="375ml"></div>
+              <div class="af-field"><label class="af-label">Emoji Icon</label><input class="af-input" id="np-icon" placeholder="🫒"></div>
+              <div class="af-field"><label class="af-label">Badge</label>
+                <select class="af-input" id="np-badge">
+                  <option value="">None</option>
+                  <option value="bestseller">Bestseller</option>
+                  <option value="new">New</option>
+                  <option value="staff">Staff Pick</option>
+                </select>
+              </div>
+              <div class="af-field af-full"><label class="af-label">Description</label><input class="af-input" id="np-desc" placeholder="Bright citrus flavor with peppery finish..."></div>
+            </div>
+            <button class="af-add-btn" onclick="adminAddProduct()">Add Product to Store</button>
+          </div>
+        </div>
+        <!-- Hours panel -->
+        <div class="admin-panel" id="tab-hours">
+          <div class="admin-hours-grid" id="adminHoursGrid"></div>
+          <button class="admin-save-btn" onclick="saveHours()">Save Hours</button>
+        </div>
+        <!-- Announcement panel -->
+        <div class="admin-panel" id="tab-announce">
+          <div style="margin-bottom:1.2rem;">
+            <div class="af-field">
+              <label class="af-label">Announcement Bar Text</label>
+              <input class="af-input" id="announceText" style="width:100%" placeholder="🫒 Refill Day every Wednesday...">
+            </div>
+          </div>
+          <button class="admin-save-btn" onclick="saveAnnouncement()">Update Announcement</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ <span id="toastMsg"></span></div>
+
+<script>
+// ─── PRODUCT DATA ───────────────────────────────────────────
+let products = [
+  {id:1,name:'Arbequina Extra Virgin Olive Oil',cat:'olive-oil',price:18.95,size:'375ml',icon:'🫒',badge:'bestseller',desc:'Our most popular EVOO. Buttery, smooth, with notes of fresh-cut grass and a mild peppery finish. Certified ultra-premium.'},
+  {id:2,name:'Tuscan Herb Infused Olive Oil',cat:'olive-oil',price:20.95,size:'375ml',icon:'🌿',badge:'new',desc:'Classic Italian herbs — rosemary, basil, oregano — fused with our premium cold-pressed extra virgin olive oil. Perfect on bread.'},
+  {id:3,name:'Blood Orange Olive Oil',cat:'olive-oil',price:20.95,size:'375ml',icon:'🍊',badge:'staff',desc:'Bright and citrusy with a beautiful coral hue. Stunning on salmon, scallops, and chocolate cake.'},
+  {id:4,name:'Spicy Basil Olive Oil',cat:'olive-oil',price:20.95,size:'375ml',icon:'🌶️',badge:null,desc:'Aromatic basil meets a warm chili heat. Made for pasta, pizza, and anyone who likes a little kick.'},
+  {id:5,name:'Butter Olive Oil',cat:'olive-oil',price:20.95,size:'375ml',icon:'🧈',badge:'bestseller',desc:'All the richness of butter without the dairy. Unbelievable on lobster, corn on the cob, or simply drizzled on warm bread.'},
+  {id:6,name:'18-Year Traditional Balsamic',cat:'vinegar',price:24.95,size:'375ml',icon:'🍇',badge:'staff',desc:'Aged 18 years in Italian wood barrels. Dense, complex, and extraordinary. Perfect on Parmesan, strawberries, or vanilla ice cream.'},
+  {id:7,name:'Dark Chocolate Balsamic Vinegar',cat:'vinegar',price:19.95,size:'375ml',icon:'🍫',badge:'bestseller',desc:'Rich dark chocolate meets aged balsamic. A revelation on strawberries, cheesecake, and pork tenderloin.'},
+  {id:8,name:'Fig Balsamic Vinegar',cat:'vinegar',price:19.95,size:'375ml',icon:'🫐',badge:null,desc:'Sweet, jammy fig flavor layered with the complexity of aged balsamic. Magical with cheese boards and roasted duck.'},
+  {id:9,name:'Blueberry Balsamic Vinegar',cat:'vinegar',price:19.95,size:'375ml',icon:'🫐',badge:'new',desc:'Plump blueberry sweetness with classic balsamic depth. Pour over Greek yogurt, salads, or grilled chicken.'},
+  {id:10,name:'Cinnamon Pear Balsamic',cat:'vinegar',price:19.95,size:'375ml',icon:'🍐',badge:null,desc:'Warm cinnamon and ripe pear in a beautifully balanced aged balsamic. A fall favorite year-round.'},
+  {id:11,name:'Honey Ginger Balsamic',cat:'vinegar',price:19.95,size:'375ml',icon:'🍯',badge:null,desc:'Golden honey and warming ginger meld with aged balsamic for a glaze that\'s incredible on salmon or shrimp.'},
+  {id:12,name:'Smoked Paprika & Garlic Rub',cat:'spices',price:9.95,size:'4oz',icon:'🌶️',badge:'bestseller',desc:'A bold, smoky rub that transforms anything it touches. Chicken, pork, roasted vegetables — this one\'s a pantry staple.'},
+  {id:13,name:'Mediterranean Sea Salt Blend',cat:'spices',price:8.95,size:'3oz',icon:'🧂',badge:null,desc:'Sun-dried sea salt hand-blended with herbs from the Mediterranean coast. Elevates everything from eggs to steak.'},
+  {id:14,name:'Garlic Lovers Seasoning',cat:'spices',price:8.95,size:'3oz',icon:'🧄',badge:null,desc:'For those who believe there\'s no such thing as too much garlic. Roasted, toasted, and blended to perfection.'},
+  {id:15,name:'Golden Turmeric Ginger Tea',cat:'tea',price:11.95,size:'2oz loose leaf',icon:'🌻',badge:'new',desc:'Anti-inflammatory powerhouse with earthy turmeric, warming ginger, and a touch of black pepper for absorption.'},
+  {id:16,name:'Southern Sweet Peach Tea',cat:'tea',price:10.95,size:'2oz loose leaf',icon:'🍑',badge:'bestseller',desc:'A Southern classic reimagined as a loose leaf tea. Sun-ripened peach flavor with a delicate black tea base.'},
+  {id:17,name:'Gift Set — The Starter Collection',cat:'gift',price:39.95,size:'3-bottle set',icon:'🎁',badge:null,desc:'Three of our best-selling bottles in beautiful packaging. Choose from olive oils, vinegars, or a mix. Perfect intro gift.'},
+  {id:18,name:'Gift Set — Heart & Home Deluxe',cat:'gift',price:54.95,size:'5-bottle set',icon:'🎀',badge:'staff',desc:'Our signature gift — five premium bottles, a tasting guide, and recipes. The ultimate gourmet gift for any occasion.'},
+];
+
+let cart = [];
+let hoursData = {
+  Monday:'10:00 am – 6:00 pm',Tuesday:'10:00 am – 6:00 pm',Wednesday:'10:00 am – 6:00 pm',
+  Thursday:'10:00 am – 6:00 pm',Friday:'10:00 am – 6:00 pm',Saturday:'10:00 am – 5:00 pm',Sunday:'Closed'
+};
+
+// ─── HELPERS ────────────────────────────────────────────────
+function smoothScroll(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'});}
+function showToast(msg){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+
+// ─── PRODUCTS ────────────────────────────────────────────────
+function renderProducts(filter='all'){
+  const grid=document.getElementById('productGrid');
+  const list=filter==='all'?products:products.filter(p=>p.cat===filter);
+  if(list.length===0){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:4rem;font-family:\'Playfair Display\',serif;font-style:italic;color:var(--text-mid);">No products in this category yet.</div>';return;}
+  grid.innerHTML=list.map(p=>`
+    <div class="pcard">
+      ${p.badge?`<div class="pbadge pb-${p.badge==='bestseller'?'best':p.badge==='staff'?'staff':'new'}">${p.badge==='bestseller'?'Bestseller':p.badge==='staff'?'Staff Pick':'New'}</div>`:''}
+      <div class="pimg">
+        <div class="photo-slot">
+          <div class="photo-slot-icon">📸</div>
+          <div class="photo-slot-text">Add photo</div>
+        </div>
+        ${bottleSVG(p)}
+      </div>
+      <div class="pinfo">
+        <div class="pcat">${p.cat.replace('-',' ')}</div>
+        <div class="pname">${p.name}</div>
+        <div class="pdesc">${p.desc}</div>
+        <div class="pfoot">
+          <div class="pprice">$${p.price.toFixed(2)} <small>/ ${p.size}</small></div>
+          <button class="addbtn" id="abtn-${p.id}" onclick="addToCart(${p.id})">Add to Cart</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function bottleSVG(p){
+  const colors={
+    'olive-oil':['#1a3a0a','#2d5c14','#8aad3a'],
+    vinegar:['#3d0a0a','#6b1a1a','#aa3030'],
+    spices:['#3d2510','#6b4020','#c8972a'],
+    tea:['#1a1a3a','#2a2a6b','#5a5aaa'],
+    gift:['#2c1e0f','#5a3a20','#c8972a']
+  };
+  const c=colors[p.cat]||colors['olive-oil'];
+  return `<svg width="90" height="170" viewBox="0 0 90 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <text x="45" y="22" textAnchor="middle" fontSize="18">${p.icon}</text>
+    ${p.cat==='spices'?`
+      <rect x="18" y="55" width="54" height="90" rx="6" fill="${c[0]}"/>
+      <rect x="14" y="48" width="62" height="14" rx="5" fill="${c[1]}"/>
+      <rect x="22" y="68" width="46" height="60" rx="3" fill="rgba(245,240,232,0.07)"/>
+    `:p.cat==='gift'?`
+      <rect x="15" y="40" width="60" height="100" rx="8" fill="${c[0]}"/>
+      <rect x="20" y="48" width="50" height="82" rx="4" fill="${c[1]}" opacity="0.6"/>
+      <text x="45" y="100" textAnchor="middle" fontSize="18">🎁</text>
+    `:`
+      <rect x="32" y="28" width="26" height="10" rx="5" fill="${c[2]}" opacity="0.8"/>
+      <rect x="28" y="36" width="34" height="38" rx="7" fill="${c[0]}"/>
+      <rect x="18" y="68" width="54" height="82" rx="12" fill="${c[0]}"/>
+      <rect x="22" y="76" width="46" height="66" rx="8" fill="${c[1]}" opacity="0.7"/>
+      <rect x="24" y="90" width="42" height="38" rx="3" fill="rgba(245,240,232,0.07)"/>
+    `}
+  </svg>`;
+}
+
+function setFilter(cat,btn){
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  else{document.querySelectorAll('.ftab').forEach(t=>{if(t.textContent.toLowerCase().includes(cat.replace('-',' ')))t.classList.add('active');});}
+  renderProducts(cat);
+  smoothScroll('shop');
+}
+
+// ─── CART ────────────────────────────────────────────────────
+function addToCart(id){
+  const p=products.find(x=>x.id===id);
+  if(!p)return;
+  const ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++;else cart.push({...p,qty:1});
+  renderCart();
+  const btn=document.getElementById(`abtn-${id}`);
+  if(btn){btn.textContent='✓ Added';btn.classList.add('added');setTimeout(()=>{btn.textContent='Add to Cart';btn.classList.remove('added');},1500);}
+  const cc=document.getElementById('cartCount');
+  cc.classList.add('bump');setTimeout(()=>cc.classList.remove('bump'),300);
+  showToast(`${p.name.length>30?p.name.slice(0,28)+'…':p.name} added to cart!`);
+}
+
+function addGiftSet(){addToCart(18);}
+
+function changeQty(id,d){
+  const item=cart.find(x=>x.id===id);
+  if(!item)return;
+  item.qty+=d;
+  if(item.qty<=0)cart=cart.filter(x=>x.id!==id);
+  renderCart();
+}
+
+function removeFromCart(id){cart=cart.filter(x=>x.id!==id);renderCart();}
+
+function resetCart(){cart=[];renderCart();}
+
+function renderCart(){
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartCount').textContent=count;
+  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const items=document.getElementById('cdItems');
+  const footer=document.getElementById('cdFooter');
+  document.getElementById('cdTotal').textContent='$'+total.toFixed(2);
+  document.getElementById('modalTotal').textContent='$'+total.toFixed(2);
+  document.getElementById('payTotal').textContent='$'+total.toFixed(2);
+  if(cart.length===0){
+    items.innerHTML='<div class="cd-empty"><p>Your cart is empty</p><span>Add some artisan goodness above</span></div>';
+    footer.style.display='none';return;
+  }
+  footer.style.display='block';
+  items.innerHTML=cart.map(i=>`
+    <div class="cd-item">
+      <div class="cd-thumb">${i.icon||'🫒'}</div>
+      <div class="cd-info">
+        <div class="cd-name">${i.name}</div>
+        <div class="cd-price">$${(i.price*i.qty).toFixed(2)}</div>
+        <div class="cd-qty">
+          <button class="qbtn" onclick="changeQty(${i.id},-1)">−</button>
+          <span class="qnum">${i.qty}</span>
+          <button class="qbtn" onclick="changeQty(${i.id},1)">+</button>
+        </div>
+      </div>
+      <button class="rm-item" onclick="removeFromCart(${i.id})">✕</button>
+    </div>`).join('');
+}
+
+function openCart(){document.getElementById('cartOverlay').classList.add('open');document.getElementById('cartDrawer').classList.add('open');}
+function closeCart(){document.getElementById('cartOverlay').classList.remove('open');document.getElementById('cartDrawer').classList.remove('open');}
+
+// ─── CHECKOUT ────────────────────────────────────────────────
+// 🔑 REPLACE WITH YOUR STRIPE PUBLISHABLE KEY:
+const STRIPE_KEY = 'YOUR_STRIPE_KEY';
+let stripe = null;
+let cardElement = null;
+
+function openCheckout(){
+  if(cart.length===0){showToast('Your cart is empty!');return;}
+  closeCart();
+  document.getElementById('checkoutOverlay').classList.add('open');
+  document.getElementById('checkoutBody').style.display='block';
+  document.getElementById('successScreen').style.display='none';
+
+  // Initialize Stripe if key is set
+  if(STRIPE_KEY !== 'YOUR_STRIPE_KEY' && !stripe){
+    try{
+      stripe = Stripe(STRIPE_KEY);
+      const elements = stripe.elements();
+      cardElement = elements.create('card',{
+        style:{base:{fontFamily:"'Jost',sans-serif",fontSize:'14px',color:'#1a1208','::placeholder':{color:'rgba(74,53,32,0.4)'}}}
+      });
+      cardElement.mount('#cardElement');
+      cardElement.on('focus',()=>document.getElementById('cardElement').classList.add('focused'));
+      cardElement.on('blur',()=>document.getElementById('cardElement').classList.remove('focused'));
+    }catch(e){console.warn('Stripe init failed:',e);}
+  }
+}
+
+function closeCheckout(){document.getElementById('checkoutOverlay').classList.remove('open');}
+
+async function handlePayment(){
+  const firstName=document.getElementById('firstName').value.trim();
+  const email=document.getElementById('checkoutEmail').value.trim();
+  if(!firstName||!email){showToast('Please fill in your name and email.');return;}
+
+  const btn=document.querySelector('.pay-btn');
+  btn.disabled=true;
+  btn.innerHTML='<span>Processing...</span>';
+
+  if(STRIPE_KEY === 'YOUR_STRIPE_KEY'){
+    // Demo mode — simulate success after 1.5s
+    setTimeout(()=>{
+      btn.disabled=false;
+      document.getElementById('checkoutBody').style.display='none';
+      document.getElementById('successScreen').style.display='block';
+      showToast('Order placed successfully!');
+    },1500);
+    return;
+  }
+
+  // Real Stripe payment (requires backend to create PaymentIntent)
+  try{
+    // In production: call your backend to create a PaymentIntent and get client_secret
+    // const res = await fetch('/api/create-payment-intent', {method:'POST', body:JSON.stringify({amount:cartTotal})});
+    // const {client_secret} = await res.json();
+    // const result = await stripe.confirmCardPayment(client_secret, {payment_method:{card:cardElement}});
+    // if(result.error) throw result.error;
+    showToast('Stripe key configured — connect backend to process real payments!');
+  }catch(e){
+    showToast('Payment failed: '+e.message);
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML='<span>Complete Purchase</span>';
+  }
+}
+
+// ─── EMAIL SIGNUP ─────────────────────────────────────────────
+function submitEmail(){
+  const email=document.getElementById('emailInput').value.trim();
+  if(!email||!email.includes('@')){showToast('Please enter a valid email address.');return;}
+  document.getElementById('emailForm').style.display='none';
+  document.getElementById('emailSuccess').style.display='block';
+  showToast('Welcome to the Nick of Thyme family! 🫒');
+  // TODO: Connect to Mailchimp/Klaviyo/EmailOctopus API
+}
+
+// ─── ADMIN ───────────────────────────────────────────────────
+const ADMIN_PIN = '1234'; // Change this!
+let adminUnlocked = false;
+
+function openAdmin(){document.getElementById('adminOverlay').classList.add('open');}
+function closeAdmin(){document.getElementById('adminOverlay').classList.remove('open');}
+
+function checkPin(){
+  const pin=document.getElementById('adminPin').value;
+  if(pin===ADMIN_PIN){
+    adminUnlocked=true;
+    document.getElementById('adminLogin').style.display='none';
+    document.getElementById('adminContent').style.display='block';
+    renderAdminProducts();
+    renderAdminHours();
+    document.getElementById('announceText').value=document.querySelector('.ann-bar').textContent.replace('→','').trim();
+  }else{
+    document.getElementById('pinErr').textContent='Incorrect PIN. Try again.';
+    document.getElementById('adminPin').value='';
+  }
+}
+
+function renderAdminProducts(){
+  document.getElementById('adminProductList').innerHTML=products.map(p=>`
+    <div class="apl-item">
+      <div class="apl-emoji">${p.icon}</div>
+      <div class="apl-info">
+        <div class="apl-name">${p.name}</div>
+        <div class="apl-meta">${p.cat.replace('-',' ')} · ${p.size}${p.badge?' · '+p.badge:''}</div>
+      </div>
+      <div class="apl-price">$${p.price.toFixed(2)}</div>
+      <div class="apl-actions">
+        <button class="apl-del" onclick="adminDeleteProduct(${p.id})">Remove</button>
+      </div>
+    </div>`).join('');
+}
+
+function adminDeleteProduct(id){
+  if(confirm('Remove this product from the store?')){
+    products=products.filter(p=>p.id!==id);
+    renderProducts('all');
+    renderAdminProducts();
+    showToast('Product removed.');
+  }
+}
+
+function adminAddProduct(){
+  const name=document.getElementById('np-name').value.trim();
+  const price=parseFloat(document.getElementById('np-price').value);
+  const cat=document.getElementById('np-cat').value;
+  const size=document.getElementById('np-size').value.trim()||'—';
+  const icon=document.getElementById('np-icon').value.trim()||'🫒';
+  const badge=document.getElementById('np-badge').value||null;
+  const desc=document.getElementById('np-desc').value.trim();
+  if(!name||isNaN(price)){showToast('Name and price are required.');return;}
+  const newP={id:Date.now(),name,cat,price,size,icon,badge,desc};
+  products.push(newP);
+  renderProducts('all');
+  renderAdminProducts();
+  ['np-name','np-price','np-size','np-icon','np-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('np-badge').value='';
+  showToast(`"${name}" added to store!`);
+}
+
+function renderAdminHours(){
+  const days=Object.keys(hoursData);
+  document.getElementById('adminHoursGrid').innerHTML=days.map(d=>`
+    <div class="ahour-row">
+      <span class="ahour-day">${d}</span>
+      <input class="ahour-input" id="hour-${d}" value="${hoursData[d]}" placeholder="10:00 am – 6:00 pm">
+    </div>`).join('');
+}
+
+function saveHours(){
+  Object.keys(hoursData).forEach(d=>{
+    const el=document.getElementById(`hour-${d}`);
+    if(el)hoursData[d]=el.value;
+  });
+  // Re-render hours in the footer
+  const rows=document.querySelectorAll('.hrow');
+  const days=Object.keys(hoursData);
+  rows.forEach((row,i)=>{
+    if(days[i]){
+      const time=row.querySelector('.time,.closed');
+      if(time){
+        time.textContent=hoursData[days[i]];
+        time.className=hoursData[days[i]].toLowerCase()==='closed'?'closed':'time';
+      }
+    }
+  });
+  showToast('Hours updated!');
+}
+
+function saveAnnouncement(){
+  const txt=document.getElementById('announceText').value.trim();
+  if(txt)document.querySelector('.ann-bar').innerHTML=txt;
+  showToast('Announcement updated!');
+}
+
+function switchAdminTab(name,btn){
+  document.querySelectorAll('.atab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+// ─── SCROLL ANIMATIONS ────────────────────────────────────────
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.style.animation='fadeUp 0.65s ease both';obs.unobserve(e.target);}
+  });
+},{threshold:0.08});
+
+// ─── INIT ─────────────────────────────────────────────────────
+renderProducts();
+document.querySelectorAll('.pcard,.cat-card,.rcard,.af').forEach(el=>{el.style.opacity='0';obs.observe(el);});
+</script>
+</body>
+</html>
