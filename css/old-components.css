@@ -1,6 +1,4 @@
-/* ==========================================================================
-   ── HERO SECTION ──
-   ========================================================================== */
+/* ── HERO ── */
 .hero {
   min-height: 100vh;
   background: var(--bark);
@@ -8,10 +6,8 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding-top: 110px; /* Accounts gracefully for fixed nav + announcement height */
-  padding-bottom: 60px;
+  padding-top: 100px;
 }
-
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -28,7 +24,6 @@
     ),
     linear-gradient(138deg, #180e05 0%, #2c1e0f 42%, #1e1408 100%);
 }
-
 .hero-content {
   position: relative;
   z-index: 2;
@@ -41,15 +36,6 @@
   gap: 4rem;
   width: 100%;
 }
-
-/* Added relative structural wrapper to give floating elements a safe anchor */
-.hero-text-side {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
 .hero-eyebrow {
   font-family: "Jost", sans-serif;
   font-size: 0.65rem;
@@ -63,7 +49,6 @@
   gap: 1rem;
   animation: fadeUp 0.8s ease both;
 }
-
 .hero-eyebrow::before {
   content: "";
   display: block;
@@ -72,26 +57,19 @@
   background: var(--gold);
   flex-shrink: 0;
 }
-
 .hero h1 {
   font-family: "Playfair Display", serif;
-  font-size: clamp(
-    2.4rem,
-    5vw,
-    5.2rem
-  ); /* Slightly optimized low end font limit */
+  font-size: clamp(2.8rem, 5vw, 5.2rem);
   font-weight: 900;
   color: var(--cream);
   line-height: 1.04;
   margin-bottom: 1.4rem;
   animation: fadeUp 0.8s ease 0.12s both;
 }
-
 .hero h1 em {
   color: var(--gold);
   font-style: italic;
 }
-
 .hero-sub {
   font-size: 1.12rem;
   font-weight: 300;
@@ -101,7 +79,6 @@
   margin-bottom: 1.8rem;
   animation: fadeUp 0.8s ease 0.25s both;
 }
-
 .hero-founder {
   display: flex;
   align-items: center;
@@ -112,10 +89,8 @@
   background: rgba(245, 240, 232, 0.05);
   border: 1px solid rgba(200, 151, 42, 0.18);
   border-radius: 3px;
-  width: 100%;
   max-width: 380px;
 }
-
 .founder-avatar {
   width: 44px;
   height: 44px;
@@ -127,7 +102,6 @@
   font-size: 1.2rem;
   flex-shrink: 0;
 }
-
 .founder-info strong {
   font-family: "Jost", sans-serif;
   font-size: 0.7rem;
@@ -137,77 +111,67 @@
   display: block;
   margin-bottom: 0.15rem;
 }
-
 .founder-info span {
   color: rgba(245, 240, 232, 0.5);
   font-size: 0.88rem;
   font-weight: 300;
 }
-
 .hero-ctas {
   display: flex;
   gap: 1rem;
-  width: 100%;
-  max-width: 460px;
   animation: fadeUp 0.8s ease 0.45s both;
 }
-
-.btn-gold,
-.btn-outline-light {
+.btn-gold {
+  background: var(--gold);
+  color: var(--bark);
   padding: 0.88rem 2rem;
+  border: none;
   border-radius: 2px;
   font-family: "Jost", sans-serif;
   font-size: 0.73rem;
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.28s;
   text-decoration: none;
   display: inline-block;
-  flex: 1; /* Allows buttons to share container space equally */
-  text-align: center;
 }
-
-.btn-gold {
-  background: var(--gold);
-  color: var(--bark);
-  border: none;
-  font-weight: 600;
-}
-
 .btn-gold:hover {
   background: var(--gold-light);
   transform: translateY(-2px);
   box-shadow: 0 8px 26px rgba(200, 151, 42, 0.3);
 }
-
 .btn-outline-light {
   background: transparent;
   color: var(--cream);
+  padding: 0.88rem 2rem;
   border: 1px solid rgba(245, 240, 232, 0.28);
+  border-radius: 2px;
+  font-family: "Jost", sans-serif;
+  font-size: 0.73rem;
   font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.28s;
 }
-
 .btn-outline-light:hover {
   border-color: var(--cream);
   background: rgba(245, 240, 232, 0.07);
 }
-
-/* ── HERO VISUAL ASSETS ── */
+/* Hero visual */
 .hero-visual {
   display: flex;
   justify-content: center;
   align-items: center;
   animation: fadeUp 0.8s ease 0.18s both;
-  width: 100%;
 }
-
 .bottle-scene {
   position: relative;
   width: 340px;
   height: 470px;
 }
-
 .bottle-glow {
   position: absolute;
   top: 50%;
@@ -222,27 +186,21 @@
   );
   border-radius: 50%;
 }
-
 .bottle-float {
   position: absolute;
   top: 50%;
   left: 50%;
-  /* Added absolute translate vector centering alignment baseline safety anchor */
-  transform: translate(-50%, -50%);
   filter: drop-shadow(0 26px 52px rgba(0, 0, 0, 0.52));
   animation: float 6s ease-in-out infinite;
 }
-
 .hero-badges {
   position: absolute;
-  bottom: -45px; /* Shifted slightly to clear button bounds cleaner */
+  bottom: -15px;
   left: 0;
   right: 0;
   display: flex;
   gap: 0.8rem;
-  width: 100%;
 }
-
 .h-badge {
   background: rgba(245, 240, 232, 0.05);
   border: 1px solid rgba(200, 151, 42, 0.2);
@@ -251,7 +209,6 @@
   text-align: center;
   flex: 1;
 }
-
 .h-badge-num {
   font-family: "Playfair Display", serif;
   font-size: 1.55rem;
@@ -260,7 +217,6 @@
   display: block;
   line-height: 1;
 }
-
 .h-badge-lbl {
   font-family: "Jost", sans-serif;
   font-size: 0.58rem;
@@ -270,7 +226,6 @@
   margin-top: 0.2rem;
   display: block;
 }
-
 .hero-scroll {
   position: absolute;
   bottom: 2.5rem;
@@ -282,14 +237,12 @@
   gap: 0.4rem;
   z-index: 2;
 }
-
 .scroll-line {
   width: 1px;
   height: 36px;
   background: linear-gradient(to bottom, rgba(200, 151, 42, 0.55), transparent);
   animation: scrollPulse 2.2s ease-in-out infinite;
 }
-
 .hero-scroll span {
   font-family: "Jost", sans-serif;
   font-size: 0.58rem;
@@ -298,31 +251,24 @@
   color: rgba(245, 240, 232, 0.32);
 }
 
-/* ==========================================================================
-   ── HOURS BAND INTERSTITIAL ──
-   ========================================================================== */
+/* ── HOURS BAND ── */
 .hours-band {
   background: var(--olive);
   padding: 1.5rem 3rem;
-  width: 100%;
-  position: relative;
-  z-index: 5;
 }
-
 .hours-band-inner {
   max-width: 1280px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
-
 .hb-section {
   display: flex;
   flex-direction: column;
 }
-
 .hb-label {
   font-family: "Jost", sans-serif;
   font-size: 0.6rem;
@@ -331,28 +277,23 @@
   color: rgba(245, 240, 232, 0.55);
   margin-bottom: 0.35rem;
 }
-
 .hb-hours {
   display: flex;
   gap: 1.6rem;
+  flex-wrap: wrap;
 }
-
 .hb-item {
   font-family: "Jost", sans-serif;
   font-size: 0.75rem;
   color: var(--cream);
-  white-space: nowrap; /* Prevents time signatures from wrapping into awkward splits */
 }
-
 .hb-item span {
   color: rgba(245, 240, 232, 0.58);
   margin-right: 0.3rem;
 }
-
 .hb-contact {
   text-align: right;
 }
-
 .hb-phone {
   font-family: "Playfair Display", serif;
   font-size: 1.35rem;
@@ -360,50 +301,16 @@
   text-decoration: none;
   font-weight: 700;
   display: block;
-  transition: color 0.2s;
 }
-
 .hb-phone:hover {
   color: var(--cream);
 }
-
 .hb-address {
   font-family: "Jost", sans-serif;
   font-size: 0.68rem;
   letter-spacing: 0.06em;
   color: rgba(245, 240, 232, 0.5);
   margin-top: 0.2rem;
-}
-
-/* ==========================================================================
-   ── SPECIFIC LOCAL BLOCK BREAKPOINTS ──
-   ========================================================================== */
-@media (max-width: 1024px) {
-  .hero-content {
-    padding: 0 2rem;
-    gap: 2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .hours-band {
-    padding: 1.5rem;
-  }
-
-  .hours-band-inner {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.25rem;
-  }
-
-  .hb-hours {
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .hb-contact {
-    text-align: center;
-  }
 }
 
 /* ==========================================================================
