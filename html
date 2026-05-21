@@ -4,32 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nick of Thyme | Oil · Vinegar · Spices · Wetumpka, AL</title>
-
-    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
-
-    <!-- Core & Architecture Stylesheets -->
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/layout.css" />
-    <link rel="stylesheet" href="css/components.css" />
-
-    <!-- Third-Party Scripts -->
     <script src="https://js.stripe.com/v3/"></script>
   </head>
   <body>
-    <!-- ── ANNOUNCEMENT BAR ── -->
     <div class="ann-bar" id="ann-bar-top">
-      FREE SHIPPING ON ORDERS OVER $75 •
-      <a href="#club">JOIN OUR TASTING CLUB</a>
+      FREE SHIPPING ON ORDERS OVER $75 • <a>JOIN OUR TASTING CLUB</a>
     </div>
 
-    <!-- ── MAIN NAVIGATION ── -->
-    <div id="navbar-placeholder"></div>
+    <nav role="navigation" aria-label="Main Navigation">
+      <a href="#" class="nav-logo" aria-label="Nick of Thyme Home"
+        >NICK <em>of</em> THYME</a
+      >
+      <ul class="nav-links">
+        <li><a href="#about">How It Works</a></li>
+        <li><a href="#shop">Browse Gift Baskets</a></li>
+        <li><a href="#gifts">Corporate Gifting</a></li>
+        <li><a href="#club">Join Our Club</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-search" title="Search site" aria-label="Search">
+          <i class="search-icon">🔍</i>
+        </button>
+        <button
+          class="cart-btn"
+          onclick="toggleCart(true)"
+          title="View Shopping Cart"
+          aria-label="Shopping Cart"
+        >
+          <span>Cart</span>
+          <div class="cart-count" id="cart-counter">0</div>
+        </button>
+      </div>
+    </nav>
 
-    <!-- ── HERO SECTION ── -->
     <section class="hero">
       <div class="hero-bg"></div>
       <div class="hero-content">
@@ -56,12 +67,13 @@
             <a href="#shop" class="btn-gold" aria-label="Shop our collection"
               >Shop the Collection</a
             >
-            <a
-              href="#refill"
+            <button
               class="btn-outline-light"
+              onclick="document.getElementById('refill').scrollIntoView()"
               aria-label="Learn about our refill program"
-              >Refill & Save</a
             >
+              Refill & Save
+            </button>
           </div>
         </div>
 
@@ -75,7 +87,6 @@
                 viewBox="0 0 240 420"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
               >
                 <rect
                   x="70"
@@ -136,7 +147,6 @@
       </div>
     </section>
 
-    <!-- ── HOURS & STORE LOCATION INFO BAND ── -->
     <div class="hours-band">
       <div class="hours-band-inner">
         <div class="hb-section">
@@ -158,62 +168,52 @@
       </div>
     </div>
 
-    <!-- ── CATEGORY QUICK-LINKS ── -->
     <section class="cats">
       <div class="cats-inner">
         <div
           class="cat-card"
-          onclick="filterCategory('oil')"
+          onclick="filterShop('oil')"
           role="button"
-          tabindex="0"
           aria-label="View Olive Oils"
         >
           <span class="cat-icon">🫒</span>
           <span class="cat-name">Olive Oils</span>
           <span class="cat-sub">Extra Virgin & Infused</span>
         </div>
-
         <div
           class="cat-card"
-          onclick="filterCategory('vinegar')"
+          onclick="filterShop('vinegar')"
           role="button"
-          tabindex="0"
           aria-label="View Vinegars"
         >
           <span class="cat-icon">🍇</span>
           <span class="cat-name">Vinegars</span>
           <span class="cat-sub">Balsamic & Specialty</span>
         </div>
-
         <div
           class="cat-card"
-          onclick="filterCategory('spices')"
+          onclick="filterShop('spice')"
           role="button"
-          tabindex="0"
           aria-label="View Spices"
         >
           <span class="cat-icon">🌶️</span>
           <span class="cat-name">Spices</span>
           <span class="cat-sub">Hand-Mixed Blends</span>
         </div>
-
         <div
           class="cat-card"
-          onclick="filterCategory('pantry')"
+          onclick="filterShop('pantry')"
           role="button"
-          tabindex="0"
           aria-label="View Pantry Items"
         >
           <span class="cat-icon">🍯</span>
           <span class="cat-name">Pantry</span>
           <span class="cat-sub">Honey, Pasta & More</span>
         </div>
-
         <div
           class="cat-card"
-          onclick="filterCategory('gifts')"
+          onclick="filterShop('gifts')"
           role="button"
-          tabindex="0"
           aria-label="View Gifts"
         >
           <span class="cat-icon">🎁</span>
@@ -223,12 +223,11 @@
       </div>
     </section>
 
-    <!-- ── TASTING BANNER BAND ── -->
     <section class="tasting-band">
       <div class="tasting-inner">
         <span class="tasting-olive">🌿</span>
         <p class="tasting-text">
-          <strong>Pro Tip:</strong>
+          <strong>Pro Tip</strong>
           "Try drizzling our 18-Year Aged Traditional Balsamic over fresh
           Alabama peaches and vanilla bean gelato for a transformative summer
           dessert."
@@ -236,50 +235,37 @@
       </div>
     </section>
 
-    <!-- ── SHOP SECTION STOREFRONT ── -->
     <section class="shop" id="shop">
       <div class="sec-header">
         <div class="sh-left">
           <span class="sec-eyebrow">Explore the Pantry</span>
           <h2 class="sec-title">Our <em>Featured</em> Selection</h2>
         </div>
-        <div
-          class="filter-row"
-          role="tablist"
-          aria-label="Product Filtering Options"
-        >
+        <div class="filter-row">
           <button
             class="ftab active"
-            onclick="filterCategory('all')"
-            role="tab"
-            aria-selected="true"
+            onclick="filterShop('all')"
             aria-label="Show all products"
           >
             All
           </button>
           <button
             class="ftab"
-            onclick="filterCategory('oil')"
-            role="tab"
-            aria-selected="false"
+            onclick="filterShop('oil')"
             aria-label="Show only oils"
           >
             Oils
           </button>
           <button
             class="ftab"
-            onclick="filterCategory('vinegar')"
-            role="tab"
-            aria-selected="false"
+            onclick="filterShop('vinegar')"
             aria-label="Show only vinegars"
           >
             Vinegars
           </button>
           <button
             class="ftab"
-            onclick="filterCategory('spices')"
-            role="tab"
-            aria-selected="false"
+            onclick="filterShop('spice')"
             aria-label="Show only spices"
           >
             Spices
@@ -287,11 +273,9 @@
         </div>
       </div>
 
-      <!-- Target Grid Container for Dynamic JavaScript Injection -->
-      <div class="pgrid" id="product-grid" aria-live="polite"></div>
+      <div class="pgrid" id="product-grid"></div>
     </section>
 
-    <!-- ── REFILL & SUSTAINABILITY SECTION ── -->
     <section class="refill" id="refill">
       <div class="refill-inner">
         <div class="refill-text">
@@ -321,11 +305,7 @@
               <span>We clean and sanitize for you</span>
             </div>
           </div>
-
-          <button
-            class="btn-gold"
-            aria-label="Learn how the refill program works"
-          >
+          <button class="btn-gold" aria-label="Learn how it works">
             How it Works
           </button>
         </div>
@@ -345,15 +325,10 @@
       </div>
     </section>
 
-    <!-- ── ABOUT OUR STORY SECTION ── -->
     <section class="about" id="about">
       <div class="about-inner">
         <div class="about-img-wrap">
-          <div
-            class="about-img"
-            role="img"
-            aria-label="Nick of Thyme Story Illustration Placeholder"
-          >
+          <div class="about-img">
             <span style="font-size: 4rem; opacity: 0.1">🏠</span>
           </div>
           <div class="about-accent">
@@ -381,15 +356,14 @@
             <div class="af">
               <div class="af-icon">🌱</div>
               <div class="af-text">
-                options <strong>Pure Sourcing</strong>
-                <span>No fillers or additives</span>
+                <strong>Pure Sourcing</strong
+                ><span>No fillers or additives</span>
               </div>
             </div>
             <div class="af">
               <div class="af-icon">🏺</div>
               <div class="af-text">
-                <strong>Traditional</strong>
-                <span>Old-world methods</span>
+                <strong>Traditional</strong><span>Old-world methods</span>
               </div>
             </div>
           </div>
@@ -397,18 +371,19 @@
       </div>
     </section>
 
-    <!-- ── CUSTOMER REVIEWS SECTION ── -->
     <section class="reviews">
-      <div class="sec-header header-center">
+      <div
+        class="sec-header"
+        style="justify-content: center; text-align: center"
+      >
         <div>
           <span class="sec-eyebrow">Customer Love</span>
           <h2 class="sec-title">What Our <em>Neighbors</em> Say</h2>
         </div>
       </div>
-
       <div class="reviews-grid">
         <div class="rcard" role="article">
-          <div class="rstars" aria-label="5 stars">★★★★★</div>
+          <div class="rstars">★★★★★</div>
           <p class="rtext">
             "The Garlic Infused Olive Oil is a game changer for my roasted
             potatoes. I never shop anywhere else for my pantry staples."
@@ -416,9 +391,8 @@
           <div class="rauthor">Sarah T.</div>
           <div class="rsource">Verified Local</div>
         </div>
-
         <div class="rcard" role="article">
-          <div class="rstars" aria-label="5 stars">★★★★★</div>
+          <div class="rstars">★★★★★</div>
           <p class="rtext">
             "Love the refill program! Such a smart way to save money and stay
             environmentally conscious. The staff is always so helpful."
@@ -426,9 +400,8 @@
           <div class="rauthor">James M.</div>
           <div class="rsource">Verified Local</div>
         </div>
-
         <div class="rcard" role="article">
-          <div class="rstars" aria-label="5 stars">★★★★★</div>
+          <div class="rstars">★★★★★</div>
           <p class="rtext">
             "Best gift sets in town. I sent the 'Taste of Italy' box to my
             sister in Birmingham and she hasn't stopped talking about it."
@@ -439,18 +412,14 @@
       </div>
     </section>
 
-    <!-- ── CURATED GIFTING SECTION ── -->
     <section class="gifts" id="gifts">
       <div class="gifts-inner">
-        <div class="gifts-content">
-          <span class="sec-eyebrow">Perfect for Any Occasion</span>
-          <h2>Give the Gift of <em>Thyme</em></h2>
-          <p>
-            From corporate appreciation to wedding favors, our custom-wrapped
-            gift sets are the perfect way to share your love of flavor.
-          </p>
-        </div>
-
+        <span class="sec-eyebrow">Perfect for Any Occasion</span>
+        <h2>Give the Gift of <em>Thyme</em></h2>
+        <p>
+          From corporate appreciation to wedding favors, our custom-wrapped gift
+          sets are the perfect way to share your love of flavor.
+        </p>
         <div class="gift-btns">
           <button class="btn-cream" aria-label="Shop gift baskets">
             Browse Gift Baskets
@@ -462,7 +431,6 @@
       </div>
     </section>
 
-    <!-- ── TASTING CLUB EMAIL NEWSLETTER ── -->
     <section class="email-section" id="club">
       <div class="email-inner">
         <span class="sec-eyebrow">Stay Inspired</span>
@@ -471,15 +439,13 @@
           Be the first to know about new seasonal pressings, upcoming tasting
           events, and exclusive recipes delivered to your inbox.
         </p>
-
         <form
           class="email-form"
           onsubmit="
             event.preventDefault();
             showToast('Welcome to the club!');
             this.style.display = 'none';
-            document.getElementById('email-success-msg').style.display =
-              'block';
+            document.querySelector('.email-success').style.display = 'block';
           "
         >
           <input
@@ -497,57 +463,44 @@
             Sign Me Up
           </button>
         </form>
-
-        <!-- Dynamic Form Success State Message -->
-        <div class="email-success" id="email-success-msg" aria-live="polite">
+        <div class="email-success">
           Thank you for joining! Check your inbox for a 10% discount code.
         </div>
-
         <p class="email-note">
           We value your privacy. Unsubscribe at any time.
         </p>
       </div>
     </section>
 
-    <!-- ── VISIT & CONTACT DETAILS ── -->
     <section class="visit" id="visit">
       <div class="visit-inner">
         <div class="visit-text">
           <span class="sec-eyebrow">Come Say Hello</span>
           <h2>Visit the <em>Shop</em></h2>
-
           <div class="visit-details">
-            <div class="visit-info-group">
-              <div class="vi">
-                <div class="vi-icon">📍</div>
-                <div class="vi-text">
-                  <strong>Location</strong>
-                  <span>123 Market Street<br />Wetumpka, AL 36092</span>
-                </div>
-              </div>
-
-              <div class="vi">
-                <div class="vi-icon">📞</div>
-                <div class="vi-text">
-                  <strong>Contact</strong>
-                  <a href="tel:3345678901" aria-label="Call store"
-                    >334.567.8901</a
-                  ><br />
-                  <a
-                    href="mailto:hello@nickofthyme.com"
-                    aria-label="Email store"
-                    >hello@nickofthyme.com</a
-                  >
-                </div>
+            <div class="vi">
+              <div class="vi-icon">📍</div>
+              <div class="vi-text">
+                <strong>Location</strong>
+                <span>123 Market Street<br />Wetumpka, AL 36092</span>
               </div>
             </div>
-
+            <div class="vi">
+              <div class="vi-icon">📞</div>
+              <div class="vi-text">
+                <strong>Contact</strong>
+                <a href="tel:3345678901" aria-label="Call store">334.567.8901</a
+                ><br />
+                <a href="mailto:hello@nickofthyme.com" aria-label="Email store"
+                  >hello@nickofthyme.com</a
+                >
+              </div>
+            </div>
             <a
               href="https://maps.google.com"
               target="_blank"
-              rel="noopener"
               class="map-placeholder"
-              aria-label="View store address on Google Maps"
+              aria-label="View on Google Maps"
             >
               <span>View on Interactive Map</span>
               <p>Get directions to the shop</p>
@@ -555,36 +508,35 @@
           </div>
         </div>
 
-        <!-- Operating Hours Card -->
         <div class="hours-box">
           <h3>Shop Hours</h3>
           <div class="hrow">
-            <span class="day">Monday</span>
-            <span class="time" id="hour-mon">10:00 AM – 6:00 PM</span>
+            <span class="day">Monday</span
+            ><span class="time" id="hour-mon">10:00 AM – 6:00 PM</span>
           </div>
           <div class="hrow">
-            <span class="day">Tuesday</span>
-            <span class="time" id="hour-tue">10:00 AM – 6:00 PM</span>
+            <span class="day">Tuesday</span
+            ><span class="time" id="hour-tue">10:00 AM – 6:00 PM</span>
           </div>
           <div class="hrow">
-            <span class="day">Wednesday</span>
-            <span class="time" id="hour-wed">10:00 AM – 6:00 PM</span>
+            <span class="day">Wednesday</span
+            ><span class="time" id="hour-wed">10:00 AM – 6:00 PM</span>
           </div>
           <div class="hrow">
-            <span class="day">Thursday</span>
-            <span class="time" id="hour-thu">10:00 AM – 6:00 PM</span>
+            <span class="day">Thursday</span
+            ><span class="time" id="hour-thu">10:00 AM – 6:00 PM</span>
           </div>
           <div class="hrow">
-            <span class="day">Friday</span>
-            <span class="time" id="hour-fri">10:00 AM – 6:00 PM</span>
+            <span class="day">Friday</span
+            ><span class="time" id="hour-fri">10:00 AM – 6:00 PM</span>
           </div>
           <div class="hrow">
-            <span class="day">Saturday</span>
-            <span class="time" id="hour-sat">10:00 AM – 4:00 PM</span>
+            <span class="day">Saturday</span
+            ><span class="time" id="hour-sat">10:00 AM – 4:00 PM</span>
           </div>
           <div class="hrow">
-            <span class="day">Sunday</span>
-            <span class="closed" id="hour-sun">Closed</span>
+            <span class="day">Sunday</span
+            ><span class="closed" id="hour-sun">Closed</span>
           </div>
           <div class="refill-note">
             <strong>Refill Special:</strong> Every Thursday!
@@ -593,29 +545,117 @@
       </div>
     </section>
 
-    <!-- ── FOOTER placeholder ── -->
-    <!-- TODO: Insert your layout footer component/include call right here -->
+    <footer role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-top">
+          <div class="fcol">
+            <a href="#" class="f-logo" aria-label="Nick of Thyme Home"
+              >NICK <em>of</em> THYME</a
+            >
+            <span class="f-tagline">Artisan Oils & Vinegars</span>
+            <p class="f-desc">
+              Bringing the finest small-batch ingredients to your kitchen since
+              2012. Family owned and operated in the heart of Wetumpka.
+            </p>
+            <div class="f-addr">
+              <strong>Find Us</strong>
+              123 Market Street, Wetumpka, AL 36092
+            </div>
+          </div>
+          <div class="fcol">
+            <h4>The Pantry</h4>
+            <ul>
+              <li>
+                <a onclick="filterShop('oil')" aria-label="View oils"
+                  >Olive Oils</a
+                >
+              </li>
+              <li>
+                <a onclick="filterShop('vinegar')" aria-label="View vinegars"
+                  >Vinegars</a
+                >
+              </li>
+              <li>
+                <a onclick="filterShop('spice')" aria-label="View spices"
+                  >Spices & Rubs</a
+                >
+              </li>
+              <li>
+                <a onclick="filterShop('gifts')" aria-label="View gift sets"
+                  >Gift Sets</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="fcol">
+            <h4>Learn</h4>
+            <ul>
+              <li>
+                <a
+                  onclick="document.getElementById('refill').scrollIntoView()"
+                  aria-label="About refills"
+                  >Refill Program</a
+                >
+              </li>
+              <li><a aria-label="View recipes">Recipes</a></li>
+              <li><a aria-label="About tastings">Tasting Events</a></li>
+              <li>
+                <a
+                  onclick="document.getElementById('about').scrollIntoView()"
+                  aria-label="About us"
+                  >Our Story</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="fcol">
+            <h4>Support</h4>
+            <ul>
+              <li><a aria-label="Contact support">Contact Us</a></li>
+              <li><a aria-label="View shipping policy">Shipping Policy</a></li>
+              <li><a aria-label="View return policy">Returns</a></li>
+              <li><a aria-label="View FAQ">FAQ</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2024 Nick of Thyme. All rights reserved. Hand-poured with
+            love in Alabama.
+          </p>
+          <div class="f-socials">
+            <a
+              class="fsoc"
+              title="Follow us on Instagram"
+              aria-label="Instagram"
+              >IG</a
+            >
+            <a class="fsoc" title="Follow us on Facebook" aria-label="Facebook"
+              >FB</a
+            >
+            <a
+              class="fsoc"
+              title="Follow us on Pinterest"
+              aria-label="Pinterest"
+              >PI</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
 
-    <!-- ── SHOPPING CART OVERLAY & DRAWER ── -->
     <div
       class="cart-overlay"
       id="cart-overlay"
       onclick="toggleCart(false)"
     ></div>
-
-    <div
-      class="cart-drawer"
-      id="cart-drawer"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Shopping Cart Drawer"
-    >
+    <div class="cart-drawer" id="cart-drawer">
       <div class="cart-head">
         <h2>Your Pantry</h2>
         <button
           class="close-cart"
           onclick="toggleCart(false)"
-          aria-label="Close cart drawer"
+          aria-label="Close cart"
         >
           &times;
         </button>
@@ -624,72 +664,49 @@
       <div class="cart-foot" id="cart-footer"></div>
     </div>
 
-    <!-- ── STORE MANAGER DASHBOARD BUTTON TRIGGER ── -->
     <button
       class="admin-trigger"
       onclick="openAdmin()"
       title="Admin Settings"
-      aria-label="Open Store Manager Settings"
+      aria-label="Admin Settings"
     >
       ⚙️
     </button>
 
-    <!-- ── ADMIN MANAGEMENT CONTROL MODAL ── -->
-    <div
-      class="admin-modal"
-      id="admin-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Store Manager Control Panel"
-    >
+    <div class="admin-modal" id="admin-modal">
       <div class="admin-card">
         <div class="admin-header">
           <h2>Store Manager</h2>
           <button
-            class="admin-close-btn"
             onclick="closeAdmin()"
-            aria-label="Close admin control panel"
+            style="
+              background: none;
+              border: none;
+              color: #fff;
+              cursor: pointer;
+              font-size: 1.5rem;
+            "
           >
             &times;
           </button>
         </div>
-
-        <!-- Dashboard Navigation Tabs -->
-        <div class="admin-tabs" role="tablist" aria-label="Admin Sections">
-          <div
-            class="atab active"
-            role="tab"
-            aria-selected="true"
-            onclick="switchAdminTab('ann', this)"
-          >
+        <div class="admin-tabs">
+          <div class="atab active" onclick="switchAdminTab('ann', this)">
             Announcement
           </div>
-          <div
-            class="atab"
-            role="tab"
-            aria-selected="false"
-            onclick="switchAdminTab('hours', this)"
-          >
+          <div class="atab" onclick="switchAdminTab('hours', this)">
             Store Hours
           </div>
-          <div
-            class="atab"
-            role="tab"
-            aria-selected="false"
-            onclick="switchAdminTab('products', this)"
-          >
+          <div class="atab" onclick="switchAdminTab('products', this)">
             Products
           </div>
         </div>
-
-        <!-- Active Panel Viewports -->
         <div class="admin-content">
-          <!-- Announcement View Panel -->
           <div id="tab-ann" class="admin-panel active">
             <div class="admin-field">
-              <label for="announceText">Top Bar Announcement Text/HTML</label>
+              <label>Top Bar Announcement</label>
               <textarea id="announceText" class="admin-input" rows="3">
-FREE SHIPPING ON ORDERS OVER $75 • &lt;a&gt;JOIN OUR TASTING CLUB&lt;/a&gt;</textarea
+FREE SHIPPING ON ORDERS OVER $75 • <a>JOIN OUR TASTING CLUB</a></textarea
               >
             </div>
             <button class="btn-gold" onclick="saveAnnouncement()">
@@ -697,13 +714,14 @@ FREE SHIPPING ON ORDERS OVER $75 • &lt;a&gt;JOIN OUR TASTING CLUB&lt;/a&gt;</t
             </button>
           </div>
 
-          <!-- Store Operating Hours Panel -->
           <div id="tab-hours" class="admin-panel">
-            <div class="admin-field admin-grid-fields">
+            <div
+              class="admin-field"
+              style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem"
+            >
               <div>
-                <label for="hour-mon-in">Mon-Fri Hours</label>
-                <input
-                  type="text"
+                <label>Mon-Fri</label
+                ><input
                   type="text"
                   id="hour-mon-in"
                   class="admin-input"
@@ -711,8 +729,8 @@ FREE SHIPPING ON ORDERS OVER $75 • &lt;a&gt;JOIN OUR TASTING CLUB&lt;/a&gt;</t
                 />
               </div>
               <div>
-                <label for="hour-sat-in">Saturday Hours</label>
-                <input
+                <label>Saturday</label
+                ><input
                   type="text"
                   id="hour-sat-in"
                   class="admin-input"
@@ -723,9 +741,8 @@ FREE SHIPPING ON ORDERS OVER $75 • &lt;a&gt;JOIN OUR TASTING CLUB&lt;/a&gt;</t
             <button class="btn-gold" onclick="saveHours()">Save Hours</button>
           </div>
 
-          <!-- Inventory & Products Panel -->
           <div id="tab-products" class="admin-panel">
-            <p class="admin-placeholder-text">
+            <p style="font-size: 0.8rem; color: var(--text-mid)">
               Product management coming soon to this dashboard.
             </p>
           </div>
@@ -733,12 +750,5 @@ FREE SHIPPING ON ORDERS OVER $75 • &lt;a&gt;JOIN OUR TASTING CLUB&lt;/a&gt;</t
       </div>
     </div>
 
-    <!-- ── GLOBAL NOTIFICATION TOAST UNIFIED POPUP ── -->
-    <div class="toast" id="toast" role="status" aria-live="polite">
-      Item added to cart!
-    </div>
-
-    <!-- Main JavaScript Interface logic -->
-    <script src="main.js"></script>
-  </body>
+    <div class="toast" id="toast">Item added to cart!</div>
 </html>

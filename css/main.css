@@ -1,0 +1,39 @@
+:root {
+  --cream: #f5f0e8;
+  --parchment: #ede6d5;
+  --bark: #2c1e0f;
+  --bark-light: #3d2b15;
+  --olive: #5a6b3a;
+  --olive-light: #7a8f52;
+  --gold: #c8972a;
+  --gold-light: #e6b84a;
+  --wine: #6b2d2d;
+  --warm-white: #faf7f2;
+  --text-dark: #1a1208;
+  --text-mid: #4a3520;
+  --shadow: 0 20px 60px rgba(44, 30, 15, 0.12);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  background: var(--warm-white);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.55;
+}

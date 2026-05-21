@@ -1,0 +1,329 @@
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 34px;
+  left: 0;
+  right: 0;
+  z-index: 101;
+  background: rgba(44, 30, 15, 0.97);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(200, 151, 42, 0.18);
+  padding: 0 3rem;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: "Playfair Display", serif;
+  color: var(--cream);
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  letter-spacing: 0.01em;
+}
+.nav-logo em {
+  color: var(--gold);
+  font-style: italic;
+}
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: "Jost", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.68);
+  text-decoration: none;
+  transition: color 0.22s;
+  cursor: pointer;
+}
+.nav-links a:hover {
+  color: var(--gold);
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.nav-search {
+  background: none;
+  border: none;
+  color: rgba(245, 240, 232, 0.55);
+  font-size: 1.05rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  transition: color 0.2s;
+}
+.nav-search:hover {
+  color: var(--gold);
+}
+
+/* ── ANNOUNCEMENT BAR ── */
+.ann-bar {
+  background: var(--gold);
+  color: var(--bark);
+  text-align: center;
+  padding: 0.55rem 1rem;
+  font-family: "Jost", sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 102;
+}
+.ann-bar a {
+  color: var(--bark);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 34px;
+  left: 0;
+  right: 0;
+  z-index: 101;
+  background: rgba(44, 30, 15, 0.97);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(200, 151, 42, 0.18);
+  padding: 0 3rem;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: "Playfair Display", serif;
+  color: var(--cream);
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  letter-spacing: 0.01em;
+}
+.nav-logo em {
+  color: var(--gold);
+  font-style: italic;
+}
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: "Jost", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.68);
+  text-decoration: none;
+  transition: color 0.22s;
+  cursor: pointer;
+}
+.nav-links a:hover {
+  color: var(--gold);
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.nav-search {
+  background: none;
+  border: none;
+  color: rgba(245, 240, 232, 0.55);
+  font-size: 1.05rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  transition: color 0.2s;
+}
+.nav-search:hover {
+  color: var(--gold);
+}
+.cart-btn {
+  background: none;
+  border: 1px solid rgba(200, 151, 42, 0.38);
+  color: var(--cream);
+  padding: 0.48rem 1.1rem;
+  border-radius: 2px;
+  font-family: "Jost", sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.22s;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.cart-btn:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--bark);
+}
+.cart-count {
+  background: var(--gold);
+  color: var(--bark);
+  font-size: 0.6rem;
+  font-weight: 700;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Jost", sans-serif;
+  transition: transform 0.2s;
+}
+.cart-count.bump {
+  transform: scale(1.4);
+}
+
+/* ── Consolidating Mobile Layouts & Spacing Fixes ── */
+
+@media (max-width: 1024px) {
+  nav {
+    padding: 0 1.5rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 0 2rem;
+  }
+
+  .hero-eyebrow {
+    justify-content: center;
+  }
+
+  .hero-eyebrow::before {
+    display: none;
+  }
+
+  .hero-sub,
+  .hero-founder {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-ctas {
+    justify-content: center;
+  }
+
+  .hero-badges {
+    position: static !important;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .pgrid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 1.5rem;
+  }
+
+  .refill-inner,
+  .about-inner,
+  .visit-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .cats-inner {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* 1. Spacing fix below the "50+ Flavors" and "100% NATURAL" Hero Badges */
+  .hero-badges {
+    position: static !important;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .h-badge {
+    margin-bottom: 0.5rem; /* Forces space under boxes stacked vertically */
+  }
+
+  /* 2. Responsive adjustment layout grids to safe-guard spacing */
+  .hero-content,
+  .about-inner,
+  .visit-inner,
+  .footer-top {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+    padding: 0 1.5rem !important;
+  }
+
+  .pgrid,
+  .reviews-grid {
+    grid-template-columns: 1fr !important;
+    padding: 0 1.5rem !important;
+  }
+
+  nav {
+    padding: 0 1.5rem !important;
+  }
+
+  .nav-links {
+    display: none !important; /* Hides wide desktop menu lists on small device profiles */
+  }
+}
+
+@media (max-width: 640px) {
+  .cats-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 3.2rem;
+  }
+}
+
+/* Close button styling for the Admin Header element */
+.admin-close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.25rem;
+}
+
+/* Two-column layout grid wrapper inside the dashboard content settings */
+.admin-grid-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Base text formatting for the forthcoming features alert container */
+.admin-placeholder-text {
+  font-size: 0.8rem;
+  color: var(--text-mid, #777);
+}
