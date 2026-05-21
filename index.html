@@ -18,6 +18,15 @@
 
     <!-- Third-Party Scripts -->
     <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      // Automatically load the navbar fragment
+      fetch("navbar.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("navbar-placeholder").innerHTML = data;
+        })
+        .catch((err) => console.error("Error loading navigation:", err));
+    </script>
   </head>
   <body>
     <!-- ── ANNOUNCEMENT BAR ── -->
