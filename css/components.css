@@ -2061,3 +2061,88 @@
   transform: scale(1.05);
   background: #1c120a !important; /* Slightly deeper tint for physical feedback */
 }
+
+/* ==========================================================================
+   ── NICK OF THYME MOBILE COLLISION & LAYOUT FIXES ──
+   ========================================================================== */
+
+@media (max-width: 991px) {
+  /* 1. FORCE THE HERO SECTION TO STACK VERTICALLY */
+  /* This forces your desktop columns to act as a vertical row stack */
+  .hero-inner,
+  main > section:first-of-type,
+  [class*="hero"] {
+    display: flex !important;
+    flex-direction: column !important; /* Forces layout text to top, asset to bottom */
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: center !important;
+    padding-top: 2rem !important;
+  }
+
+  /* 2. LIBERATE MANIFEST TEXT CONTAINERS */
+  /* This prevents your headings, descriptions, and buttons from clipping or hiding */
+  [class*="-text"],
+  [class*="-content"],
+  .refill-text,
+  .about-text {
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative !important;
+    z-index: 20 !important; /* Lifts content far above background decorative tracks */
+    margin-bottom: 2rem !important;
+  }
+
+  /* 3. CONTAIN THE FLOATING BOTTLE AND ITS BACKGROUND BOXES */
+  /* This scales the graphic down gracefully so it stops spilling out of bounds */
+  [class*="-grid"],
+  [class*="-graphic"],
+  [class*="-img"],
+  .refill-grid {
+    position: relative !important;
+    z-index: 1 !important;
+    width: 100% !important;
+    max-width: 290px !important; /* Constrains the bottle graphic to clean mobile proportions */
+    margin: 1.5rem auto 0 !important;
+    display: block !important;
+  }
+
+  /* Fixes background cards/boxes behind the bottle that lose text content */
+  .ri,
+  [class*="card"] {
+    margin-bottom: 0.75rem !important;
+    width: 100% !important;
+  }
+}
+
+/* ==========================================================================
+   ── BULLETPROOF MOBILE NAVIGATION TOGGLE VISIBILITY ──
+   ========================================================================== */
+/* Targets the gear wheel admin tool or any floating mobile burger menu toggles */
+.admin-trigger,
+.mobile-nav-toggle,
+[class*="trigger"],
+[class*="toggle"] {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  /* Positions the button clearly over dark background panels */
+  position: fixed !important;
+  bottom: 1.5rem !important;
+  right: 1.5rem !important;
+  z-index: 99999 !important; /* Absolute top-tier visibility layering */
+
+  /* Style overrides to force visual contrast against both brown and green backgrounds */
+  background-color: var(--gold, #c8972a) !important;
+  color: var(--bark, #2c1e0f) !important;
+  border: 2px solid var(--cream, #f5f0e8) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Ensures nested SVG icons or font icons inside the button inherit the deep color */
+.admin-trigger *,
+.mobile-nav-toggle * {
+  color: var(--bark, #2c1e0f) !important;
+  fill: var(--bark, #2c1e0f) !important;
+}
