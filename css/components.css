@@ -1977,22 +1977,35 @@
     z-index: 10 !important;
   }
 
-  /* 3. Re-align the bottle and keep its flanking content side-boxes visible */
-  /* This targets the column that groups the bottle graphic and those 2 boxes */
+  /* 3. Strip absolute positioning from the bottle graphic and its companion layout blocks */
+  /* This prevents them from piling on top of each other in a single space */
   .refill-grid,
   [class*="-grid"],
-  [class*="-image-wrap"] {
+  [class*="-image-wrap"],
+  .refill-grid *,
+  [class*="-grid"] * {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  /* 4. Force a clean vertical stack inside the graphic container */
+  .refill-grid,
+  [class*="-grid"] {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
-    max-width: 420px !important; /* Plenty of room for boxes and bottle to coexist */
+    max-width: 420px !important;
     margin: 0 auto !important;
-    gap: 1.5rem !important;
+    gap: 2rem !important; /* Creates clear vertical physical space between elements */
   }
 
-  /* 4. Ensure individual card wrappers don't collapse or hide */
+  /* 5. Ensure individual card boxes fill out nicely and don't collapse */
   .ri,
   .feature-box,
   [class*="card"],
@@ -2002,6 +2015,14 @@
     width: 100% !important;
     height: auto !important;
     opacity: 1 !important;
+    z-index: 5 !important;
+  }
+
+  /* If the bottle graphic itself has a specific standalone class, keep it clean */
+  .bottle-graphic,
+  [class*="bottle"] {
+    margin: 0 auto !important;
+    z-index: 6 !important;
   }
 }
 
