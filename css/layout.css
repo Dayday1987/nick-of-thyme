@@ -324,57 +324,88 @@ nav {
     overflow-x: hidden;
   }
 
-  /* Target the exact wrapper holding your bottle and flanking boxes */
-  /* This container needs relative stacking context so badges don't fly away */
+  /* Target the desktop column block wrapper holding the asset graphics */
   .hero-content > div:last-of-type,
-  [class*="graphic-container"] {
+  [class*="graphic-container"],
+  .bottle-graphic-container {
     position: relative !important;
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: column !important; /* Stack: Bottle image first -> Badges container below */
     align-items: center !important;
-    margin-top: 3rem !important;
+    justify-content: flex-start !important;
+    margin: 3rem auto 0 !important;
     width: 100% !important;
+    max-width: 450px !important;
+    transform: none !important;
+    inset: auto !important;
   }
 
-  /* Bring back your 2 gold outlined boxes and force them to stack naturally */
+  /* Target the bottle silhouette specifically to anchor its spatial order */
+  .bottle-graphic,
+  img[src*="bottle"],
+  .hero-content img {
+    position: relative !important;
+    display: block !important;
+    margin: 0 auto 2rem auto !important; /* Spacially pushes the badges down below the glass line */
+    max-height: 360px !important;
+    width: auto !important;
+    inset: auto !important;
+    transform: none !important;
+    z-index: 5 !important;
+  }
+
+  /* FORCE THE BOXES TO DROP COMPLETELY OUT OF THE BOTTLE COMPOSITION SPACE */
   .hero-badges {
     position: relative !important;
     display: flex !important;
-    flex-direction: row !important; /* Keep them side-by-side or stack on tiny phones */
+    flex-direction: row !important; /* Keep them neatly aligned horizontally underneath */
     justify-content: center !important;
-    gap: 1.5rem !important;
+    align-items: center !important;
+    gap: 1rem !important;
     width: 100% !important;
-    max-width: 500px !important;
-    margin: 2rem auto 0 !important;
-    inset: auto !important; /* Strips left/right desktop position constraints */
+    max-width: 100% !important;
+
+    /* These properties completely overwrite any desktop positioning styles */
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin: 0 auto !important;
     transform: none !important;
+    z-index: 10 !important;
   }
 
+  /* Clear spatial layout limits for individual cards */
   .h-badge {
     position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 100% !important;
-    min-width: 140px !important;
-    min-height: 80px !important;
+    flex: 1 !important; /* Splits horizontal real estate evenly between both boxes */
+    min-height: 75px !important;
     margin: 0 !important;
     inset: auto !important;
     transform: none !important;
     opacity: 1 !important;
     visibility: visible !important;
-    background: rgba(44, 30, 15, 0.4) !important; /* Premium tint blend */
+    background: rgba(
+      44,
+      30,
+      15,
+      0.6
+    ) !important; /* Clean readable premium background fallback tint */
     border: 1px solid rgba(200, 151, 42, 0.3) !important;
+    padding: 0.75rem !important;
   }
 }
 
-/* Tiny Screen Form Factor Refinements */
+/* Structural stacking logic for small mobile screen spaces */
 @media (max-width: 480px) {
   .hero-badges {
-    flex-direction: column !important; /* Stack Box 1, then Box 2 below the image */
+    flex-direction: column !important; /* Drops to clean vertical block rows on tiny phones */
+    gap: 0.85rem !important;
     max-width: 290px !important;
-    gap: 1rem !important;
   }
 
   .h-badge {
@@ -385,7 +416,6 @@ nav {
 /* ==========================================================================
    ── HIGH-CONTRAST FLOATING SYSTEM MENU TOGGLE ──
    ========================================================================== */
-/* Force absolute visibility for the admin trigger tool across all sections */
 .admin-trigger,
 .mobile-nav-toggle,
 [class*="admin-trigger"] {
@@ -395,21 +425,19 @@ nav {
   position: fixed !important;
   bottom: 1.5rem !important;
   right: 1.5rem !important;
-  z-index: 999999 !important; /* Absolute top layout hierarchy layer */
+  z-index: 999999 !important; /* Forces total layout overlay prominence */
   width: 46px !important;
   height: 46px !important;
   border-radius: 50% !important;
   align-items: center !important;
   justify-content: center !important;
 
-  /* Bold contrast palette to stand out clearly on dark brown/green backdrops */
   background-color: #c8972a !important; /* Gold */
   color: #2c1e0f !important; /* Deep Bark */
   border: 2px solid #f5f0e8 !important; /* Cream Edge */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Force icons inside to inherit the dark contrast tone */
 .admin-trigger *,
 .mobile-nav-toggle * {
   color: #2c1e0f !important;
