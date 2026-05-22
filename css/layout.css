@@ -312,183 +312,162 @@ nav {
 }
 
 /* ==========================================================================
-   ── NICK OF THYME RESPONSIVE MEDIA CONTEXT RESET ──
+   ── NICK OF THYME TARGETED HERO MOBILE RESCUE ──
    ========================================================================== */
 
 @media (max-width: 1024px) {
-  /* Kill the giant white desktop bleed layout on the right side */
+  /* 1. Prevent the page from tearing out horizontally */
   html,
   body {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
-  /* 1. RESET REUSABLE GRID LAYOUT CONTEXTS */
+  /* 2. Stack the core content blocks into a clean vertical flow */
   .hero-content {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    padding: 0 1.5rem 5rem 1.5rem !important;
+    text-align: center !important;
+    padding: 2rem 1rem !important;
     width: 100% !important;
   }
 
-  /* 2. FORMAT FOUNDER EMBED CARD UNDER TEXT BLOCK */
-  .hero-founder {
-    position: relative !important;
-    margin: 1.5rem auto 2.5rem auto !important;
+  /* Expand left column container elements across the phone layout */
+  .hero-left {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 2.5rem !important;
+  }
+
+  /* 3. Re-align the right artwork wrapper */
+  .hero-visual {
+    width: 100% !important;
+    max-width: 100% !important;
     display: flex !important;
-    flex-direction: column !important;
+    justify-content: center !important;
     align-items: center !important;
+  }
+
+  /* 4. Release the bounding limits on the bottle scene container */
+  .bottle-scene {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important; /* Stack: SVG Bottle -> Then Badges underneath */
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 360px !important;
+    height: auto !important; /* Lets contents determine height organically */
     inset: auto !important;
     transform: none !important;
   }
 
-  /* 3. ARTIFACT BOTTLE VECTOR DISPLAY FRAME */
-  /* This targets the container wrapping your gold-bordered bottle graphic */
-  .hero-content > div:last-of-type,
-  [class*="graphic-container"],
-  .bottle-graphic-container {
-    position: relative !important;
-    display: flex !important;
-    flex-direction: column !important; /* Stack: Bottle Graphic Top -> Badges Strip Bottom */
-    align-items: center !important;
-    width: 100% !important;
-    max-width: 340px !important;
-    margin: 2rem auto 0 auto !important;
-    inset: auto !important;
-    transform: none !important;
-    height: auto !important; /* Let container scale to fit content */
-  }
-
-  /* Force your built CSS bottle vector box to behave like a regular layout block */
-  .bottle-graphic,
-  [class*="bottle-wrap"] {
+  /* 5. Force the SVG container to behave as a standard static image item */
+  .bottle-float,
+  .bottle-scene svg {
     position: relative !important;
     display: block !important;
-    margin: 0 auto 3rem auto !important; /* Generous gap pushing badges below the baseline */
-    inset: auto !important;
+    margin: 0 auto 2rem auto !important; /* Forces physical margin separation beneath the glass */
     transform: none !important;
+    inset: auto !important;
+    z-index: 5 !important;
   }
 
-  /* 4. FORCE THE TWO BADGES BELOW THE BOTTLE SHAPE */
-  .hero-content .hero-badges,
+  /* Hide the desktop decorative radial blur to clean up phone rendering */
+  .bottle-glow {
+    display: none !important;
+  }
+
+  /* 6. EXTRACT THE BADGES BLOCK AND ALIGN LOWER DOWN THE COMPOSITION */
   .hero-badges {
     position: relative !important;
     display: flex !important;
-    flex-direction: row !important; /* Side-by-side card layout on landscape viewports */
+    flex-direction: row !important; /* Side-by-side presentation on tablets and wide mini-screens */
     justify-content: center !important;
     align-items: center !important;
     gap: 1.25rem !important;
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 auto !important; /* Relies on the bottle margin-bottom for spacing */
-    inset: auto !important;
+    margin: 0 auto !important;
+
+    /* Demolish any structural absolute offsets or scaling shifts */
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
     transform: none !important;
+    z-index: 10 !important;
   }
 
-  /* Clear out drifting desktop text or absolute layers inside the badge wrap */
-  .hero-badges > span,
-  .hero-badges > p,
-  .hero-badges > div:not(.h-badge) {
-    display: none !important;
-  }
-
-  /* 5. FORMAT INDIVIDUAL BADGES AND DIRECTLY INJECT CONTENT EXPLICITLY */
+  /* Individual card adjustments */
   .h-badge {
     position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    flex: 1 !important;
+    flex: 1 !important; /* Evenly splits horizontal spacing */
     min-height: 85px !important;
-    margin: 0 !important;
-    inset: auto !important;
-    transform: none !important;
     background: rgba(
       44,
       30,
       15,
-      0.65
-    ) !important; /* Smooth contrast background color fill */
+      0.75
+    ) !important; /* Solid premium backdrop tint contrast */
     border: 1px solid rgba(200, 151, 42, 0.3) !important;
-    border-radius: 3px !important;
-    padding: 1rem !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+    border-radius: 2px !important;
+    padding: 0.75rem !important;
+    inset: auto !important;
+    transform: none !important;
+    margin: 0 !important;
   }
 
-  /* Inject "50+ FLAVORS" into the first card layout box */
-  .h-badge:first-of-type::before {
-    content: "50+" !important;
-    font-family: "Playfair Display", serif !important;
-    color: #c8972a !important;
-    font-size: 1.35rem !important;
-    font-weight: 700 !important;
+  /* Fix the floating text content items within cards */
+  .h-badge-num,
+  .h-badge-lbl {
     display: block !important;
-    margin-bottom: 2px !important;
-  }
-  .h-badge:first-of-type::after {
-    content: "FLAVORS" !important;
-    font-family: "Jost", sans-serif !important;
-    color: #f5f0e8 !important;
-    font-size: 0.62rem !important;
-    letter-spacing: 0.12em !important;
-    text-transform: uppercase !important;
-    display: block !important;
-    opacity: 0.7 !important;
-  }
-
-  /* Inject "100% NATURAL" into the second card layout box */
-  .h-badge:last-of-type::before {
-    content: "100%" !important;
-    font-family: "Playfair Display", serif !important;
-    color: #c8972a !important;
-    font-size: 1.35rem !important;
-    font-weight: 700 !important;
-    display: block !important;
-    margin-bottom: 2px !important;
-  }
-  .h-badge:last-of-type::after {
-    content: "NATURAL" !important;
-    font-family: "Jost", sans-serif !important;
-    color: #f5f0e8 !important;
-    font-size: 0.62rem !important;
-    letter-spacing: 0.12em !important;
-    text-transform: uppercase !important;
-    display: block !important;
-    opacity: 0.7 !important;
-  }
-
-  /* Snap the text scroll indicator back to the center of the viewport grid */
-  .hero-content > span,
-  .hero-content [class*="scroll"],
-  main > section:first-of-type > [class*="scroll"] {
     position: relative !important;
-    display: block !important;
-    margin: 3.5rem auto 0 auto !important;
-    left: auto !important;
-    right: auto !important;
+    inset: auto !important;
     transform: none !important;
     text-align: center !important;
+    width: auto !important;
+  }
+
+  /* 7. FORCE CENTER ALIGNMENT ON SCROLL LINK ELEMENTS */
+  .hero-scroll {
+    position: relative !important;
+    margin: 4rem auto 0 auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
     width: 100% !important;
+  }
+
+  .hero-scroll span {
+    position: relative !important;
+    left: auto !important;
+    transform: none !important;
+    margin-top: 0.5rem !important;
   }
 }
 
-/* 6. SMARTPHONE TIGHT ROW STACKING REFINEMENTS */
+/* 8. MOBILE DEVICE FORM-FACTOR BREAKPOINT TARGETING */
 @media (max-width: 480px) {
-  .hero-content .hero-badges,
   .hero-badges {
-    flex-direction: column !important; /* Stack Box 1, then Box 2 below it on mobile screens */
-    gap: 1rem !important;
+    flex-direction: column !important; /* Stack: 50+ Flavors then 100% Natural below it on small screens */
     max-width: 290px !important;
+    gap: 0.85rem !important;
   }
 
   .h-badge {
     width: 100% !important;
-    min-height: 80px !important;
+    min-height: 75px !important;
   }
 }
 
@@ -496,24 +475,23 @@ nav {
    ── HIGH-CONTRAST FLOATING SYSTEM MENU TOGGLE ──
    ========================================================================== */
 .admin-trigger,
-.mobile-nav-toggle,
-[class*="admin-trigger"] {
+.mobile-nav-toggle {
   display: flex !important;
   visibility: visible !important;
   opacity: 1 !important;
   position: fixed !important;
   bottom: 1.5rem !important;
   right: 1.5rem !important;
-  z-index: 999999 !important;
+  z-index: 999999 !important; /* Float cleanly above the store hours section layer */
   width: 46px !important;
   height: 46px !important;
   border-radius: 50% !important;
   align-items: center !important;
   justify-content: center !important;
 
-  background-color: #c8972a !important;
-  color: #2c1e0f !important;
-  border: 2px solid #f5f0e8 !important;
+  background-color: #c8972a !important; /* Gold */
+  color: #2c1e0f !important; /* Deep Bark */
+  border: 2px solid #f5f0e8 !important; /* Cream Trim Ring */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
 }
 
