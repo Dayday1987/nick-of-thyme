@@ -316,95 +316,82 @@ nav {
    ========================================================================== */
 
 @media (max-width: 1024px) {
-  /* Prevent horizontal site overflow bleeding */
+  /* Kill the giant white desktop bleed layout on the right side */
   html,
   body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
   }
 
-  /* 1. RESET REUSABLE GRID LAYOUTS CONTEXT */
-  .hero-content,
-  main > section:first-of-type {
+  /* 1. RESET REUSABLE GRID LAYOUT CONTEXTS */
+  .hero-content {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    padding-bottom: 4rem !important; /* Standard spacing fallback padding */
+    justify-content: flex-start !important;
+    padding: 0 1.5rem 5rem 1.5rem !important;
+    width: 100% !important;
   }
 
-  /* 2. FORMAT FOUNDER EMBED CARD UNDER TEXT */
-  /* This grabs the founder name badge element and keeps it safely nested under the main text column */
-  .hero-founder,
-  [class*="founder"] {
+  /* 2. FORMAT FOUNDER EMBED CARD UNDER TEXT BLOCK */
+  .hero-founder {
     position: relative !important;
     margin: 1.5rem auto 2.5rem auto !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    text-align: center !important;
     inset: auto !important;
     transform: none !important;
   }
 
-  /* Forces the layout text line to display legibly right beneath the founder block heading */
-  .hero-founder span,
-  [class*="founder"] div,
-  [class*="founder"] span {
-    position: relative !important;
-    display: block !important;
-    inset: auto !important;
-    transform: none !important;
-    margin-top: 0.25rem !important;
-    opacity: 0.8 !important;
-  }
-
-  /* 3. BOTTLE VECTOR DISPLAY FRAME */
+  /* 3. ARTIFACT BOTTLE VECTOR DISPLAY FRAME */
+  /* This targets the container wrapping your gold-bordered bottle graphic */
   .hero-content > div:last-of-type,
   [class*="graphic-container"],
   .bottle-graphic-container {
     position: relative !important;
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: column !important; /* Stack: Bottle Graphic Top -> Badges Strip Bottom */
     align-items: center !important;
     width: 100% !important;
-    max-width: 320px !important;
-    margin: 0 auto !important;
-    transform: none !important;
+    max-width: 340px !important;
+    margin: 2rem auto 0 auto !important;
     inset: auto !important;
+    transform: none !important;
+    height: auto !important; /* Let container scale to fit content */
   }
 
+  /* Force your built CSS bottle vector box to behave like a regular layout block */
   .bottle-graphic,
-  img[src*="bottle"],
-  .hero-content img {
+  [class*="bottle-wrap"] {
     position: relative !important;
     display: block !important;
-    margin: 0 auto !important;
-    max-height: 340px !important;
-    width: auto !important;
+    margin: 0 auto 3rem auto !important; /* Generous gap pushing badges below the baseline */
     inset: auto !important;
     transform: none !important;
   }
 
   /* 4. FORCE THE TWO BADGES BELOW THE BOTTLE SHAPE */
+  .hero-content .hero-badges,
   .hero-badges {
     position: relative !important;
     display: flex !important;
-    flex-direction: row !important; /* Side-by-side card layout grouping on tablets */
+    flex-direction: row !important; /* Side-by-side card layout on landscape viewports */
     justify-content: center !important;
     align-items: center !important;
     gap: 1.25rem !important;
     width: 100% !important;
     max-width: 100% !important;
-    margin: 3rem auto 0 auto !important;
+    margin: 0 auto !important; /* Relies on the bottle margin-bottom for spacing */
     inset: auto !important;
     transform: none !important;
   }
 
-  /* Hide the drifting absolute floating text elements on mobile devices */
-  .hero-badges span,
-  .hero-badges p,
-  .hero-badges div:not(.h-badge) {
+  /* Clear out drifting desktop text or absolute layers inside the badge wrap */
+  .hero-badges > span,
+  .hero-badges > p,
+  .hero-badges > div:not(.h-badge) {
     display: none !important;
   }
 
@@ -420,13 +407,20 @@ nav {
     margin: 0 !important;
     inset: auto !important;
     transform: none !important;
-    background: rgba(44, 30, 15, 0.65) !important;
+    background: rgba(
+      44,
+      30,
+      15,
+      0.65
+    ) !important; /* Smooth contrast background color fill */
     border: 1px solid rgba(200, 151, 42, 0.3) !important;
     border-radius: 3px !important;
     padding: 1rem !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
-  /* Inject "50+ FLAVORS" cleanly into the first card element wrapper box */
+  /* Inject "50+ FLAVORS" into the first card layout box */
   .h-badge:first-of-type::before {
     content: "50+" !important;
     font-family: "Playfair Display", serif !important;
@@ -447,7 +441,7 @@ nav {
     opacity: 0.7 !important;
   }
 
-  /* Inject "100% NATURAL" cleanly into the second card element wrapper box */
+  /* Inject "100% NATURAL" into the second card layout box */
   .h-badge:last-of-type::before {
     content: "100%" !important;
     font-family: "Playfair Display", serif !important;
@@ -468,23 +462,26 @@ nav {
     opacity: 0.7 !important;
   }
 
-  /* Snap the baseline scroll link text back to center alignment context */
+  /* Snap the text scroll indicator back to the center of the viewport grid */
   .hero-content > span,
-  [class*="scroll"] {
+  .hero-content [class*="scroll"],
+  main > section:first-of-type > [class*="scroll"] {
     position: relative !important;
     display: block !important;
-    margin: 2.5rem auto 0 auto !important;
+    margin: 3.5rem auto 0 auto !important;
     left: auto !important;
+    right: auto !important;
     transform: none !important;
     text-align: center !important;
     width: 100% !important;
   }
 }
 
-/* 6. SMARTPHONE VERTICAL LAYOUT ADJUSTMENTS */
+/* 6. SMARTPHONE TIGHT ROW STACKING REFINEMENTS */
 @media (max-width: 480px) {
+  .hero-content .hero-badges,
   .hero-badges {
-    flex-direction: column !important; /* Stacks cards cleanly down thin screens */
+    flex-direction: column !important; /* Stack Box 1, then Box 2 below it on mobile screens */
     gap: 1rem !important;
     max-width: 290px !important;
   }
