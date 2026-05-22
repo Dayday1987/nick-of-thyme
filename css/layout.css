@@ -310,3 +310,108 @@ nav {
     text-align: center;
   }
 }
+
+/* ==========================================================================
+   ── NICK OF THYME SURGICAL MOBILE LAYOUT CORRECTIONS ──
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  /* Fix the White Screen Bleed without crushing container layouts */
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Target the exact wrapper holding your bottle and flanking boxes */
+  /* This container needs relative stacking context so badges don't fly away */
+  .hero-content > div:last-of-type,
+  [class*="graphic-container"] {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-top: 3rem !important;
+    width: 100% !important;
+  }
+
+  /* Bring back your 2 gold outlined boxes and force them to stack naturally */
+  .hero-badges {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: row !important; /* Keep them side-by-side or stack on tiny phones */
+    justify-content: center !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+    max-width: 500px !important;
+    margin: 2rem auto 0 !important;
+    inset: auto !important; /* Strips left/right desktop position constraints */
+    transform: none !important;
+  }
+
+  .h-badge {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    min-width: 140px !important;
+    min-height: 80px !important;
+    margin: 0 !important;
+    inset: auto !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: rgba(44, 30, 15, 0.4) !important; /* Premium tint blend */
+    border: 1px solid rgba(200, 151, 42, 0.3) !important;
+  }
+}
+
+/* Tiny Screen Form Factor Refinements */
+@media (max-width: 480px) {
+  .hero-badges {
+    flex-direction: column !important; /* Stack Box 1, then Box 2 below the image */
+    max-width: 290px !important;
+    gap: 1rem !important;
+  }
+
+  .h-badge {
+    width: 100% !important;
+  }
+}
+
+/* ==========================================================================
+   ── HIGH-CONTRAST FLOATING SYSTEM MENU TOGGLE ──
+   ========================================================================== */
+/* Force absolute visibility for the admin trigger tool across all sections */
+.admin-trigger,
+.mobile-nav-toggle,
+[class*="admin-trigger"] {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: fixed !important;
+  bottom: 1.5rem !important;
+  right: 1.5rem !important;
+  z-index: 999999 !important; /* Absolute top layout hierarchy layer */
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 50% !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  /* Bold contrast palette to stand out clearly on dark brown/green backdrops */
+  background-color: #c8972a !important; /* Gold */
+  color: #2c1e0f !important; /* Deep Bark */
+  border: 2px solid #f5f0e8 !important; /* Cream Edge */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Force icons inside to inherit the dark contrast tone */
+.admin-trigger *,
+.mobile-nav-toggle * {
+  color: #2c1e0f !important;
+  fill: #2c1e0f !important;
+}
