@@ -316,7 +316,7 @@ nav {
    ========================================================================== */
 
 @media (max-width: 1024px) {
-  /* Fix the White Screen Bleed without crushing container layouts */
+  /* Fix any remaining horizontal screen bleeding */
   html,
   body {
     width: 100%;
@@ -324,68 +324,76 @@ nav {
     overflow-x: hidden;
   }
 
-  /* Target the desktop column block wrapper holding the asset graphics */
+  /* 1. MANAGE THE DESKTOP RIGHT COLUMN CONTAINER */
+  /* This forces the column to act as a normal vertical block stack */
   .hero-content > div:last-of-type,
   [class*="graphic-container"],
   .bottle-graphic-container {
     position: relative !important;
-    display: flex !important;
-    flex-direction: column !important; /* Stack: Bottle image first -> Badges container below */
-    align-items: center !important;
-    justify-content: flex-start !important;
-    margin: 3rem auto 0 !important;
+    display: block !important; /* Switch from flex to block to force layout order */
     width: 100% !important;
-    max-width: 450px !important;
+    max-width: 420px !important;
+    margin: 3rem auto 0 !important;
     transform: none !important;
-    inset: auto !important;
+    top: auto !important;
+    left: auto !important;
   }
 
-  /* Target the bottle silhouette specifically to anchor its spatial order */
+  /* 2. ISOLATE THE BOTTLE GRAPHIC IMAGE */
+  /* This anchors the vector outline shape dynamically in its own physical row */
   .bottle-graphic,
   img[src*="bottle"],
   .hero-content img {
     position: relative !important;
     display: block !important;
-    margin: 0 auto 2rem auto !important; /* Spacially pushes the badges down below the glass line */
-    max-height: 360px !important;
+    margin: 0 auto 2.5rem auto !important; /* Pushes everything below it down */
+    max-height: 340px !important;
     width: auto !important;
-    inset: auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
     transform: none !important;
     z-index: 5 !important;
   }
 
-  /* FORCE THE BOXES TO DROP COMPLETELY OUT OF THE BOTTLE COMPOSITION SPACE */
+  /* 3. FORCE THE BADGES OUT OF THE BOTTLE COORDINATE SPACE */
+  /* This strips out the vertical alignment properties causing the upward drift */
+  .hero-content .hero-badges,
   .hero-badges {
     position: relative !important;
     display: flex !important;
-    flex-direction: row !important; /* Keep them neatly aligned horizontally underneath */
+    flex-direction: row !important; /* Keeps boxes side-by-side below the bottle on tablets */
     justify-content: center !important;
     align-items: center !important;
     gap: 1rem !important;
     width: 100% !important;
     max-width: 100% !important;
 
-    /* These properties completely overwrite any desktop positioning styles */
+    /* Clear any absolute vertical positioning coordinates or transform shifts */
     top: auto !important;
+    bottom: auto !important;
     left: auto !important;
     right: auto !important;
-    bottom: auto !important;
-    margin: 0 auto !important;
     transform: none !important;
+    margin: 0 auto !important;
     z-index: 10 !important;
   }
 
-  /* Clear spatial layout limits for individual cards */
+  /* 4. RE-ESTABLISH BADGE SILHOUETTES */
   .h-badge {
     position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    flex: 1 !important; /* Splits horizontal real estate evenly between both boxes */
-    min-height: 75px !important;
+    flex: 1 !important; /* Allocates equal spacing to both feature cards */
+    min-height: 80px !important;
     margin: 0 !important;
-    inset: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
     transform: none !important;
     opacity: 1 !important;
     visibility: visible !important;
@@ -394,18 +402,19 @@ nav {
       30,
       15,
       0.6
-    ) !important; /* Clean readable premium background fallback tint */
+    ) !important; /* High contrast tint readability layer */
     border: 1px solid rgba(200, 151, 42, 0.3) !important;
     padding: 0.75rem !important;
   }
 }
 
-/* Structural stacking logic for small mobile screen spaces */
+/* 5. NARROW MOBILE SCREEN SCALE OPTIMIZATIONS */
 @media (max-width: 480px) {
+  .hero-content .hero-badges,
   .hero-badges {
-    flex-direction: column !important; /* Drops to clean vertical block rows on tiny phones */
+    flex-direction: column !important; /* Stacks 50+ Flavors directly on top of 100% Natural */
+    max-width: 320px !important;
     gap: 0.85rem !important;
-    max-width: 290px !important;
   }
 
   .h-badge {
@@ -425,16 +434,17 @@ nav {
   position: fixed !important;
   bottom: 1.5rem !important;
   right: 1.5rem !important;
-  z-index: 999999 !important; /* Forces total layout overlay prominence */
+  z-index: 999999 !important; /* Keeps the toggle on top of the green/brown boundaries */
   width: 46px !important;
   height: 46px !important;
   border-radius: 50% !important;
   align-items: center !important;
   justify-content: center !important;
 
+  /* Vibrant contrast theme to pop over background image blocks */
   background-color: #c8972a !important; /* Gold */
   color: #2c1e0f !important; /* Deep Bark */
-  border: 2px solid #f5f0e8 !important; /* Cream Edge */
+  border: 2px solid #f5f0e8 !important; /* Cream Outer Ring */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
 }
 
