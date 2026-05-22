@@ -250,11 +250,11 @@ nav {
 }
 
 /* ==========================================================================
-   ── NICK OF THYME CLEAN HERO MOBILE LAYOUT OVERRIDES ──
+   ── NICK OF THYME SURGICAL MOBILE LAYOUT CORRECTIONS ──
    ========================================================================== */
 
 @media (max-width: 1024px) {
-  /* Prevent horizontal screen canvas blowouts */
+  /* Prevent horizontal screen bleeding and white space voids */
   html,
   body {
     width: 100%;
@@ -262,161 +262,165 @@ nav {
     overflow-x: hidden;
   }
 
-  /* 1. STRUCTURAL CONTENT CONTAINER RESET */
-  .hero-content {
+  /* 1. OVERRIDE THE DESKTOP 2-COLUMN STRUCTURE */
+  /* This destroys the side-by-side split and centers the core sections */
+  .hero-content,
+  .hero-inner,
+  [class*="hero-inner"] {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: flex-start !important;
     text-align: center !important;
-    padding: 3rem 1.5rem !important;
+    padding: 2.5rem 1.5rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* 2. RE-CENTER THE LEFT TYPOGRAPHY COLUMN BLOCK */
+  /* This forces the text block out of its left-side alignment layout grid */
+  .hero-text-container,
+  [class*="-text"] {
+    width: 100% !important;
+    max-width: 540px !important;
+    margin: 0 auto 2.5rem auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* Centers the eyebrow line, title, and copy text */
+    text-align: center !important;
+  }
+
+  /* Keep the small gold eyebrow line centered beautifully */
+  .hero-eyebrow {
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto 1rem auto !important;
+  }
+  .hero-eyebrow::before {
+    display: none !important; /* Kills left-side decorative border lines */
+  }
+
+  /* 3. RE-CENTER AND COALESCE FOUNDER CARD & ACTIONS */
+  .hero-founder,
+  [class*="founder"],
+  [class*="curated"] {
+    margin: 0 auto 2rem auto !important;
+    text-align: left !important; /* Keeps interior card text clean */
+  }
+
+  .hero-ctas,
+  .gift-btns,
+  [class*="btns"] {
+    display: flex !important;
+    flex-direction: column !important; /* Stack actions on mobile screen boundaries */
+    gap: 0.85rem !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 0 auto !important;
+  }
+
+  .hero-ctas *,
+  .gift-btns * {
     width: 100% !important;
   }
 
-  /* Expand left text column to use the premium screen real estate */
-  .hero-left {
-    width: 100% !important;
-    max-width: 550px !important; /* Locks readable content lines */
-    margin: 0 auto !important;
+  /* 4. RE-ESTABLISH THE RIGHT COLUMN GRAPHICS CONTAINER */
+  /* This pulls the bottle back down directly under your button layouts */
+  .bottle-graphic-container,
+  [class*="graphic-container"],
+  .hero-content > div:last-of-type {
+    position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-  }
-
-  /* Force headers and description text to center perfectly */
-  .hero-eyebrow,
-  .hero h1,
-  .hero-sub {
-    text-align: center !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  .hero h1 {
-    font-size: 2.5rem !important;
-    line-height: 1.2 !important;
-    margin-bottom: 1.2rem !important;
-  }
-
-  /* Center the founder banner profile card */
-  .hero-founder {
-    justify-content: center !important;
-    margin: 1.5rem auto !important;
-  }
-
-  /* Center the layout CTAs button block */
-  .hero-ctas {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: center !important;
-    gap: 1rem !important;
+    justify-content: flex-start !important;
     width: 100% !important;
-    margin-bottom: 3.5rem !important; /* Leaves breathing room before badges */
+    max-width: 360px !important;
+    margin: 3.5rem auto 0 auto !important;
+    transform: none !important;
+    inset: auto !important;
+    height: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
-  /* 2. COMPLETELY DROP THE CLUNKY BOTTLE VISUALS */
-  .hero-visual,
-  .bottle-scene,
-  .bottle-float,
-  .bottle-glow,
-  .bottle-scene svg {
-    display: none !important;
+  /* Perfect alignment constraint locks for the bottle graphic imagery */
+  .bottle-graphic,
+  img[src*="bottle"],
+  .bottle-graphic-container img {
+    position: relative !important;
+    display: block !important;
+    margin: 0 auto 2.5rem auto !important;
+    max-height: 350px !important;
+    width: auto !important;
+    transform: none !important;
+    inset: auto !important;
+    z-index: 5 !important;
   }
 
-  /* 3. REPOSITION BADGES SO THEY SATISFY THE LAYOUT FLOW AT THE BOTTOM */
-  .hero-left .hero-badges,
-  .hero-badges {
+  /* 5. SECURE THE FLOATING BADGES CONTAINER UNDER THE GLASS ROW */
+  .hero-badges,
+  .hero-content .hero-badges {
     position: relative !important;
     display: flex !important;
-    flex-direction: row !important; /* Side-by-side layout on tablets/wide mobile screens */
+    flex-direction: row !important; /* Keeps boxes clean and side-by-side on tablet layouts */
     justify-content: center !important;
     align-items: center !important;
-    gap: 1.5rem !important;
+    gap: 1.25rem !important;
     width: 100% !important;
-    max-width: 420px !important;
+    max-width: 100% !important;
     margin: 0 auto !important;
     inset: auto !important;
     transform: none !important;
     z-index: 10 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
-  /* Premium feature badge card style formatting */
+  /* Define premium card block boundaries */
   .h-badge {
     position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    flex: 1 !important; /* Even split spacing allocation */
-    min-height: 80px !important;
+    flex: 1 !important;
+    min-height: 85px !important;
+    margin: 0 !important;
+    inset: auto !important;
+    transform: none !important;
     background: rgba(
       44,
       30,
       15,
-      0.4
-    ) !important; /* Soft premium dark blend overlay */
-    border: 1px solid rgba(200, 151, 42, 0.25) !important;
+      0.75
+    ) !important; /* High contrast overlay clarity background */
+    border: 1px solid rgba(200, 151, 42, 0.3) !important;
     border-radius: 2px !important;
     padding: 0.8rem !important;
-    inset: auto !important;
-    transform: none !important;
-    margin: 0 !important;
   }
 
-  .h-badge-num {
-    font-size: 1.35rem !important;
-    font-weight: 700 !important;
-    color: var(--gold) !important;
-    display: block !important;
-    margin-bottom: 0.2rem !important;
-  }
-
-  .h-badge-lbl {
-    font-size: 0.65rem !important;
-    letter-spacing: 0.1em !important;
-    text-transform: uppercase !important;
-    color: var(--cream) !important;
-    opacity: 0.8 !important;
-    display: block !important;
-  }
-
-  /* 4. ANCHOR THE SCROLL TIMELINE FLAG */
-  .hero-scroll {
+  /* Lock spatial alignment for the bottom scroll text element indicator */
+  .hero-content span,
+  [class*="scroll"] {
     position: relative !important;
-    margin: 4rem auto 0 auto !important;
-    inset: auto !important;
+    display: block !important;
+    margin: 2rem auto 0 auto !important;
+    left: auto !important;
     transform: none !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
+    text-align: center !important;
     width: 100% !important;
   }
 }
 
-/* Smartphone Small Dimension Modifiers */
+/* 6. RESPONSIVE OPTIMIZATIONS FOR MOBILE SMARTPHONES */
 @media (max-width: 480px) {
-  .hero h1 {
-    font-size: 2.2rem !important; /* Scaled down to prevent horizontal page breakages */
-    line-height: 1.15 !important;
-  }
-
-  .hero-ctas {
-    flex-direction: column !important; /* Vertical stack buttons on small phones */
-    width: 100% !important;
-    max-width: 320px !important;
-    gap: 0.75rem !important;
-  }
-
-  .btn-gold,
-  .btn-outline-light {
-    width: 100% !important;
-    text-align: center !important;
-  }
-
-  .hero-badges {
-    flex-direction: column !important; /* Stack 50+ Flavors then 100% Natural cleanly */
+  .hero-badges,
+  .hero-content .hero-badges {
+    flex-direction: column !important; /* Vertical item stack order for portrait mobile screen boundaries */
     max-width: 300px !important;
-    gap: 1rem !important;
+    gap: 0.85rem !important;
   }
 
   .h-badge {
@@ -436,15 +440,16 @@ nav {
   position: fixed !important;
   bottom: 1.5rem !important;
   right: 1.5rem !important;
-  z-index: 999999 !important;
+  z-index: 999999 !important; /* Locks on absolute top layout stacking layer */
   width: 46px !important;
   height: 46px !important;
   border-radius: 50% !important;
   align-items: center !important;
   justify-content: center !important;
-  background-color: #c8972a !important;
-  color: #2c1e0f !important;
-  border: 2px solid #f5f0e8 !important;
+
+  background-color: #c8972a !important; /* Gold */
+  color: #2c1e0f !important; /* Deep Bark */
+  border: 2px solid #f5f0e8 !important; /* Cream Edge Ring */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
 }
 
