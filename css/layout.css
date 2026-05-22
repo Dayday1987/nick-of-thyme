@@ -316,7 +316,7 @@ nav {
    ========================================================================== */
 
 @media (max-width: 1024px) {
-  /* Prevent horizontal text bleeding and layout runaways */
+  /* Prevent horizontal screen bleeding */
   html,
   body {
     width: 100%;
@@ -325,13 +325,13 @@ nav {
   }
 
   /* 1. RESET THE MAIN SECTION CONTAINER GAP LIMITS */
-  /* This creates extra physical padding at the bottom of the section for the boxes */
+  /* Expanded padding to comfortably hold the stacked blocks on mobile screens */
   .hero-content,
   main > section:first-of-type {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    padding-bottom: 180px !important; /* Reserves explicit, safe room for the boxes below the bottle */
+    padding-bottom: 300px !important; /* Grants plenty of safe breathing room below the bottle */
   }
 
   /* 2. ISOLATE THE RIGHT ASSET COLUMN WRAPPER */
@@ -345,7 +345,7 @@ nav {
     width: 100% !important;
     max-width: 360px !important;
     margin: 2rem auto 0 !important;
-    height: 420px !important; /* Explicitly locks the bottle container boundary */
+    height: 420px !important;
     transform: none !important;
     top: auto !important;
     left: auto !important;
@@ -358,9 +358,7 @@ nav {
     position: absolute !important;
     top: 0 !important;
     left: 50% !important;
-    transform: translateX(
-      -50%
-    ) !important; /* Perfect horizon alignment tracking */
+    transform: translateX(-50%) !important;
     max-height: 360px !important;
     width: auto !important;
     margin: 0 !important;
@@ -370,18 +368,17 @@ nav {
   }
 
   /* 4. FORCE THE BADGES STRIP TO ANCHOR CLEARLY BELOW THE GLASS */
-  /* This pulls them completely out of the shared stack matrix */
   .hero-content .hero-badges,
   .hero-badges {
     position: absolute !important;
-    bottom: -140px !important; /* Hard push straight out of the bottle's container footprint */
+    bottom: -220px !important; /* Adjusted position down to stay clear of the bottle base */
     left: 50% !important;
     transform: translateX(-50%) !important;
     display: flex !important;
-    flex-direction: row !important; /* Keeps boxes side-by-side on wide mobile/tablets */
+    flex-direction: row !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 1rem !important;
+    gap: 1.25rem !important;
     width: 100% !important;
     max-width: 340px !important;
     margin: 0 !important;
@@ -391,36 +388,56 @@ nav {
   }
 
   /* 5. INDIVIDUAL BADGE LAYOUT RESTORATION */
+  /* Added display properties to explicitly constrain and center internal text alignments */
   .h-badge {
     position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
+    text-align: center !important;
     flex: 1 !important;
-    min-height: 70px !important;
+    min-height: 95px !important; /* Increased box height to ensure text stays contained */
     margin: 0 !important;
     inset: auto !important;
     transform: none !important;
     opacity: 1 !important;
     visibility: visible !important;
-    background: rgba(
-      44,
-      30,
-      15,
-      0.75
-    ) !important; /* Rich, dark contrast fill */
+    background: rgba(44, 30, 15, 0.75) !important;
     border: 1px solid rgba(200, 151, 42, 0.3) !important;
-    padding: 0.5rem !important;
+    padding: 1rem 0.5rem !important;
   }
 
-  /* Fix any scroll link drifts caused by absolute placement recalculations */
+  /* Fix typography overflows by forcing inner text configurations to stay centered */
+  .h-badge *,
+  .hero-badges div,
+  .hero-badges span,
+  .hero-badges p {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    inset: auto !important;
+    transform: none !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Clear up any text scale anomalies */
+  .h-badge strong,
+  .h-badge span:first-child {
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  /* Fix scroll link position relative to the new layout flow */
   .hero-content span,
   [class*="scroll"] {
     position: absolute !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    bottom: -20px !important;
+    bottom: -60px !important; /* Safely clears the lowest text line */
   }
 }
 
@@ -428,20 +445,21 @@ nav {
 @media (max-width: 480px) {
   .hero-content,
   main > section:first-of-type {
-    padding-bottom: 240px !important; /* Extra padding for stacked cards */
+    padding-bottom: 340px !important; /* Extra breathing space for stacked blocks */
   }
 
   .hero-content .hero-badges,
   .hero-badges {
-    flex-direction: column !important; /* Stack: 50+ Flavors then 100% Natural below it */
-    bottom: -210px !important;
-    gap: 0.75rem !important;
-    width: 280px !important;
+    flex-direction: column !important;
+    bottom: -290px !important; /* Pushes the stacked cards down cleanly */
+    gap: 1rem !important;
+    width: 290px !important;
   }
 
   .h-badge {
     width: 100% !important;
-    min-height: 65px !important;
+    min-height: 90px !important;
+    padding: 1.2rem 0.75rem !important;
   }
 }
 
