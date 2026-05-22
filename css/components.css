@@ -1950,85 +1950,89 @@
 }
 
 /* ==========================================================================
-   ── NICK OF THYME RESPONSIVE CONTEXT PRESERVATION ──
+   ── NICK OF THYME FULL MOBILE BREAKPOINT RESET ──
    ========================================================================== */
 
 @media (max-width: 991px) {
-  /* 1. Reset any grid containers wrapping the hero/refill section contents */
+  /* 1. RESET THE MAIN HERO GRID TO STACK VERTICALLY */
   .hero-inner,
-  .refill-inner,
-  .visit-inner,
-  [class*="-inner"] {
+  main > section:first-of-type,
+  [class*="hero-inner"] {
     display: flex !important;
-    flex-direction: column !important; /* Stack columns cleanly top-to-bottom */
+    flex-direction: column !important;
     align-items: center !important;
     text-align: center !important;
+    padding: 3rem 1.5rem !important;
+    height: auto !important;
   }
 
-  /* 2. Protect text layers, titles, and action callouts */
+  /* 2. MAKE TEXT AND HEADERS FILL THE WIDTH CLEANLY */
   .hero-text-container,
-  .refill-text,
-  [class*="-text"],
-  [class*="-content"] {
+  [class*="hero-text"] {
     width: 100% !important;
     max-width: 100% !important;
-    margin-bottom: 2.5rem !important;
-    position: relative !important;
-    z-index: 10 !important;
+    margin-bottom: 3rem !important;
   }
 
-  /* 3. Strip absolute positioning from the bottle graphic and its companion layout blocks */
-  /* This prevents them from piling on top of each other in a single space */
-  .refill-grid,
-  [class*="-grid"],
-  [class*="-image-wrap"],
-  .refill-grid *,
-  [class*="-grid"] * {
+  /* 3. TARGET THE CONTAINER HOLDING THE BOTTLE AND STRIP FLANKING MECHANICS */
+  /* This completely un-anchors the absolute positioning from the desktop layout */
+  .bottle-graphic-container,
+  [class*="graphic-container"],
+  [class*="bottle-wrap"] {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 320px !important; /* Constrains the entire group to a safe width */
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important; /* Forces boxes and bottle into a vertical row */
+    align-items: center !important;
+    gap: 1.5rem !important; /* Creates crisp spacing between elements */
+    transform: none !important;
+    top: auto !important;
+    left: auto !important;
+  }
+
+  /* 4. FORCE THE BOTTLE AND THE TWO BOXES TO STACK NATURALY */
+  /* Strips out absolute coordinates so they can no longer hide underneath each other */
+  .bottle-graphic-container *,
+  [class*="graphic-container"] * {
     position: relative !important;
     top: auto !important;
     left: auto !important;
     right: auto !important;
     bottom: auto !important;
     transform: none !important;
+    margin: 0 auto !important;
   }
 
-  /* 4. Force a clean vertical stack inside the graphic container */
-  .refill-grid,
-  [class*="-grid"] {
+  /* 5. RESTORE THE VISIBILITY AND SCALE OF THE TWO BLANK BOXES */
+  /* Ensures the rectangles grow to fill the container width and layout text inside safely */
+  .bottle-graphic-container div:not([class*="bottle"]),
+  [class*="graphic-container"] div:not([class*="bottle"]),
+  [class*="-box"] {
     display: flex !important;
-    flex-direction: column !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    min-height: 80px !important; /* Keeps them matching your design silhouette */
+    background: rgba(
+      245,
+      240,
+      232,
+      0.03
+    ) !important; /* Retains your premium dark tint */
+    border: 1px solid rgba(200, 151, 42, 0.2) !important;
+    border-radius: 3px !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 100% !important;
-    max-width: 420px !important;
-    margin: 0 auto !important;
-    gap: 2rem !important; /* Creates clear vertical physical space between elements */
-  }
-
-  /* 5. Ensure individual card boxes fill out nicely and don't collapse */
-  .ri,
-  .feature-box,
-  [class*="card"],
-  [class*="-box"] {
-    display: block !important;
-    visibility: visible !important;
-    width: 100% !important;
-    height: auto !important;
-    opacity: 1 !important;
-    z-index: 5 !important;
-  }
-
-  /* If the bottle graphic itself has a specific standalone class, keep it clean */
-  .bottle-graphic,
-  [class*="bottle"] {
-    margin: 0 auto !important;
-    z-index: 6 !important;
+    padding: 1rem !important;
   }
 }
 
 /* ==========================================================================
-   ── HIGH-CONTRAST FLOATING NAV TOGGLE ──
+   ── STICKY HIGH-CONTRAST MOBILE NAVIGATION MENU BUTTON ──
    ========================================================================== */
+/* Ensures your mobile menu toggle stays pinned to the lower right corner on top of all colors */
 .admin-trigger,
 .mobile-nav-toggle,
 [class*="trigger"],
@@ -2039,15 +2043,19 @@
   position: fixed !important;
   bottom: 1.5rem !important;
   right: 1.5rem !important;
-  z-index: 99999 !important;
+  z-index: 999999 !important; /* Pushes button directly to the highest display layer */
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 50% !important;
 
-  /* Solid high-contrast palette to survive over dark backgrounds */
+  /* High-contrast colors to keep the action button visible on green, brown, and cream */
   background-color: var(--gold, #c8972a) !important;
   color: var(--bark, #2c1e0f) !important;
   border: 2px solid var(--cream, #f5f0e8) !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
 }
 
+/* Ensures nested icons (like the gear or burger lines) inherit the deep bark contrast tone */
 .admin-trigger *,
 .mobile-nav-toggle * {
   color: var(--bark, #2c1e0f) !important;
