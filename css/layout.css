@@ -469,3 +469,113 @@ nav {
   color: #2c1e0f !important;
   fill: #2c1e0f !important;
 }
+
+/* ==========================================================================
+   ── NICK OF THYME MOBILE GRID DISSOLUTION ──
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  /* Kill the side-by-side columns entirely */
+  .hero-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: center !important;
+    padding: 3rem 1.5rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Force the text block to occupy full smartphone width */
+  .hero-left {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto 2rem auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    float: none !important;
+  }
+
+  /* Center headings and descriptions */
+  .hero-left h1,
+  .hero-sub,
+  .hero-eyebrow {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 480px !important;
+  }
+
+  /* Stack button anchors cleanly */
+  .hero-ctas {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 1.5rem auto !important;
+  }
+  .hero-ctas a {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Center the visual wrapper element below buttons */
+  .hero-visual,
+  .bottle-scene,
+  .bottle-float {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 2rem auto !important;
+    float: none !important;
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+  }
+
+  /* Enforce image rendering dimensions */
+  .bottle-image {
+    display: block !important;
+    width: 100% !important;
+    max-width: 200px !important; /* Elegant display sizing */
+    height: auto !important;
+    margin: 0 auto !important;
+  }
+
+  /* Position the feature badges neatly below the bottle graphic */
+  .hero-badges {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    margin: 2rem auto 0 auto !important;
+  }
+
+  .h-badge {
+    flex: 1 !important;
+    min-height: 85px !important;
+    background: rgba(44, 30, 15, 0.85) !important;
+    border: 1px solid rgba(200, 151, 42, 0.2) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-badges {
+    flex-direction: column !important;
+    max-width: 280px !important;
+  }
+  .h-badge {
+    width: 100% !important;
+  }
+}
