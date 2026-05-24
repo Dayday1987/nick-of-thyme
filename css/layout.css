@@ -326,6 +326,86 @@ nav {
   }
 
   /* ==========================================================================
+   ── NICK OF THYME DESKTOP STRUCTURAL REPAIR (Paste ABOVE Mobile Blocks) ──
+   ========================================================================== */
+
+  @media (min-width: 1025px) {
+    /* Fix the main desktop grid split layout */
+    .hero-content {
+      display: grid !important;
+      grid-template-columns: 1.2fr 0.8fr !important; /* Allocates balanced lanes */
+      gap: 4rem !important;
+      align-items: center !important;
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+      padding: 4rem 2rem !important;
+    }
+
+    /* Force the text section to calculate its height naturally so things don't overlap */
+    .hero-left {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      height: auto !important;
+      position: relative !important;
+    }
+
+    /* Give the description text room to breathe */
+    .hero-sub {
+      margin-bottom: 2rem !important;
+      max-width: 520px !important;
+      line-height: 1.6 !important;
+    }
+
+    /* Keep the CTAs cleanly grouped so they physically push the badges DOWN */
+    .hero-ctas {
+      display: flex !important;
+      flex-direction: row !important;
+      gap: 1rem !important;
+      margin-bottom: 3.5rem !important; /* Creates a solid buffer wall above the badges */
+      position: relative !important;
+      height: auto !important;
+    }
+
+    /* Ensure the grid badges wait for the buttons to finish */
+    .hero-badges {
+      display: flex !important;
+      flex-direction: row !important;
+      gap: 1.5rem !important;
+      width: 100% !important;
+      margin-top: 0 !important;
+      position: relative !important;
+    }
+
+    /* TIGHTEN BOTTLE CANVAS SPACE: Clamps the scene boundary to eliminate empty space */
+    .hero-visual {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      width: 100% !important;
+      position: relative !important;
+    }
+
+    .bottle-scene {
+      position: relative !important;
+      width: 100% !important;
+      max-width: 300px !important; /* Cuts off the massive empty canvas wings */
+      margin: 0 auto !important;
+    }
+
+    /* Bring the bottle graphic to a crisp, beautifully-proportioned desktop scale */
+    .bottle-image {
+      display: block !important;
+      width: 100% !important;
+      max-width: 260px !important;
+      height: auto !important;
+      margin: 0 auto !important;
+      object-fit: contain !important;
+      filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.65)) !important;
+    }
+  }
+
+  /* ==========================================================================
    ── 4 & 5: VISUAL WRAPPER & BADGE REALIGNMENT ──
    ========================================================================== */
 
