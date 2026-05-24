@@ -5,11 +5,18 @@
   box-sizing: border-box;
 }
 
-/* Base variables used for styling references */
 :root {
   --bark: #2c1e0f;
   --cream: #f5f0e8;
   --gold: #c8972a;
+}
+
+/* Ensure background stretches smoothly across the screen canvas */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bark);
+  overflow-x: hidden;
 }
 
 /* ==========================================================================
@@ -46,7 +53,7 @@ nav {
   z-index: 101;
   background: rgba(44, 30, 15, 0.97);
   backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px); /* Safari support */
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(200, 151, 42, 0.18);
   padding: 0 3rem;
   height: 66px;
@@ -159,45 +166,31 @@ nav {
 }
 
 /* ==========================================================================
-   3. INTERNAL INTERFACE COMPONENTS
-   ========================================================================== */
-.admin-close-btn {
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1.5rem;
-  line-height: 1;
-  padding: 0.25rem;
-}
-
-.admin-grid-fields {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.admin-placeholder-text {
-  font-size: 0.8rem;
-  color: var(--text-mid, #777);
-}
-
-/* ==========================================================================
-   4. FIXED DESKTOP SYSTEM ARCHITECTURE (Screens 1025px and up)
+   3. DESKTOP FULL-WHEEL SYSTEM GRID BREAKOUT (Screens 1025px and up)
    ========================================================================== */
 @media (min-width: 1025px) {
-  /* Enforces a perfect side-by-side grid partition layout */
+  /* Fixes Images 3 & 4: Erases the blank side voids, making content span edge-to-edge */
   .hero-content {
     display: grid !important;
-    grid-template-columns: 1.2fr 0.8fr !important;
-    gap: 5rem !important;
+    grid-template-columns: 1.1fr 0.9fr !important;
+    gap: 2rem !important;
     align-items: center !important;
-    max-width: 1200px !important;
-    margin: 0 auto !important;
-    padding: 8rem 2rem 4rem 2rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 100px 5% 4rem 6% !important; /* Top padding tucks elements beautifully under navbar */
   }
 
-  /* Text layout engine calculates height organically so nothing overlaps */
+  /* Fixes Image 1: Centers the headline text cleanly on the page canvas */
+  .hero-eyebrow {
+    display: block !important;
+    text-align: center !important;
+    width: 100% !important;
+    margin: 0 auto 1.5rem auto !important;
+    grid-column: 1 / -1 !important; /* Forces layout to span across both grid columns */
+    position: relative !important;
+  }
+
   .hero-left,
   .hero-text-container {
     display: flex !important;
@@ -208,79 +201,91 @@ nav {
     width: 100% !important;
   }
 
-  /* Spacing constraints below descriptions */
   .hero-sub {
     margin-bottom: 2rem !important;
-    max-width: 520px !important;
+    max-width: 580px !important;
     line-height: 1.65 !important;
   }
 
-  /* Buttons are structured content blocks to push downstream elements natively */
   .hero-ctas {
     display: flex !important;
     flex-direction: row !important;
     gap: 1.25rem !important;
-    margin-bottom: 4rem !important; /* Absolute barrier to stop feature badge collisions */
+    margin-bottom: 2rem !important;
     position: relative !important;
-    height: auto !important;
-    width: 100% !important;
+    width: 100%;
   }
 
-  /* Feature cards naturally sit directly below the button tracks */
-  .hero-badges {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 1.5rem !important;
-    width: 100% !important;
-    margin-top: 0 !important;
-    position: relative !important;
-  }
-
-  .h-badge {
-    flex: 1 !important;
-    min-height: 85px !important;
-    background: rgba(44, 30, 15, 0.75) !important;
-    border: 1px solid rgba(200, 151, 42, 0.3) !important;
-    border-radius: 2px !important;
-    padding: 0.8rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  /* CLAMPS BOTTLE CANVAS SPACE: Pulls out unnecessary padding to focus on product */
+  /* Fixes Image 2: Targets right side to house both product bottle and cards vertically */
   .hero-visual {
     display: flex !important;
-    justify-content: center !important;
+    flex-direction: column !important; /* Forces vertical stacking flow */
     align-items: center !important;
+    justify-content: center !important;
     width: 100% !important;
     position: relative !important;
+    gap: 2.5rem !important; /* Clean breathing room between glass base and cards */
   }
 
   .bottle-scene,
   .bottle-float {
     position: relative !important;
     width: 100% !important;
-    max-width: 320px !important; /* Eliminates massive empty canvas space widths */
+    max-width: 400px !important;
     margin: 0 auto !important;
     transform: none !important;
   }
 
-  /* High-end proportional scaling constraints for pristine glass rendering */
+  /* Fixes Image 2: Upgrades bottle scaling limits for high-fidelity rendering */
   .bottle-image {
     display: block !important;
     width: 100% !important;
-    max-width: 280px !important;
+    max-width: 380px !important; /* Scales the asset size up substantially */
     height: auto !important;
     margin: 0 auto !important;
     object-fit: contain !important;
-    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.7)) !important;
+    filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.75)) !important;
+  }
+
+  /* Fixes Image 2: Puts statistics cards inside the right column directly under the bottle */
+  .hero-badges {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+    max-width: 440px !important; /* Clamps card section boundaries neatly */
+    margin: 0 auto !important;
+    position: relative !important;
+  }
+
+  .h-badge {
+    flex: 1 !important;
+    min-height: 90px !important;
+    background: rgba(44, 30, 15, 0.75) !important;
+    border: 1px solid rgba(200, 151, 42, 0.3) !important;
+    border-radius: 2px !important;
+    padding: 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Fixes Image 2: Destroys the old, lingering scroll indicator link text entirely */
+  .hero-content span,
+  [class*="scroll"],
+  .scroll {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 }
 
 /* ==========================================================================
-   5. UNIFIED MOBILE & TABLET LAYOUT ENGINE (Screens 1024px and down)
+   4. UNIFIED MOBILE & TABLET LAYOUT ENGINE (Screens 1024px and down)
    ========================================================================== */
 @media (max-width: 1024px) {
   html,
@@ -298,7 +303,6 @@ nav {
     display: none;
   }
 
-  /* Dissovles desktop grid split architecture into unified centered stack */
   .hero-content,
   .hero-inner {
     display: flex !important;
@@ -306,15 +310,18 @@ nav {
     align-items: center !important;
     justify-content: flex-start !important;
     text-align: center !important;
-    padding: 6rem 1.5rem 3rem 1.5rem !important;
+    padding: 7rem 1.5rem 3rem 1.5rem !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
-  /* Centers the primary typography lane values */
+  .hero-eyebrow {
+    text-align: center !important;
+    margin: 0 auto 1rem auto !important;
+  }
+
   .hero-left,
-  .hero-text-container,
-  [class*="-text"] {
+  .hero-text-container {
     width: 100% !important;
     max-width: 540px !important;
     margin: 0 auto 1.5rem auto !important;
@@ -322,18 +329,8 @@ nav {
     flex-direction: column !important;
     align-items: center !important;
     text-align: center !important;
-    float: none !important;
   }
 
-  .hero-left h1,
-  .hero-sub,
-  .hero-eyebrow {
-    text-align: center !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  /* Actions buttons transform into vertical stack structures */
   .hero-ctas {
     display: flex !important;
     flex-direction: column !important;
@@ -343,14 +340,12 @@ nav {
     margin: 1.5rem auto !important;
   }
 
-  .hero-ctas a,
-  .hero-ctas * {
+  .hero-ctas a {
     width: 100% !important;
     box-sizing: border-box !important;
     text-align: center !important;
   }
 
-  /* Centers bottle directly down center axle layout */
   .hero-visual,
   .bottle-scene,
   .bottle-float {
@@ -362,21 +357,17 @@ nav {
     max-width: 100% !important;
     margin: 1.5rem auto !important;
     position: relative !important;
-    inset: auto !important;
     transform: none !important;
-    float: none !important;
   }
 
   .bottle-image {
     display: block !important;
     width: 100% !important;
-    max-width: 210px !important;
+    max-width: 220px !important;
     height: auto !important;
     margin: 0 auto !important;
-    filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.5)) !important;
   }
 
-  /* Positions feature blocks cleanly right underneath bottle container view */
   .hero-badges {
     display: flex !important;
     flex-direction: row !important;
@@ -400,7 +391,11 @@ nav {
     padding: 0.8rem !important;
   }
 
-  /* Core shared layout responsive sections */
+  [class*="scroll"],
+  .scroll {
+    display: none !important;
+  }
+
   .pgrid {
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     padding: 0 1.5rem;
@@ -419,61 +414,46 @@ nav {
 }
 
 /* ==========================================================================
-   6. MEDIUM TABLETS & GENERAL LANDSCAPE OVERRIDES (Max-width: 768px)
+   5. COMPONENT CORRECTIONS (Grid layout rules for downstream content sections)
    ========================================================================== */
+.pgrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cats-inner {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 @media (max-width: 768px) {
-  .about-inner,
-  .visit-inner,
-  .footer-top {
+  .pgrid {
     grid-template-columns: 1fr !important;
-    gap: 2.5rem !important;
-    padding: 0 1.5rem !important;
   }
-
-  .pgrid,
-  .reviews-grid {
-    grid-template-columns: 1fr !important;
-    padding: 0 1.5rem !important;
-  }
-
   .cats-inner {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
   }
 }
 
-/* ==========================================================================
-   7. PORTRAIT MOBILE SMARTPHONE ADAPTATIONS (Max-width: 480px)
-   ========================================================================== */
 @media (max-width: 480px) {
-  nav {
-    padding: 0 1rem !important;
-  }
-
-  .cats-inner {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-
   .hero-badges {
     flex-direction: column !important;
     max-width: 280px !important;
-    gap: 0.85rem !important;
-  }
-
-  .h-badge {
-    width: 100% !important;
-    min-height: 75px !important;
   }
 }
 
 /* ==========================================================================
-   8. HIGH-CONTRAST FLOATING SYSTEM MENU TOGGLE
+   6. HIGH-CONTRAST FLOATING SYSTEM MENU TOGGLE
    ========================================================================== */
 .admin-trigger,
 .mobile-nav-toggle {
   display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
   position: fixed !important;
   bottom: 1.5rem !important;
   right: 1.5rem !important;
@@ -487,10 +467,4 @@ nav {
   color: #2c1e0f !important;
   border: 2px solid #f5f0e8 !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
-}
-
-.admin-trigger *,
-.mobile-nav-toggle * {
-  color: #2c1e0f !important;
-  fill: #2c1e0f !important;
 }
