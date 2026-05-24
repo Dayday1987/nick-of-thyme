@@ -183,21 +183,225 @@ nav {
 }
 
 /* ==========================================================================
-   4. CONSOLIDATED RESPONSIVE ARCHITECTURE BREAKPOINTS
+   4. FIXED DESKTOP SYSTEM ARCHITECTURE (Screens 1025px and up)
    ========================================================================== */
+@media (min-width: 1025px) {
+  /* Enforces a perfect side-by-side grid partition layout */
+  .hero-content {
+    display: grid !important;
+    grid-template-columns: 1.2fr 0.8fr !important;
+    gap: 5rem !important;
+    align-items: center !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 8rem 2rem 4rem 2rem !important;
+  }
 
-/* Laptop / Large Tablet Screens */
+  /* Text layout engine calculates height organically so nothing overlaps */
+  .hero-left,
+  .hero-text-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    height: auto !important;
+    position: relative !important;
+    width: 100% !important;
+  }
+
+  /* Spacing constraints below descriptions */
+  .hero-sub {
+    margin-bottom: 2rem !important;
+    max-width: 520px !important;
+    line-height: 1.65 !important;
+  }
+
+  /* Buttons are structured content blocks to push downstream elements natively */
+  .hero-ctas {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 1.25rem !important;
+    margin-bottom: 4rem !important; /* Absolute barrier to stop feature badge collisions */
+    position: relative !important;
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  /* Feature cards naturally sit directly below the button tracks */
+  .hero-badges {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+    position: relative !important;
+  }
+
+  .h-badge {
+    flex: 1 !important;
+    min-height: 85px !important;
+    background: rgba(44, 30, 15, 0.75) !important;
+    border: 1px solid rgba(200, 151, 42, 0.3) !important;
+    border-radius: 2px !important;
+    padding: 0.8rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* CLAMPS BOTTLE CANVAS SPACE: Pulls out unnecessary padding to focus on product */
+  .hero-visual {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    position: relative !important;
+  }
+
+  .bottle-scene,
+  .bottle-float {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 320px !important; /* Eliminates massive empty canvas space widths */
+    margin: 0 auto !important;
+    transform: none !important;
+  }
+
+  /* High-end proportional scaling constraints for pristine glass rendering */
+  .bottle-image {
+    display: block !important;
+    width: 100% !important;
+    max-width: 280px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.7)) !important;
+  }
+}
+
+/* ==========================================================================
+   5. UNIFIED MOBILE & TABLET LAYOUT ENGINE (Screens 1024px and down)
+   ========================================================================== */
 @media (max-width: 1024px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
   nav {
     padding: 0 1.5rem;
   }
 
   .nav-links {
-    display: none; /* Hide standard nav on smaller landscape viewports */
+    display: none;
   }
 
+  /* Dissovles desktop grid split architecture into unified centered stack */
+  .hero-content,
+  .hero-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: center !important;
+    padding: 6rem 1.5rem 3rem 1.5rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Centers the primary typography lane values */
+  .hero-left,
+  .hero-text-container,
+  [class*="-text"] {
+    width: 100% !important;
+    max-width: 540px !important;
+    margin: 0 auto 1.5rem auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    float: none !important;
+  }
+
+  .hero-left h1,
+  .hero-sub,
+  .hero-eyebrow {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Actions buttons transform into vertical stack structures */
+  .hero-ctas {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.85rem !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 1.5rem auto !important;
+  }
+
+  .hero-ctas a,
+  .hero-ctas * {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+  }
+
+  /* Centers bottle directly down center axle layout */
+  .hero-visual,
+  .bottle-scene,
+  .bottle-float {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 1.5rem auto !important;
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    float: none !important;
+  }
+
+  .bottle-image {
+    display: block !important;
+    width: 100% !important;
+    max-width: 210px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.5)) !important;
+  }
+
+  /* Positions feature blocks cleanly right underneath bottle container view */
+  .hero-badges {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    max-width: 360px !important;
+    margin: 1.5rem auto 0 auto !important;
+  }
+
+  .h-badge {
+    flex: 1 !important;
+    min-height: 85px !important;
+    background: rgba(44, 30, 15, 0.85) !important;
+    border: 1px solid rgba(200, 151, 42, 0.2) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.8rem !important;
+  }
+
+  /* Core shared layout responsive sections */
   .pgrid {
-    /* Using auto-fit allows items to safely adjust if they don't have enough space */
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     padding: 0 1.5rem;
   }
@@ -214,7 +418,9 @@ nav {
   }
 }
 
-/* Medium Tablets / Large Mobile Screens */
+/* ==========================================================================
+   6. MEDIUM TABLETS & GENERAL LANDSCAPE OVERRIDES (Max-width: 768px)
+   ========================================================================== */
 @media (max-width: 768px) {
   .about-inner,
   .visit-inner,
@@ -231,286 +437,26 @@ nav {
   }
 
   .cats-inner {
-    /* Changes to 2 columns on mobile devices for improved layout density */
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 12px !important;
   }
 }
 
-/* Small Mobile Screens (Smartphones) */
+/* ==========================================================================
+   7. PORTRAIT MOBILE SMARTPHONE ADAPTATIONS (Max-width: 480px)
+   ========================================================================== */
 @media (max-width: 480px) {
   nav {
     padding: 0 1rem !important;
   }
 
   .cats-inner {
-    /* Keep 2 columns on mobile screens so items don't stretch excessively */
     grid-template-columns: repeat(2, 1fr) !important;
   }
-}
 
-/* ==========================================================================
-   ── NICK OF THYME SURGICAL MOBILE LAYOUT CORRECTIONS ──
-   ========================================================================== */
-
-@media (max-width: 1024px) {
-  /* Prevent horizontal screen bleeding and white space voids */
-  html,
-  body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  /* 1. OVERRIDE THE DESKTOP 2-COLUMN STRUCTURE */
-  /* This destroys the side-by-side split and centers the core sections */
-  .hero-content,
-  .hero-inner,
-  [class*="hero-inner"] {
-    display: flex !important;
+  .hero-badges {
     flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    text-align: center !important;
-    padding: 2.5rem 1.5rem !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  /* 2. RE-CENTER THE LEFT TYPOGRAPHY COLUMN BLOCK */
-  /* This forces the text block out of its left-side alignment layout grid */
-  .hero-text-container,
-  [class*="-text"] {
-    width: 100% !important;
-    max-width: 540px !important;
-    margin: 0 auto 2.5rem auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important; /* Centers the eyebrow line, title, and copy text */
-    text-align: center !important;
-  }
-
-  /* Keep the small gold eyebrow line centered beautifully */
-  .hero-eyebrow {
-    display: inline-flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin: 0 auto 1rem auto !important;
-  }
-  .hero-eyebrow::before {
-    display: none !important; /* Kills left-side decorative border lines */
-  }
-
-  /* 3. RE-CENTER AND COALESCE FOUNDER CARD & ACTIONS */
-  .hero-founder,
-  [class*="founder"],
-  [class*="curated"] {
-    margin: 0 auto 2rem auto !important;
-    text-align: left !important; /* Keeps interior card text clean */
-  }
-
-  .hero-ctas,
-  .gift-btns,
-  [class*="btns"] {
-    display: flex !important;
-    flex-direction: column !important; /* Stack actions on mobile screen boundaries */
-    gap: 0.85rem !important;
-    width: 100% !important;
-    max-width: 320px !important;
-    margin: 0 auto !important;
-  }
-
-  .hero-ctas *,
-  .gift-btns * {
-    width: 100% !important;
-  }
-
-  /* ==========================================================================
-   ── NICK OF THYME DESKTOP STRUCTURAL REPAIR (Paste ABOVE Mobile Blocks) ──
-   ========================================================================== */
-
-  @media (min-width: 1025px) {
-    /* Fix the main desktop grid split layout */
-    .hero-content {
-      display: grid !important;
-      grid-template-columns: 1.2fr 0.8fr !important; /* Allocates balanced lanes */
-      gap: 4rem !important;
-      align-items: center !important;
-      max-width: 1200px !important;
-      margin: 0 auto !important;
-      padding: 4rem 2rem !important;
-    }
-
-    /* Force the text section to calculate its height naturally so things don't overlap */
-    .hero-left {
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: flex-start !important;
-      height: auto !important;
-      position: relative !important;
-    }
-
-    /* Give the description text room to breathe */
-    .hero-sub {
-      margin-bottom: 2rem !important;
-      max-width: 520px !important;
-      line-height: 1.6 !important;
-    }
-
-    /* Keep the CTAs cleanly grouped so they physically push the badges DOWN */
-    .hero-ctas {
-      display: flex !important;
-      flex-direction: row !important;
-      gap: 1rem !important;
-      margin-bottom: 3.5rem !important; /* Creates a solid buffer wall above the badges */
-      position: relative !important;
-      height: auto !important;
-    }
-
-    /* Ensure the grid badges wait for the buttons to finish */
-    .hero-badges {
-      display: flex !important;
-      flex-direction: row !important;
-      gap: 1.5rem !important;
-      width: 100% !important;
-      margin-top: 0 !important;
-      position: relative !important;
-    }
-
-    /* TIGHTEN BOTTLE CANVAS SPACE: Clamps the scene boundary to eliminate empty space */
-    .hero-visual {
-      display: flex !important;
-      justify-content: center !important;
-      align-items: center !important;
-      width: 100% !important;
-      position: relative !important;
-    }
-
-    .bottle-scene {
-      position: relative !important;
-      width: 100% !important;
-      max-width: 300px !important; /* Cuts off the massive empty canvas wings */
-      margin: 0 auto !important;
-    }
-
-    /* Bring the bottle graphic to a crisp, beautifully-proportioned desktop scale */
-    .bottle-image {
-      display: block !important;
-      width: 100% !important;
-      max-width: 260px !important;
-      height: auto !important;
-      margin: 0 auto !important;
-      object-fit: contain !important;
-      filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.65)) !important;
-    }
-  }
-
-  /* ==========================================================================
-   ── 4 & 5: VISUAL WRAPPER & BADGE REALIGNMENT ──
-   ========================================================================== */
-
-  /* This pulls the entire visual element directly under your button layouts on mobile */
-  .hero-visual {
-    position: relative !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    width: 100% !important;
-    max-width: 360px !important;
-    margin: 3.5rem auto 0 auto !important; /* Single layout margin to push down from buttons */
-    transform: none !important;
-    inset: auto !important;
-    height: auto !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-
-  /* Inner animation/glow elements stay relative but don't add extra layout spacing */
-  .bottle-scene,
-  .bottle-float {
-    position: relative !important;
-    display: block !important;
-    width: 100% !important;
-    margin: 0 auto !important;
-    transform: none !important;
-    inset: auto !important;
-    height: auto !important;
-  }
-
-  /* Perfect alignment constraint locks for the brand new image asset */
-  .bottle-image {
-    position: relative !important;
-    display: block !important;
-    margin: 0 auto !important;
-    max-height: 350px !important; /* Keeps it tight and beautifully proportioned */
-    width: auto !important;
-    transform: none !important;
-    inset: auto !important;
-    z-index: 5 !important;
-  }
-
-  /* 5. SECURE THE FLOATING BADGES CONTAINER UNDER THE GLASS ROW */
-  .hero-badges,
-  .hero-content .hero-badges {
-    position: relative !important;
-    display: flex !important;
-    flex-direction: row !important; /* Keeps boxes clean and side-by-side on tablet layouts */
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 1.25rem !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 2rem auto 0 auto !important; /* Adds standard spacing right underneath the bottle */
-    inset: auto !important;
-    transform: none !important;
-    z-index: 10 !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-
-  /* Define premium card block boundaries */
-  .h-badge {
-    position: relative !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex: 1 !important;
-    min-height: 85px !important;
-    margin: 0 !important;
-    inset: auto !important;
-    transform: none !important;
-    background: rgba(
-      44,
-      30,
-      15,
-      0.75
-    ) !important; /* High contrast overlay clarity background */
-    border: 1px solid rgba(200, 151, 42, 0.3) !important;
-    border-radius: 2px !important;
-    padding: 0.8rem !important;
-  }
-
-  /* Lock spatial alignment for the bottom scroll text element indicator */
-  .hero-content span,
-  [class*="scroll"] {
-    position: relative !important;
-    display: block !important;
-    margin: 2rem auto 0 auto !important;
-    left: auto !important;
-    transform: none !important;
-    text-align: center !important;
-    width: 100% !important;
-  }
-}
-
-/* 6. RESPONSIVE OPTIMIZATIONS FOR MOBILE SMARTPHONES */
-@media (max-width: 480px) {
-  .hero-badges,
-  .hero-content .hero-badges {
-    flex-direction: column !important; /* Vertical item stack order for portrait mobile screen boundaries */
-    max-width: 300px !important;
+    max-width: 280px !important;
     gap: 0.85rem !important;
   }
 
@@ -521,7 +467,7 @@ nav {
 }
 
 /* ==========================================================================
-   ── HIGH-CONTRAST FLOATING SYSTEM MENU TOGGLE ──
+   8. HIGH-CONTRAST FLOATING SYSTEM MENU TOGGLE
    ========================================================================== */
 .admin-trigger,
 .mobile-nav-toggle {
@@ -531,16 +477,15 @@ nav {
   position: fixed !important;
   bottom: 1.5rem !important;
   right: 1.5rem !important;
-  z-index: 999999 !important; /* Locks on absolute top layout stacking layer */
+  z-index: 999999 !important;
   width: 46px !important;
   height: 46px !important;
   border-radius: 50% !important;
   align-items: center !important;
   justify-content: center !important;
-
-  background-color: #c8972a !important; /* Gold */
-  color: #2c1e0f !important; /* Deep Bark */
-  border: 2px solid #f5f0e8 !important; /* Cream Edge Ring */
+  background-color: #c8972a !important;
+  color: #2c1e0f !important;
+  border: 2px solid #f5f0e8 !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
 }
 
@@ -548,114 +493,4 @@ nav {
 .mobile-nav-toggle * {
   color: #2c1e0f !important;
   fill: #2c1e0f !important;
-}
-
-/* ==========================================================================
-   ── NICK OF THYME MOBILE GRID DISSOLUTION ──
-   ========================================================================== */
-
-@media (max-width: 1024px) {
-  /* Kill the side-by-side columns entirely */
-  .hero-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    text-align: center !important;
-    padding: 3rem 1.5rem !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Force the text block to occupy full smartphone width */
-  .hero-left {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 auto 2rem auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-    float: none !important;
-  }
-
-  /* Center headings and descriptions */
-  .hero-left h1,
-  .hero-sub,
-  .hero-eyebrow {
-    text-align: center !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    max-width: 480px !important;
-  }
-
-  /* Stack button anchors cleanly */
-  .hero-ctas {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.75rem !important;
-    width: 100% !important;
-    max-width: 320px !important;
-    margin: 1.5rem auto !important;
-  }
-  .hero-ctas a {
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Center the visual wrapper element below buttons */
-  .hero-visual,
-  .bottle-scene,
-  .bottle-float {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 2rem auto !important;
-    float: none !important;
-    position: relative !important;
-    inset: auto !important;
-    transform: none !important;
-  }
-
-  /* Enforce image rendering dimensions */
-  .bottle-image {
-    display: block !important;
-    width: 100% !important;
-    max-width: 200px !important; /* Elegant display sizing */
-    height: auto !important;
-    margin: 0 auto !important;
-  }
-
-  /* Position the feature badges neatly below the bottle graphic */
-  .hero-badges {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 1rem !important;
-    width: 100% !important;
-    max-width: 340px !important;
-    margin: 2rem auto 0 auto !important;
-  }
-
-  .h-badge {
-    flex: 1 !important;
-    min-height: 85px !important;
-    background: rgba(44, 30, 15, 0.85) !important;
-    border: 1px solid rgba(200, 151, 42, 0.2) !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-badges {
-    flex-direction: column !important;
-    max-width: 280px !important;
-  }
-  .h-badge {
-    width: 100% !important;
-  }
 }
