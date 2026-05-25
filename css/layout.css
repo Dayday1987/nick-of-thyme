@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. GLOBAL RESET & BASE CANVAS
+   1. GLOBAL CANVAS SETUP & BODY RESET
    ========================================================================== */
 * {
   box-sizing: border-box;
@@ -19,10 +19,11 @@ body {
   color: var(--cream);
   font-family: "Jost", sans-serif;
   overflow-x: hidden;
+  width: 100vw;
 }
 
 /* ==========================================================================
-   2. FIXED HEADER & NAVIGATION
+   2. NAVBAR & ANNOUNCEMENT BAR SYSTEM
    ========================================================================== */
 .ann-bar {
   background: var(--gold);
@@ -37,7 +38,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 102;
+  z-index: 1002;
 }
 
 nav {
@@ -45,11 +46,11 @@ nav {
   top: 34px;
   left: 0;
   right: 0;
-  z-index: 101;
+  z-index: 1001;
   background: rgba(44, 30, 15, 0.98);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(200, 151, 42, 0.15);
-  padding: 0 4%;
+  padding: 0 6%;
   height: 66px;
   display: flex;
   align-items: center;
@@ -88,83 +89,63 @@ nav {
   color: var(--gold);
 }
 
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.cart-btn {
-  background: none;
-  border: 1px solid rgba(200, 151, 42, 0.4);
-  color: var(--cream);
-  padding: 0.5rem 1.2rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 /* ==========================================================================
-   3. HERO REGION: FULL-SCREEN GRID ENGINE
+   3. HERO REGION: FULL PAGE ENGINE & CORRECTIONS
    ========================================================================== */
 .hero {
   min-height: 100vh;
   width: 100vw;
-  padding-top: 100px; /* Forces layout safely below fixed navbar */
+  padding-top: 130px; /* Safely clears fixed header spacing */
+  padding-bottom: 6rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   position: relative;
   background:
     radial-gradient(
-      circle at 75% 40%,
-      rgba(200, 151, 42, 0.12) 0%,
-      transparent 50%
+      circle at 50% 30%,
+      rgba(200, 151, 42, 0.08) 0%,
+      transparent 60%
     ),
     var(--bark);
 }
 
-/* Forces layout wide, bypassing any narrow parent containers */
-.hero-content {
-  display: grid !important;
-  grid-template-columns: 1.1fr 0.9fr !important;
-  gap: 4rem !important;
-  align-items: center !important;
-  width: 100% !important;
-  max-width: 1440px !important;
-  margin: 0 auto !important;
-  padding: 2rem 6% !important;
-}
-
-/* Fixes Spacing & Centering: Pulls sub-headline out and mounts it clean */
+/* Point 1 Fix: Explicitly centers the Mediterranean subtitle baseline */
 .hero-eyebrow {
-  grid-column: 1 / -1 !important;
+  width: 100% !important;
   text-align: center !important;
   font-size: 0.75rem !important;
   letter-spacing: 0.25em !important;
   text-transform: uppercase !important;
   color: var(--gold) !important;
-  margin-bottom: -1rem !important; /* Pulls text block upward closer to navbar */
-  opacity: 0.9;
+  margin-bottom: 3rem !important; /* Prevents text elements from colliding below */
+  display: block !important;
+  position: relative !important;
 }
 
-/* Left side text blocks */
+/* Re-architects layout split into 2 massive clean structural tracks */
+.hero-content {
+  display: grid !important;
+  grid-template-columns: 1.1fr 0.9fr !important;
+  gap: 5rem !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 1300px !important;
+  margin: 0 auto !important;
+  padding: 0 4% !important;
+}
+
 .hero-left {
   display: flex !important;
   flex-direction: column !important;
-  justify-content: center !important;
 }
 
 .hero-left h1 {
   font-family: "Playfair Display", serif;
-  font-size: clamp(2.5rem, 4.5vw, 4.2rem);
-  line-height: 1.1;
+  font-size: clamp(2.5rem, 4vw, 3.8rem) !important;
+  line-height: 1.15 !important;
   color: var(--cream);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem !important;
 }
 
 .hero-left h1 em {
@@ -177,75 +158,63 @@ nav {
   line-height: 1.7;
   color: rgba(245, 240, 232, 0.75);
   margin-bottom: 2rem;
-  max-width: 540px;
+  max-width: 500px;
 }
 
-/* Curated Tag Badge */
 .curated-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
   background: rgba(245, 240, 232, 0.03);
   border: 1px solid rgba(200, 151, 42, 0.15);
   padding: 0.75rem 1.25rem;
   margin-bottom: 2.5rem;
-  max-width: 340px;
+  width: fit-content;
 }
 
 .hero-ctas {
   display: flex !important;
   gap: 1.5rem !important;
+  margin-bottom: 0 !important; /* Removes padding collapses beneath buttons */
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 1rem 2rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  display: inline-block !important;
 }
 
 .btn-primary {
-  background: var(--gold);
-  color: var(--bark);
-  padding: 1rem 2rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: opacity 0.2s;
+  background: var(--gold) !important;
+  color: var(--bark) !important;
 }
 
 .btn-secondary {
-  border: 1px solid rgba(245, 240, 232, 0.3);
-  color: var(--cream);
-  padding: 1rem 2rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: all 0.2s;
+  border: 1px solid rgba(245, 240, 232, 0.3) !important;
+  color: var(--cream) !important;
 }
 
-.btn-secondary:hover {
-  background: var(--cream);
-  color: var(--bark);
-}
-
-/* ==========================================================================
-   4. RIGHT SIDE: PRODUCT DISPLAY & STATS VERTICAL STACK
-   ========================================================================== */
+/* Right display track handling asset scaling */
 .hero-visual {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 0 !important; /* Let margins on children handle layout spacing */
-  position: relative !important;
   width: 100% !important;
+  position: relative !important;
 }
 
-/* Counteracts transparent asset padding box */
+/* Point 2 Fix: Clips frame dimensions out and forces bottle to scale dynamically */
 .bottle-scene {
   position: relative !important;
   width: 100% !important;
-  max-width: 450px !important;
-  height: 480px !important; /* Locks structural bounding box heights */
-  margin: -60px 0 -40px 0 !important; /* Negative margins clip out image whitespace */
+  max-width: 420px !important;
+  height: 440px !important;
+  margin: -40px 0 -20px 0 !important; /* Math correction bounds to bypass asset whitespace */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -254,35 +223,32 @@ nav {
 .bottle-image {
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important; /* Ensures the bottle scales safely inside bounds */
-  filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.65));
+  object-fit: contain !important; /* Scales graphic bounding line up */
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
 }
 
-/* Mounts statistics cleanly directly beneath the bottle base */
+/* Point 3 Fix: Forces statistics to lock cleanly beneath product frames without hitting buttons */
 .hero-badges {
   display: flex !important;
   flex-direction: row !important;
-  gap: 1.5rem !important;
+  gap: 1.25rem !important;
   width: 100% !important;
   max-width: 420px !important;
-  margin-top: 0 !important;
+  margin-top: 2rem !important; /* Gives absolute layout breathing room */
+  position: relative !important;
 }
 
 .h-badge {
   flex: 1 !important;
-  background: rgba(35, 24, 12, 0.6) !important;
-  border: 1px solid rgba(200, 151, 42, 0.25) !important;
-  padding: 1.25rem 1rem !important;
+  background: rgba(35, 24, 12, 0.4) !important;
+  border: 1px solid rgba(200, 151, 42, 0.2) !important;
+  padding: 1.2rem 1rem !important;
   text-align: center !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
 }
 
 .h-badge .num {
   font-family: "Playfair Display", serif;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: var(--gold);
   font-weight: 700;
   margin-bottom: 0.25rem;
@@ -295,44 +261,257 @@ nav {
   color: rgba(245, 240, 232, 0.6);
 }
 
-/* Permanent annihilation of the lingering legacy "scroll" text elements */
 .scroll,
-[class*="scroll"],
-.hero-content > span {
+[class*="scroll"] {
+  display: none !important;
+}
+
+/* ==========================================================================
+   4. CATEGORY CARDS & PRO TIP LAYER
+   ========================================================================== */
+.categories-section {
+  background: var(--cream);
+  padding: 6rem 0;
+  width: 100vw;
+}
+
+/* Point 5 Fix: Re-balances Category card structures to scale safely with main grid components */
+.categories-container {
+  max-width: 1300px !important;
+  margin: 0 auto !important;
+  padding: 0 4% !important;
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 1.5rem !important;
+}
+
+.category-card {
+  background: #eae3d5 !important;
+  padding: 2.5rem 1.5rem !important;
+  text-align: center;
+  border: 1px solid rgba(44, 30, 15, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Point 6 Fix: Centers Pro-Tip box frame cleanly on display axis */
+.pro-tip-container {
+  max-width: 900px !important;
+  margin: 4rem auto 0 auto !important;
+  padding: 0 2rem !important;
+  text-align: center !important;
+}
+
+.pro-tip-box {
+  background: var(--bark);
+  color: var(--cream);
+  padding: 2rem 3rem !important;
+  border-radius: 0px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1rem;
+}
+
+.pro-tip-box p {
+  text-align: center !important;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   5. FEATURED SELECTION LAYOUT ENGINE
+   ========================================================================== */
+/* Point 7 Fix: Prevents grid track from stretching out of proportion on ultra-wide viewports */
+.featured-section {
+  background: var(--cream);
+  padding: 4rem 0 7rem 0;
+  width: 100vw;
+  border-top: 1px solid rgba(44, 30, 15, 0.08);
+}
+
+.featured-header-wrap {
+  max-width: 1300px !important;
+  margin: 0 auto 2.5rem auto !important;
+  padding: 0 4% !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.products-grid {
+  max-width: 1300px !important;
+  margin: 0 auto !important;
+  padding: 0 4% !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 2rem !important;
+}
+
+/* ==========================================================================
+   6. OUR STORY LAYER: MASONRY BALANCING
+   ========================================================================== */
+.story-section {
+  background: var(--bark);
+  padding: 7rem 0;
+  width: 100vw;
+}
+
+.story-container {
+  max-width: 1300px !important;
+  margin: 0 auto !important;
+  padding: 0 4% !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 5rem !important;
+  align-items: center;
+}
+
+/* Point 9 Fix: Shrinks structural canvas wrapping frames to clip inside bounds cleanly */
+.story-visual-grid {
+  display: grid !important;
+  grid-template-columns: repeat(12, 1fr) !important;
+  align-items: center !important;
+  position: relative;
+  width: 100%;
+}
+
+.story-img-large {
+  grid-column: 1 / 10 !important; /* Shrinks structural box down from running wide */
+  width: 100% !important;
+  height: 420px !important;
+  object-fit: cover !important;
+  border: 1px solid rgba(200, 151, 42, 0.2);
+}
+
+.story-badge-small {
+  grid-column: 8 / -1 !important;
+  grid-row: 1 !important;
+  background: var(--gold) !important;
+  color: var(--bark) !important;
+  padding: 2.5rem 1.5rem !important;
+  text-align: center;
+  z-index: 5;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   7. SHOP VISIT, HOURS & INTERACTIVE MAP ENGINE
+   ========================================================================== */
+.visit-section {
+  background: var(--cream);
+  color: var(--bark);
+  padding: 7rem 0;
+  width: 100vw;
+}
+
+.visit-container {
+  max-width: 1300px !important;
+  margin: 0 auto !important;
+  padding: 0 4% !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 4rem !important;
+}
+
+/* Left layout col containing contact + interactive mapping canvas */
+.visit-left-col {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important; /* Point 11 Fix: Forces columns to track equal lengths */
+  height: 100% !important;
+}
+
+.visit-info-block {
+  margin-bottom: 2rem;
+}
+
+/* Point 11 Fix: Injects a crisp canvas background mimic to make map element pop */
+.map-canvas-mock {
+  width: 100% !important;
+  height: 240px !important;
+  background-color: #e5e3df !important;
+  background-image:
+    radial-gradient(#cbc9c5 1px, transparent 1px),
+    radial-gradient(#cbc9c5 1px, #e5e3df 1px) !important;
+  background-size: 20px 20px !important;
+  background-position:
+    0 0,
+    10px 10px !important;
+  border: 1px solid rgba(44, 30, 15, 0.15) !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.map-canvas-mock::before {
+  content: "📍 123 Market Street, Wetumpka, AL" !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: var(--bark) !important;
+  background: var(--cream) !important;
+  padding: 0.75rem 1.2rem !important;
+  border: 1px solid rgba(44, 30, 15, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Right column containing operational details */
+.hours-box-container {
+  background: var(--bark) !important;
+  color: var(--cream) !important;
+  padding: 3rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  height: 100% !important; /* Force matches sibling height perfectly */
+}
+
+/* ==========================================================================
+   8. CLEAN BENCH FOOTER SYSTEM
+   ========================================================================== */
+/* Point 8 Fix: Annihilates the phantom layout breaking "Your Pantry" text asset */
+#your-pantry,
+.your-pantry,
+h2:contains("Your Pantry"),
+h3:contains("Your Pantry") {
   display: none !important;
   opacity: 0 !important;
   visibility: hidden !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-/* ==========================================================================
-   5. FEATURE CARDS CONTAINER BOUNDS (Image 3 fix)
-   ========================================================================== */
-.features-section {
-  background: var(--cream);
-  color: var(--bark);
-  padding: 5rem 0;
-}
-
-/* Clamps only specific content blocks to centered columns */
-.features-container {
-  max-width: 1200px !important;
-  margin: 0 auto !important;
-  padding: 0 2rem !important;
-}
-
-/* ==========================================================================
-   6. FOOTER INFO BENCH
-   ========================================================================== */
+/* Force kicks footer into standard display rendering */
 .store-footer {
-  background: var(--olive);
-  color: var(--cream);
-  padding: 1.5rem 6%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background: var(--olive) !important;
+  color: var(--cream) !important;
+  padding: 2.5rem 6% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  position: relative !important;
+  width: 100vw !important;
+  z-index: 100 !important;
 }
+
+/* Point 4 Fix: Clamps store hours directly to baseline across text layout spans */
+.store-footer span,
+.store-footer p,
+.store-footer div,
 .store-footer .contact-info {
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-family: "Jost", sans-serif !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  color: var(--cream) !important;
 }
