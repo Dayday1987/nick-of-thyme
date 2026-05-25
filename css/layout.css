@@ -1,33 +1,34 @@
 /* ==========================================================================
-   1. GLOBAL SYSTEM SETTINGS & INITIALIZATIONS
+   1. GLOBAL RESET & BASE CANVAS
    ========================================================================== */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 :root {
   --bark: #2c1e0f;
   --cream: #f5f0e8;
   --gold: #c8972a;
+  --olive: #556b2f;
 }
 
-/* Ensure background stretches smoothly across the screen canvas */
 body {
-  margin: 0;
-  padding: 0;
   background-color: var(--bark);
+  color: var(--cream);
+  font-family: "Jost", sans-serif;
   overflow-x: hidden;
 }
 
 /* ==========================================================================
-   2. TOP BAR & NAVIGATION DESIGN BUILD
+   2. FIXED HEADER & NAVIGATION
    ========================================================================== */
 .ann-bar {
   background: var(--gold);
   color: var(--bark);
   text-align: center;
   padding: 0.55rem 1rem;
-  font-family: "Jost", sans-serif;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.2em;
@@ -39,23 +40,16 @@ body {
   z-index: 102;
 }
 
-.ann-bar a {
-  color: var(--bark);
-  text-decoration: underline;
-  cursor: pointer;
-}
-
 nav {
   position: fixed;
   top: 34px;
   left: 0;
   right: 0;
   z-index: 101;
-  background: rgba(44, 30, 15, 0.97);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(200, 151, 42, 0.18);
-  padding: 0 3rem;
+  background: rgba(44, 30, 15, 0.98);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(200, 151, 42, 0.15);
+  padding: 0 4%;
   height: 66px;
   display: flex;
   align-items: center;
@@ -68,10 +62,6 @@ nav {
   font-size: 1.35rem;
   font-weight: 700;
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  letter-spacing: 0.01em;
 }
 
 .nav-logo em {
@@ -83,20 +73,15 @@ nav {
   display: flex;
   gap: 2.5rem;
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 .nav-links a {
-  font-family: "Jost", sans-serif;
   font-size: 0.7rem;
-  font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.68);
+  color: rgba(245, 240, 232, 0.7);
   text-decoration: none;
-  transition: color 0.22s;
-  cursor: pointer;
+  transition: color 0.2s;
 }
 
 .nav-links a:hover {
@@ -106,365 +91,248 @@ nav {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
-}
-
-.nav-search {
-  background: none;
-  border: none;
-  color: rgba(245, 240, 232, 0.55);
-  font-size: 1.05rem;
-  cursor: pointer;
-  padding: 0.3rem;
-  transition: color 0.2s;
-}
-
-.nav-search:hover {
-  color: var(--gold);
+  gap: 1.5rem;
 }
 
 .cart-btn {
   background: none;
-  border: 1px solid rgba(200, 151, 42, 0.38);
+  border: 1px solid rgba(200, 151, 42, 0.4);
   color: var(--cream);
-  padding: 0.48rem 1.1rem;
-  border-radius: 2px;
-  font-family: "Jost", sans-serif;
+  padding: 0.5rem 1.2rem;
   font-size: 0.68rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.22s;
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 
-.cart-btn:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--bark);
-}
-
-.cart-count {
-  background: var(--gold);
-  color: var(--bark);
-  font-size: 0.6rem;
-  font-weight: 700;
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
+/* ==========================================================================
+   3. HERO REGION: FULL-SCREEN GRID ENGINE
+   ========================================================================== */
+.hero {
+  min-height: 100vh;
+  width: 100vw;
+  padding-top: 100px; /* Forces layout safely below fixed navbar */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Jost", sans-serif;
-  transition: transform 0.2s;
+  position: relative;
+  background:
+    radial-gradient(
+      circle at 75% 40%,
+      rgba(200, 151, 42, 0.12) 0%,
+      transparent 50%
+    ),
+    var(--bark);
 }
 
-.cart-count.bump {
-  transform: scale(1.4);
+/* Forces layout wide, bypassing any narrow parent containers */
+.hero-content {
+  display: grid !important;
+  grid-template-columns: 1.1fr 0.9fr !important;
+  gap: 4rem !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 1440px !important;
+  margin: 0 auto !important;
+  padding: 2rem 6% !important;
 }
 
-/* ==========================================================================
-   3. DESKTOP FULL-WHEEL SYSTEM GRID BREAKOUT (Screens 1025px and up)
-   ========================================================================== */
-@media (min-width: 1025px) {
-  /* Fixes Images 3 & 4: Erases the blank side voids, making content span edge-to-edge */
-  .hero-content {
-    display: grid !important;
-    grid-template-columns: 1.1fr 0.9fr !important;
-    gap: 2rem !important;
-    align-items: center !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 100px 5% 4rem 6% !important; /* Top padding tucks elements beautifully under navbar */
-  }
-
-  /* Fixes Image 1: Centers the headline text cleanly on the page canvas */
-  .hero-eyebrow {
-    display: block !important;
-    text-align: center !important;
-    width: 100% !important;
-    margin: 0 auto 1.5rem auto !important;
-    grid-column: 1 / -1 !important; /* Forces layout to span across both grid columns */
-    position: relative !important;
-  }
-
-  .hero-left,
-  .hero-text-container {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    height: auto !important;
-    position: relative !important;
-    width: 100% !important;
-  }
-
-  .hero-sub {
-    margin-bottom: 2rem !important;
-    max-width: 580px !important;
-    line-height: 1.65 !important;
-  }
-
-  .hero-ctas {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 1.25rem !important;
-    margin-bottom: 2rem !important;
-    position: relative !important;
-    width: 100%;
-  }
-
-  /* Fixes Image 2: Targets right side to house both product bottle and cards vertically */
-  .hero-visual {
-    display: flex !important;
-    flex-direction: column !important; /* Forces vertical stacking flow */
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    position: relative !important;
-    gap: 2.5rem !important; /* Clean breathing room between glass base and cards */
-  }
-
-  .bottle-scene,
-  .bottle-float {
-    position: relative !important;
-    width: 100% !important;
-    max-width: 400px !important;
-    margin: 0 auto !important;
-    transform: none !important;
-  }
-
-  /* Fixes Image 2: Upgrades bottle scaling limits for high-fidelity rendering */
-  .bottle-image {
-    display: block !important;
-    width: 100% !important;
-    max-width: 380px !important; /* Scales the asset size up substantially */
-    height: auto !important;
-    margin: 0 auto !important;
-    object-fit: contain !important;
-    filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.75)) !important;
-  }
-
-  /* Fixes Image 2: Puts statistics cards inside the right column directly under the bottle */
-  .hero-badges {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 1.5rem !important;
-    width: 100% !important;
-    max-width: 440px !important; /* Clamps card section boundaries neatly */
-    margin: 0 auto !important;
-    position: relative !important;
-  }
-
-  .h-badge {
-    flex: 1 !important;
-    min-height: 90px !important;
-    background: rgba(44, 30, 15, 0.75) !important;
-    border: 1px solid rgba(200, 151, 42, 0.3) !important;
-    border-radius: 2px !important;
-    padding: 1rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  /* Fixes Image 2: Destroys the old, lingering scroll indicator link text entirely */
-  .hero-content span,
-  [class*="scroll"],
-  .scroll {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
+/* Fixes Spacing & Centering: Pulls sub-headline out and mounts it clean */
+.hero-eyebrow {
+  grid-column: 1 / -1 !important;
+  text-align: center !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.25em !important;
+  text-transform: uppercase !important;
+  color: var(--gold) !important;
+  margin-bottom: -1rem !important; /* Pulls text block upward closer to navbar */
+  opacity: 0.9;
 }
 
-/* ==========================================================================
-   4. UNIFIED MOBILE & TABLET LAYOUT ENGINE (Screens 1024px and down)
-   ========================================================================== */
-@media (max-width: 1024px) {
-  html,
-  body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  nav {
-    padding: 0 1.5rem;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  .hero-content,
-  .hero-inner {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    text-align: center !important;
-    padding: 7rem 1.5rem 3rem 1.5rem !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  .hero-eyebrow {
-    text-align: center !important;
-    margin: 0 auto 1rem auto !important;
-  }
-
-  .hero-left,
-  .hero-text-container {
-    width: 100% !important;
-    max-width: 540px !important;
-    margin: 0 auto 1.5rem auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-  }
-
-  .hero-ctas {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.85rem !important;
-    width: 100% !important;
-    max-width: 320px !important;
-    margin: 1.5rem auto !important;
-  }
-
-  .hero-ctas a {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    text-align: center !important;
-  }
-
-  .hero-visual,
-  .bottle-scene,
-  .bottle-float {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 1.5rem auto !important;
-    position: relative !important;
-    transform: none !important;
-  }
-
-  .bottle-image {
-    display: block !important;
-    width: 100% !important;
-    max-width: 220px !important;
-    height: auto !important;
-    margin: 0 auto !important;
-  }
-
-  .hero-badges {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 1rem !important;
-    width: 100% !important;
-    max-width: 360px !important;
-    margin: 1.5rem auto 0 auto !important;
-  }
-
-  .h-badge {
-    flex: 1 !important;
-    min-height: 85px !important;
-    background: rgba(44, 30, 15, 0.85) !important;
-    border: 1px solid rgba(200, 151, 42, 0.2) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0.8rem !important;
-  }
-
-  [class*="scroll"],
-  .scroll {
-    display: none !important;
-  }
-
-  .pgrid {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    padding: 0 1.5rem;
-  }
-
-  .refill-inner,
-  .about-inner,
-  .visit-inner {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .cats-inner {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* ==========================================================================
-   5. COMPONENT CORRECTIONS (Grid layout rules for downstream content sections)
-   ========================================================================== */
-.pgrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.cats-inner {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-@media (max-width: 768px) {
-  .pgrid {
-    grid-template-columns: 1fr !important;
-  }
-  .cats-inner {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-badges {
-    flex-direction: column !important;
-    max-width: 280px !important;
-  }
-}
-
-/* ==========================================================================
-   6. HIGH-CONTRAST FLOATING SYSTEM MENU TOGGLE
-   ========================================================================== */
-.admin-trigger,
-.mobile-nav-toggle {
+/* Left side text blocks */
+.hero-left {
   display: flex !important;
-  position: fixed !important;
-  bottom: 1.5rem !important;
-  right: 1.5rem !important;
-  z-index: 999999 !important;
-  width: 46px !important;
-  height: 46px !important;
-  border-radius: 50% !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+.hero-left h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.5rem, 4.5vw, 4.2rem);
+  line-height: 1.1;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+}
+
+.hero-left h1 em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.hero-sub {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(245, 240, 232, 0.75);
+  margin-bottom: 2rem;
+  max-width: 540px;
+}
+
+/* Curated Tag Badge */
+.curated-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(245, 240, 232, 0.03);
+  border: 1px solid rgba(200, 151, 42, 0.15);
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 2.5rem;
+  max-width: 340px;
+}
+
+.hero-ctas {
+  display: flex !important;
+  gap: 1.5rem !important;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--bark);
+  padding: 1rem 2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.btn-secondary {
+  border: 1px solid rgba(245, 240, 232, 0.3);
+  color: var(--cream);
+  padding: 1rem 2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--cream);
+  color: var(--bark);
+}
+
+/* ==========================================================================
+   4. RIGHT SIDE: PRODUCT DISPLAY & STATS VERTICAL STACK
+   ========================================================================== */
+.hero-visual {
+  display: flex !important;
+  flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  background-color: #c8972a !important;
-  color: #2c1e0f !important;
-  border: 2px solid #f5f0e8 !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  gap: 0 !important; /* Let margins on children handle layout spacing */
+  position: relative !important;
+  width: 100% !important;
+}
+
+/* Counteracts transparent asset padding box */
+.bottle-scene {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 450px !important;
+  height: 480px !important; /* Locks structural bounding box heights */
+  margin: -60px 0 -40px 0 !important; /* Negative margins clip out image whitespace */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.bottle-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important; /* Ensures the bottle scales safely inside bounds */
+  filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.65));
+}
+
+/* Mounts statistics cleanly directly beneath the bottle base */
+.hero-badges {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 1.5rem !important;
+  width: 100% !important;
+  max-width: 420px !important;
+  margin-top: 0 !important;
+}
+
+.h-badge {
+  flex: 1 !important;
+  background: rgba(35, 24, 12, 0.6) !important;
+  border: 1px solid rgba(200, 151, 42, 0.25) !important;
+  padding: 1.25rem 1rem !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.h-badge .num {
+  font-family: "Playfair Display", serif;
+  font-size: 1.8rem;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.h-badge .txt {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.6);
+}
+
+/* Permanent annihilation of the lingering legacy "scroll" text elements */
+.scroll,
+[class*="scroll"],
+.hero-content > span {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* ==========================================================================
+   5. FEATURE CARDS CONTAINER BOUNDS (Image 3 fix)
+   ========================================================================== */
+.features-section {
+  background: var(--cream);
+  color: var(--bark);
+  padding: 5rem 0;
+}
+
+/* Clamps only specific content blocks to centered columns */
+.features-container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+}
+
+/* ==========================================================================
+   6. FOOTER INFO BENCH
+   ========================================================================== */
+.store-footer {
+  background: var(--olive);
+  color: var(--cream);
+  padding: 1.5rem 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.store-footer .contact-info {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
