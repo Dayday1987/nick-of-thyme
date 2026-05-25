@@ -253,7 +253,7 @@ nav {
   position: relative !important;
   width: 100% !important;
   max-width: 440px !important;
-  height: 480px !important; /* Fixed height envelope */
+  height: 580px !important; /* Fixed height envelope */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
