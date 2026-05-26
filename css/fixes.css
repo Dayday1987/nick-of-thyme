@@ -1,0 +1,326 @@
+/* ==========================================================================
+   NICK OF THYME — TARGETED UI FIXES
+   Load this AFTER main.css, components.css, and layout.css
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   FIX 1: BOTTLE IMAGE — BIGGER, VERTICALLY CENTERED IN COLUMN
+   Problem: bottle appeared small (max-height 400px was too conservative) and
+   the hero-visual column had no height anchor, so flex centering did nothing.
+   -------------------------------------------------------------------------- */
+
+.hero-visual {
+  height: 100% !important;
+  min-height: 420px !important; /* Gives the flex column a real height to center against */
+}
+
+.bottle-scene {
+  max-width: 280px !important;
+  flex: 1 !important; /* Let it grow to fill vertical space */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.bottle-float {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+.bottle-image {
+  max-height: 520px !important; /* Was 400px — gives the bottle real presence */
+  width: 80% !important;
+  display: block !important;
+  margin: 0 auto !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.6)) !important;
+}
+
+/* --------------------------------------------------------------------------
+   FIX 2: FOUNDER CARD — STRIP THE DARK BOX
+   Problem: .hero-founder was inheriting a dark background and visible border
+   from components.css, making it look like a separate card widget.
+   -------------------------------------------------------------------------- */
+
+.hero-founder {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Keep just the avatar circle styled, not the whole row */
+.founder-avatar {
+  background: rgba(200, 151, 42, 0.08) !important;
+  border: 1px solid rgba(200, 151, 42, 0.25) !important;
+  border-radius: 0 !important; /* Matches site's square aesthetic */
+  flex-shrink: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   FIX 3: HERO BADGES — VISUALLY CONNECT TO THE BOTTLE
+   Problem: badges floated with no visual relationship to the bottle above.
+   Fix: add a subtle gold top border and collapse the gap.
+   -------------------------------------------------------------------------- */
+
+.hero-badges {
+  border-top: 1px solid rgba(200, 151, 42, 0.2) !important;
+  padding-top: 1rem !important;
+  margin-top: 0 !important;
+  width: 100% !important;
+  max-width: 280px !important; /* Aligns with the narrowed bottle-scene above */
+}
+
+.h-badge {
+  background: rgba(44, 30, 15, 0.55) !important;
+  border: 1px solid rgba(200, 151, 42, 0.18) !important;
+  padding: 0.85rem 0.6rem !important;
+}
+
+/* --------------------------------------------------------------------------
+   FIX 4a: NAVBAR — TIGHTEN THE CART BUTTON BOX
+   Problem: the all:unset rule on header buttons was too aggressive and
+   caused layout shifts in some browsers, especially on the cart count badge.
+   -------------------------------------------------------------------------- */
+
+.nav-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.25rem !important;
+}
+
+.nav-search,
+.cart-btn {
+  all: unset !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  cursor: pointer !important;
+  color: rgba(245, 240, 232, 0.75) !important;
+  font-family: "Jost", sans-serif !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  transition: color 0.2s ease !important;
+  padding: 4px 0 !important;
+}
+
+.nav-search:hover,
+.cart-btn:hover {
+  color: var(--gold) !important;
+}
+
+/* Cart count badge — clean pill that bumps on add */
+.cart-count {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--gold) !important;
+  color: var(--bark) !important;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  min-width: 18px !important;
+  height: 18px !important;
+  padding: 0 4px !important;
+  border-radius: 2px !important; /* Square-ish to match site aesthetic */
+  line-height: 1 !important;
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cart-count.bump {
+  animation: bump 0.3s ease !important;
+}
+
+/* --------------------------------------------------------------------------
+   FIX 4b: FOOTER — BASE STYLES (footer HTML provided but no CSS existed)
+   -------------------------------------------------------------------------- */
+
+footer {
+  background: var(--bark) !important;
+  color: var(--cream) !important;
+  border-top: 1px solid rgba(200, 151, 42, 0.12) !important;
+}
+
+.footer-inner {
+  max-width: 1300px !important;
+  margin: 0 auto !important;
+  padding: 0 4% !important;
+}
+
+/* Top grid — 4 columns */
+.footer-top {
+  display: grid !important;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr !important;
+  gap: 3rem !important;
+  padding: 4.5rem 0 3rem !important;
+  border-bottom: 1px solid rgba(200, 151, 42, 0.1) !important;
+}
+
+/* Logo column */
+.f-logo {
+  font-family: "Playfair Display", serif !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  color: var(--cream) !important;
+  text-decoration: none !important;
+  display: block !important;
+  margin-bottom: 0.4rem !important;
+  letter-spacing: 0.04em !important;
+}
+
+.f-logo em {
+  color: var(--gold) !important;
+  font-style: italic !important;
+}
+
+.f-tagline {
+  display: block !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: rgba(245, 240, 232, 0.45) !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.f-desc {
+  font-size: 0.82rem !important;
+  line-height: 1.7 !important;
+  color: rgba(245, 240, 232, 0.6) !important;
+  margin-bottom: 1.5rem !important;
+  max-width: 280px !important;
+}
+
+.f-addr {
+  font-size: 0.75rem !important;
+  line-height: 1.6 !important;
+  color: rgba(245, 240, 232, 0.5) !important;
+}
+
+.f-addr strong {
+  display: block !important;
+  color: var(--gold) !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 0.3rem !important;
+}
+
+/* Link columns */
+.fcol h4 {
+  font-family: "Jost", sans-serif !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: var(--gold) !important;
+  font-weight: 600 !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.fcol ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.65rem !important;
+}
+
+.fcol ul li a {
+  font-size: 0.8rem !important;
+  color: rgba(245, 240, 232, 0.55) !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: color 0.2s !important;
+  letter-spacing: 0.04em !important;
+}
+
+.fcol ul li a:hover {
+  color: var(--cream) !important;
+}
+
+/* Bottom bar */
+.footer-bottom {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 1.75rem 0 !important;
+  gap: 1rem !important;
+}
+
+.footer-bottom p {
+  font-size: 0.7rem !important;
+  color: rgba(245, 240, 232, 0.35) !important;
+  letter-spacing: 0.06em !important;
+}
+
+.f-socials {
+  display: flex !important;
+  gap: 0.75rem !important;
+}
+
+.fsoc {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  border: 1px solid rgba(200, 151, 42, 0.2) !important;
+  color: rgba(245, 240, 232, 0.5) !important;
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+}
+
+.fsoc:hover {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+  color: var(--bark) !important;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE COLLAPSE — Stacks all layouts at tablet/mobile width
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .footer-top {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-top {
+    grid-template-columns: 1fr !important;
+  }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .hero-visual {
+    min-height: auto !important;
+  }
+
+  .bottle-image {
+    max-height: 320px !important;
+  }
+}
