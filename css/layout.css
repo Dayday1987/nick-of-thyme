@@ -90,7 +90,7 @@ nav {
 }
 
 /* ==========================================================================
-   3. HERO REGION: SYSTEM OVERHAUL
+   3. HERO REGION: SYSTEM OVERHAUL (FULL REBUILD)
    ========================================================================== */
 .hero {
   /* Dynamic lock: sets height exactly to fill the viewable viewport minus announcement bar */
@@ -116,6 +116,7 @@ nav {
   max-width: 1200px !important;
   margin: 0 auto !important;
   padding: 0 4% !important;
+  position: relative !important;
 }
 
 /* LEFT COLUMN TYPOGRAPHY LAYOUT */
@@ -240,78 +241,104 @@ nav {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  justify-content: flex-start !important; /* Flows elements cleanly from top down */
+  justify-content: flex-start !important;
   width: 100% !important;
-  height: 100% !important; /* Takes full available column height */
   position: relative !important;
 }
 
-/* Fix 2: Restores massive structural layout boundaries to scale bottle up */
+/* Fix 2: Unlocks image scale bounds completely so the bottle renders massive */
 .bottle-scene {
   position: relative !important;
   width: 100% !important;
-  max-width: 460px !important; /* Keeps the bottle prominent and large */
-  height: auto !important; /* Obliterates the restrictive vh limit completely */
+  max-width: 440px !important; /* Sets the maximum structural width container */
+  height: auto !important; /* Removes the limiting layout constraint */
   display: block !important;
+  margin-bottom: 40px !important; /* Space context between image and lower elements */
 }
 
 .bottle-float {
-  width: 100%;
-  height: auto;
-  display: block;
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
 }
 
 .bottle-image {
-  width: 100% !important; /* Forces the graphic asset to blow up to bounds */
+  width: 100% !important; /* Forces asset file to fill its true width */
   height: auto !important;
-  max-height: 520px !important;
+  max-height: 460px !important; /* Premium vertical sizing limit */
   object-fit: contain !important;
   filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.75)) !important;
 }
 
-/* Fix 3: Absolute Anchor System to lock badges to the CTA baseline height line */
+/* Fix 3: Direct baseline lock to match buttons perfectly */
 .hero-badges {
   display: flex !important;
   flex-direction: row !important;
-  gap: 1.25rem !important;
+  gap: 1rem !important;
   width: 100% !important;
-  max-width: 380px !important;
-
-  /* Decouples the badges from image padding constraints and pins them directly 
-     to the bottom boundary line matching your buttons */
-  position: absolute !important;
-  bottom: 0 !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 10 !important;
-  margin-top: 0 !important; /* Erases old relative margin parameters */
+  max-width: 340px !important;
+  margin-top: 0 !important;
+  position: relative !important;
+  z-index: 5 !important;
 }
 
 .h-badge {
   flex: 1 !important;
-  background: rgba(35, 24, 12, 0.5) !important;
-  border: 1px solid rgba(200, 151, 42, 0.2) !important;
-  padding: 1.1rem 1rem !important;
+  background: rgba(35, 24, 12, 0.4) !important;
+  border: 1px solid rgba(200, 151, 42, 0.15) !important;
+  padding: 0.9rem 0.75rem !important;
   text-align: center !important;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(4px);
 }
 
 .h-badge .num {
   font-family: "Playfair Display", serif !important;
-  font-size: 1.6rem !important;
+  font-size: 1.4rem !important;
   color: var(--gold) !important;
   font-weight: 700 !important;
   display: block !important;
-  margin-bottom: 0.15rem !important;
 }
 
 .h-badge .txt {
   font-family: "Jost", sans-serif !important;
-  font-size: 0.65rem !important;
-  letter-spacing: 0.15em !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
-  color: rgba(245, 240, 232, 0.55) !important;
-  display: block !important;
+  color: rgba(245, 240, 232, 0.5) !important;
+  display: block;
+}
+
+/* ==========================================================================
+   HEADER ACTIONS ENGINE FIX (SEARCH & CART BUTTON FIX)
+   ========================================================================== */
+/* Fixes navigation buttons breaking out into tiny square outlines */
+.nav-actions,
+.header-right,
+[class*="cart"]-container,
+[class*="nav"]-buttons {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.5rem !important;
+}
+
+.search-button,
+.cart-button,
+.hero-content + [class*="cart"],
+a[href*="cart"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important; /* Clears hard-coded small layout compression overrides */
+  height: auto !important;
+}
+
+/* Erases the legacy scroll link indicators completely */
+.hero-scroll,
+.scroll,
+[class*="scroll"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 /* Erases the legacy scroll link indicators completely */
