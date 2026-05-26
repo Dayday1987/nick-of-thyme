@@ -92,33 +92,33 @@ nav {
 /* ==========================================================================
    3. HERO REGION: SYSTEM OVERHAUL
    ========================================================================== */
+/* ==========================================================================
+   HERO DISPLAY TRACK ENGINE
+   ========================================================================== */
 .hero {
-  min-height: 100vh;
-  width: 100vw;
-  padding-top: 140px; /* Safely opens up clearance under fixed headers */
-  padding-bottom: 5rem;
+  /* Dynamic lock: sets height exactly to fill the viewable viewport minus announcement bar */
+  height: calc(100vh - 36px);
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 80px; /* Gives room for the fixed navbar */
+  padding-bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  background:
-    radial-gradient(
-      circle at 75% 40%,
-      rgba(200, 151, 42, 0.08) 0%,
-      transparent 60%
-    ),
-    var(--bark);
+  overflow: hidden; /* Hard limits the section boundary */
+  background: var(--bark);
 }
 
 .hero-content {
   display: grid !important;
-  grid-template-columns: 1.15fr 0.85fr !important; /* Balanced layout layout distribution */
+  grid-template-columns: 1.2fr 0.8fr !important; /* Standard side-by-side split */
   gap: 4rem !important;
   align-items: center !important;
   width: 100% !important;
-  max-width: 1300px !important;
+  max-width: 1200px !important;
   margin: 0 auto !important;
-  padding: 0 5% !important;
+  padding: 0 4% !important;
 }
 
 /* LEFT COLUMN TYPOGRAPHY LAYOUT */
@@ -252,8 +252,9 @@ nav {
 .bottle-scene {
   position: relative !important;
   width: 100% !important;
-  max-width: 440px !important;
-  height: 480px !important; /* Fixed height envelope */
+  /* Instead of a tiny file container, we force it to take up 45% of the screen height */
+  height: 45vh !important;
+  max-height: 420px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -268,54 +269,53 @@ nav {
 }
 
 .bottle-image {
-  width: 100% !important;
-  height: 100% !important;
+  width: auto !important;
+  height: 100% !important; /* Forces the graphic to expand to the full height of the scene */
   object-fit: contain !important;
-  transform: scale(1.4) !important; /* Keeps the bottle large and prominent */
-  filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.75)) !important;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.65)) !important;
 }
 
 /* Fix 3: Centers statistics row natively on column axis directly under the bottle */
+/* THE STATS BADGES: Keeps them stacked under the bottle, pulled up to match button line */
 .hero-badges {
   display: flex !important;
   flex-direction: row !important;
-  gap: 1.25rem !important;
+  gap: 1rem !important;
   width: 100% !important;
-  max-width: 380px !important;
+  max-width: 340px !important;
 
-  /* Crucial adjustment: This pulls the stats up over the invisible padding 
-     so the bottom edges sit at the exact same height line as the CTA buttons */
-  margin-top: -120px !important;
+  /* Pulls the badges up over the empty lower margin of the bottle image box 
+     so the baseline matches up cleanly with the buttons on the left */
+  margin-top: -20px !important;
 
   position: relative !important;
-  z-index: 10 !important; /* Keeps it layered cleanly on top of any image transparency */
+  z-index: 5 !important;
 }
 
 .h-badge {
   flex: 1 !important;
-  background: rgba(35, 24, 12, 0.5) !important;
-  border: 1px solid rgba(200, 151, 42, 0.2) !important;
-  padding: 1.1rem 1rem !important;
+  background: rgba(35, 24, 12, 0.4) !important;
+  border: 1px solid rgba(200, 151, 42, 0.15) !important;
+  padding: 0.9rem 0.75rem !important;
   text-align: center !important;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(4px);
 }
 
 .h-badge .num {
   font-family: "Playfair Display", serif !important;
-  font-size: 1.6rem !important;
+  font-size: 1.4rem !important;
   color: var(--gold) !important;
   font-weight: 700 !important;
   display: block !important;
-  margin-bottom: 0.15rem !important;
 }
 
 .h-badge .txt {
   font-family: "Jost", sans-serif !important;
-  font-size: 0.65rem !important;
-  letter-spacing: 0.15em !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
-  color: rgba(245, 240, 232, 0.55) !important;
-  display: block !important;
+  color: rgba(245, 240, 232, 0.5) !important;
+  display: block;
 }
 
 /* Erases the legacy scroll link indicators completely */
