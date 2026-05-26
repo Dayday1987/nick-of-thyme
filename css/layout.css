@@ -236,24 +236,29 @@ nav {
   border-color: var(--cream) !important;
 }
 
-/* RIGHT COLUMN VISUAL & DISPLAY TRACK */
+/* ==========================================================================
+   REBUILT RIGHT COLUMN VISUAL: BOTTLE REALIGNMENT ENGINE
+   ========================================================================== */
 .hero-visual {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  justify-content: flex-start !important;
+  justify-content: center !important; /* Forces perfect vertical split alignment */
   width: 100% !important;
+  height: 100% !important;
   position: relative !important;
 }
 
-/* Fix 2: Unlocks image scale bounds completely so the bottle renders massive */
+/* Fixes the bottle climbing into the upper navbar area */
 .bottle-scene {
   position: relative !important;
   width: 100% !important;
-  max-width: 440px !important; /* Sets the maximum structural width container */
-  height: auto !important; /* Removes the limiting layout constraint */
-  display: block !important;
-  margin-bottom: 40px !important; /* Space context between image and lower elements */
+  max-width: 320px !important; /* Prevents overflow blown-out widths */
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto 2rem auto !important; /* Centers and adds spacing below */
 }
 
 .bottle-float {
@@ -263,14 +268,14 @@ nav {
 }
 
 .bottle-image {
-  width: 100% !important; /* Forces asset file to fill its true width */
+  width: 100% !important;
   height: auto !important;
-  max-height: 460px !important; /* Premium vertical sizing limit */
+  max-height: 400px !important; /* Clean premium scaling constraint */
   object-fit: contain !important;
-  filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.75)) !important;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.55)) !important;
 }
 
-/* Fix 3: Direct baseline lock to match buttons perfectly */
+/* Perfect alignment alignment matrix for lower stats badges */
 .hero-badges {
   display: flex !important;
   flex-direction: row !important;
@@ -279,7 +284,6 @@ nav {
   max-width: 340px !important;
   margin-top: 0 !important;
   position: relative !important;
-  z-index: 5 !important;
 }
 
 .h-badge {
@@ -309,39 +313,48 @@ nav {
 }
 
 /* ==========================================================================
-   HEADER ACTIONS ENGINE FIX (SEARCH & CART BUTTON FIX)
+   HEADER NAVIGATION ACTIONS CORRECTION FIX (NAVBAR ICONS)
    ========================================================================== */
-/* Fixes navigation buttons breaking out into tiny square outlines */
+/* Targets the layout containers inside your navbar */
 .nav-actions,
 .header-right,
-[class*="cart"]-container,
-[class*="nav"]-buttons {
+header nav div[class*="right"] {
   display: flex !important;
   align-items: center !important;
   gap: 1.5rem !important;
 }
 
+/* Rebuilds the search and cart link elements to sit as pristine inline shapes */
 .search-button,
 .cart-button,
-.hero-content + [class*="cart"],
-a[href*="cart"] {
+[class*="search"] a,
+[class*="cart"] a,
+header a[href*="cart"],
+header button {
+  all: unset !important; /* Erases generic browser default button boxes */
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: auto !important; /* Clears hard-coded small layout compression overrides */
+  cursor: pointer !important;
+  color: var(--cream, #f5f0e8) !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 4px !important;
+  width: auto !important;
   height: auto !important;
 }
 
-/* Erases the legacy scroll link indicators completely */
-.hero-scroll,
-.scroll,
-[class*="scroll"] {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
+/* Ensure any text inside the cart element (like the "Cart 0") scales gracefully */
+.cart-button span,
+a[href*="cart"] span {
+  font-family: "Jost", sans-serif !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  margin-left: 0.5rem !important;
 }
 
-/* Erases the legacy scroll link indicators completely */
+/* Keeps hidden scroll tags completely muted */
 .hero-scroll,
 .scroll,
 [class*="scroll"] {
