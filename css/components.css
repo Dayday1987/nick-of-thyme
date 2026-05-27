@@ -2,14 +2,13 @@
    ── 1. HERO SECTION ──
    ========================================================================== */
 .hero {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bark);
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
-  padding-top: 90px; /* Safe start padding to capture header blocks natively */
-  padding-bottom: 40px;
 }
 
 .hero-bg {
