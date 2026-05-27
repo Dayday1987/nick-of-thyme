@@ -23,7 +23,7 @@ body {
 }
 
 /* ==========================================================================
-   2. NAVBAR & ANNOUNCEMENT BAR SYSTEM
+   2. NAVBAR, ANNOUNCEMENT BAR & CART SYSTEM
    ========================================================================== */
 .ann-bar {
   background: var(--gold);
@@ -89,27 +89,86 @@ nav {
   color: var(--gold);
 }
 
+/* Navigation Actions (Search & Cart) */
+.nav-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.25rem !important;
+}
+
+.nav-search,
+.cart-btn {
+  all: unset !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  cursor: pointer !important;
+  color: rgba(245, 240, 232, 0.75) !important;
+  font-family: "Jost", sans-serif !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  transition: color 0.2s ease !important;
+  padding: 4px 0 !important;
+}
+
+.nav-search:hover,
+.cart-btn:hover {
+  color: var(--gold) !important;
+}
+
+/* Cart Counter Pill */
+.cart-count {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--gold) !important;
+  color: var(--bark) !important;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  min-width: 18px !important;
+  height: 18px !important;
+  padding: 0 4px !important;
+  border-radius: 2px !important;
+  line-height: 1 !important;
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cart-count.bump {
+  animation: bump 0.3s ease !important;
+}
+
 /* ==========================================================================
-   3. HERO REGION: SYSTEM OVERHAUL (FULL REBUILD)
+   3. HERO REGION: SYSTEM ARCHITECTURE
    ========================================================================== */
 .hero {
-  /* Dynamic lock: sets height exactly to fill the viewable viewport minus announcement bar */
-  height: calc(100vh - 36px);
+  min-height: 60vh;
   width: 100%;
   box-sizing: border-box;
-  padding-top: 80px; /* Gives room for the fixed navbar */
-  padding-bottom: 0;
+  padding-top: 140px !important;
+  padding-bottom: 4rem !important;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden; /* Hard limits the section boundary */
+  overflow: hidden;
   background: var(--bark);
 }
 
 .hero-content {
   display: grid !important;
-  grid-template-columns: 1.2fr 0.8fr !important; /* Standard side-by-side split */
+  grid-template-columns: 1.2fr 0.8fr !important;
   gap: 4rem !important;
   align-items: center !important;
   width: 100% !important;
@@ -119,7 +178,7 @@ nav {
   position: relative !important;
 }
 
-/* LEFT COLUMN TYPOGRAPHY LAYOUT */
+/* --- Left Column Typographics --- */
 .hero-left {
   display: flex !important;
   flex-direction: column !important;
@@ -127,7 +186,6 @@ nav {
   justify-content: center !important;
 }
 
-/* Fix 1: Eyebrow sits comfortably right above the h1 instead of climbing up */
 .hero-eyebrow {
   font-size: 0.72rem !important;
   letter-spacing: 0.22em !important;
@@ -164,17 +222,24 @@ nav {
   align-items: center;
   gap: 1rem;
   margin-bottom: 2.5rem;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
 }
 
 .founder-avatar {
   font-size: 1.5rem;
-  background: rgba(245, 240, 232, 0.05);
   width: 44px;
   height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(200, 151, 42, 0.15);
+  background: rgba(200, 151, 42, 0.08) !important;
+  border: 1px solid rgba(200, 151, 42, 0.25) !important;
+  border-radius: 0 !important;
+  flex-shrink: 0 !important;
 }
 
 .founder-info {
@@ -195,7 +260,6 @@ nav {
   letter-spacing: 0.1em;
 }
 
-/* CALL TO ACTIONS LAYOUT ENGINE */
 .hero-ctas {
   display: flex !important;
   gap: 1.25rem !important;
@@ -236,61 +300,66 @@ nav {
   border-color: var(--cream) !important;
 }
 
-/* ==========================================================================
-   REBUILT RIGHT COLUMN VISUAL: BOTTLE REALIGNMENT ENGINE
-   ========================================================================== */
+/* --- Right Column Visuals --- */
 .hero-visual {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  justify-content: center !important; /* Forces perfect vertical split alignment */
+  justify-content: center !important;
   width: 100% !important;
   height: 100% !important;
+  min-height: 420px !important;
   position: relative !important;
 }
 
-/* Fixes the bottle climbing into the upper navbar area */
 .bottle-scene {
   position: relative !important;
   width: 100% !important;
-  max-width: 320px !important; /* Prevents overflow blown-out widths */
+  max-width: 380px !important;
+  flex: 1 !important;
   height: auto !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  margin: 0 auto 2rem auto !important; /* Centers and adds spacing below */
+  margin: 0 auto 1.5rem auto !important;
 }
 
 .bottle-float {
   width: 100% !important;
   height: auto !important;
-  display: block !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .bottle-image {
   width: 100% !important;
   height: auto !important;
-  max-height: 400px !important; /* Clean premium scaling constraint */
+  max-height: 650px !important;
+  display: block !important;
+  margin: 0 auto !important;
   object-fit: contain !important;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.55)) !important;
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.6)) !important;
 }
 
-/* Perfect alignment alignment matrix for lower stats badges */
 .hero-badges {
   display: flex !important;
   flex-direction: row !important;
   gap: 1rem !important;
   width: 100% !important;
-  max-width: 340px !important;
-  margin-top: 0 !important;
+  max-width: 320px !important;
+  border-top: 1px solid rgba(200, 151, 42, 0.2) !important;
+  padding-top: 1rem !important;
+  margin-top: -3.5rem !important;
   position: relative !important;
+  z-index: 10 !important;
 }
 
 .h-badge {
   flex: 1 !important;
-  background: rgba(35, 24, 12, 0.4) !important;
-  border: 1px solid rgba(200, 151, 42, 0.15) !important;
-  padding: 0.9rem 0.75rem !important;
+  background: rgba(44, 30, 15, 0.85) !important;
+  border: 1px solid rgba(200, 151, 42, 0.18) !important;
+  padding: 0.85rem 0.6rem !important;
   text-align: center !important;
   backdrop-filter: blur(4px);
 }
@@ -313,117 +382,36 @@ nav {
 }
 
 /* ==========================================================================
-   HEADER NAVIGATION ACTIONS CORRECTION FIX (NAVBAR ICONS)
+   4. RECIPE / TASTING BAND 
    ========================================================================== */
-/* Targets the layout containers inside your navbar */
-.nav-actions,
-.header-right,
-header nav div[class*="right"] {
-  display: flex !important;
-  align-items: center !important;
-  gap: 1.5rem !important;
-}
-
-/* Rebuilds the search and cart link elements to sit as pristine inline shapes */
-.search-button,
-.cart-button,
-[class*="search"] a,
-[class*="cart"] a,
-header a[href*="cart"],
-header button {
-  all: unset !important; /* Erases generic browser default button boxes */
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  color: var(--cream, #f5f0e8) !important;
-  background: transparent !important;
-  border: none !important;
-  padding: 4px !important;
-  width: auto !important;
-  height: auto !important;
-}
-
-/* Ensure any text inside the cart element (like the "Cart 0") scales gracefully */
-.cart-button span,
-a[href*="cart"] span {
-  font-family: "Jost", sans-serif !important;
-  font-size: 0.75rem !important;
-  letter-spacing: 0.1em !important;
-  text-transform: uppercase !important;
-  margin-left: 0.5rem !important;
-}
-
-/* Keeps hidden scroll tags completely muted */
-.hero-scroll,
-.scroll,
-[class*="scroll"] {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-}
-
-/* ==========================================================================
-   4. CATEGORY CARDS & PRO TIP LAYER
-   ========================================================================== */
-.categories-section {
-  background: var(--cream);
-  padding: 6rem 0;
-  width: 100vw;
-}
-
-/* Point 5 Fix: Re-balances Category card structures to scale safely with main grid components */
-.categories-container {
-  max-width: 1300px !important;
-  margin: 0 auto !important;
-  padding: 0 4% !important;
-  display: grid !important;
-  grid-template-columns: repeat(5, 1fr) !important;
-  gap: 1.5rem !important;
-}
-
-.category-card {
+.recipe-band {
   background: #eae3d5 !important;
-  padding: 2.5rem 1.5rem !important;
+  color: var(--bark) !important;
+  padding: 4rem 2rem !important;
   text-align: center;
-  border: 1px solid rgba(44, 30, 15, 0.05);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Point 6 Fix: Centers Pro-Tip box frame cleanly on display axis */
-.pro-tip-container {
-  max-width: 900px !important;
-  margin: 4rem auto 0 auto !important;
-  padding: 0 2rem !important;
-  text-align: center !important;
+.recipe-inner {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.pro-tip-box {
-  background: var(--bark);
-  color: var(--cream);
-  padding: 2rem 3rem !important;
-  border-radius: 0px;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 1rem;
+.recipe-inner h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--olive);
 }
 
-.pro-tip-box p {
-  text-align: center !important;
+.recipe-inner p {
   font-style: italic;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.6;
 }
 
 /* ==========================================================================
    5. FEATURED SELECTION LAYOUT ENGINE
    ========================================================================== */
-/* Point 7 Fix: Prevents grid track from stretching out of proportion on ultra-wide viewports */
 .featured-section {
   background: var(--cream);
   padding: 4rem 0 7rem 0;
@@ -450,15 +438,48 @@ a[href*="cart"] span {
 }
 
 /* ==========================================================================
-   6. OUR STORY LAYER: MASONRY BALANCING
+   6. REFILL REVOLUTION SECTION 
    ========================================================================== */
-.story-section {
-  background: var(--bark);
-  padding: 7rem 0;
+.refill {
+  background: var(--bark) !important;
+  color: var(--cream) !important;
+  padding: 3rem 0 !important;
   width: 100vw;
 }
 
-.story-container {
+.refill-inner {
+  max-width: 1300px !important;
+  margin: 0 auto !important;
+  padding: 0 4% !important;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.refill-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1.5rem !important;
+  margin: 2rem 0;
+}
+
+.ri strong {
+  display: block;
+  color: var(--gold);
+  margin-bottom: 0.25rem;
+}
+
+/* ==========================================================================
+   7. OUR STORY LAYER: MASONRY BALANCING
+   ========================================================================== */
+.about {
+  background: var(--cream);
+  color: var(--bark);
+  padding: 6rem 0;
+}
+
+.about-inner {
   max-width: 1300px !important;
   margin: 0 auto !important;
   padding: 0 4% !important;
@@ -468,70 +489,51 @@ a[href*="cart"] span {
   align-items: center;
 }
 
-/* Point 9 Fix: Shrinks structural canvas wrapping frames to clip inside bounds cleanly */
-.story-visual-grid {
-  display: grid !important;
-  grid-template-columns: repeat(12, 1fr) !important;
-  align-items: center !important;
+.about-img-wrap {
   position: relative;
   width: 100%;
-}
-
-.story-img-large {
-  grid-column: 1 / 10 !important; /* Shrinks structural box down from running wide */
-  width: 100% !important;
-  height: 420px !important;
-  object-fit: cover !important;
-  border: 1px solid rgba(200, 151, 42, 0.2);
-}
-
-.story-badge-small {
-  grid-column: 8 / -1 !important;
-  grid-row: 1 !important;
-  background: var(--gold) !important;
-  color: var(--bark) !important;
-  padding: 2.5rem 1.5rem !important;
-  text-align: center;
-  z-index: 5;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  max-height: 450px !important;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(44, 30, 15, 0.1);
+}
+
+.about-img {
+  width: 100%;
+  height: 100% !important;
+  object-fit: cover !important;
 }
 
 /* ==========================================================================
-   7. SHOP VISIT, HOURS & INTERACTIVE MAP ENGINE
+   8. SHOP VISIT, HOURS & INTERACTIVE MAP ENGINE
    ========================================================================== */
-.visit-section {
+.visit {
   background: var(--cream);
   color: var(--bark);
   padding: 7rem 0;
   width: 100vw;
 }
 
-.visit-container {
+.visit-inner {
   max-width: 1300px !important;
   margin: 0 auto !important;
   padding: 0 4% !important;
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
   gap: 4rem !important;
+  align-items: end !important;
 }
 
-/* Left layout col containing contact + interactive mapping canvas */
 .visit-left-col {
   display: flex !important;
   flex-direction: column !important;
-  justify-content: space-between !important; /* Point 11 Fix: Forces columns to track equal lengths */
+  justify-content: flex-end !important;
   height: 100% !important;
 }
 
-.visit-info-block {
-  margin-bottom: 2rem;
-}
-
-/* Point 11 Fix: Injects a crisp canvas background mimic to make map element pop */
-.map-canvas-mock {
+.map-placeholder {
   width: 100% !important;
   height: 240px !important;
   background-color: #e5e3df !important;
@@ -543,72 +545,231 @@ a[href*="cart"] span {
     0 0,
     10px 10px !important;
   border: 1px solid rgba(44, 30, 15, 0.15) !important;
-  position: relative !important;
   display: flex !important;
+  flex-direction: column;
   align-items: center !important;
   justify-content: center !important;
+  text-decoration: none;
+  color: var(--bark);
 }
 
-.map-canvas-mock::before {
-  content: "📍 123 Market Street, Wetumpka, AL" !important;
-  font-size: 0.75rem !important;
-  letter-spacing: 0.1em !important;
-  text-transform: uppercase !important;
-  color: var(--bark) !important;
-  background: var(--cream) !important;
-  padding: 0.75rem 1.2rem !important;
-  border: 1px solid rgba(44, 30, 15, 0.2) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-}
-
-/* Right column containing operational details */
 .hours-box-container {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  height: 100% !important;
+}
+
+.hours-box {
   background: var(--bark) !important;
   color: var(--cream) !important;
   padding: 3rem !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  height: 100% !important; /* Force matches sibling height perfectly */
+  margin-top: auto !important;
 }
 
 /* ==========================================================================
-   8. CLEAN BENCH FOOTER SYSTEM
+   9. CART DRAWER PHANTOM TEXT FIX
    ========================================================================== */
-/* Point 8 Fix: Annihilates the phantom layout breaking "Your Pantry" text asset */
-#your-pantry,
-.your-pantry,
-h2:contains("Your Pantry"),
-h3:contains("Your Pantry") {
+.cart-drawer,
+.cart-overlay {
   display: none !important;
-  opacity: 0 !important;
   visibility: hidden !important;
-  height: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
 }
 
-/* Force kicks footer into standard display rendering */
+/* ==========================================================================
+   10. FOOTER SYSTEM (Merged from fixes.css)
+   ========================================================================== */
 .store-footer {
-  background: var(--olive) !important;
+  background: var(--bark) !important;
   color: var(--cream) !important;
-  padding: 2.5rem 6% !important;
+  border-top: 1px solid rgba(200, 151, 42, 0.12) !important;
+  width: 100vw !important;
+}
+
+.footer-inner {
+  max-width: 1300px !important;
+  margin: 0 auto !important;
+  padding: 0 4% !important;
+}
+
+.footer-top {
+  display: grid !important;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr !important;
+  gap: 3rem !important;
+  padding: 4.5rem 0 3rem !important;
+  border-bottom: 1px solid rgba(200, 151, 42, 0.1) !important;
+}
+
+.f-logo {
+  font-family: "Playfair Display", serif !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  color: var(--cream) !important;
+  text-decoration: none !important;
+  display: block !important;
+  margin-bottom: 0.4rem !important;
+  letter-spacing: 0.04em !important;
+}
+
+.f-logo em {
+  color: var(--gold) !important;
+  font-style: italic !important;
+}
+
+.f-tagline {
+  display: block !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: rgba(245, 240, 232, 0.45) !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.f-desc {
+  font-size: 0.82rem !important;
+  line-height: 1.7 !important;
+  color: rgba(245, 240, 232, 0.6) !important;
+  margin-bottom: 1.5rem !important;
+  max-width: 280px !important;
+}
+
+.f-addr {
+  font-size: 0.75rem !important;
+  line-height: 1.6 !important;
+  color: rgba(245, 240, 232, 0.5) !important;
+}
+
+.f-addr strong {
+  display: block !important;
+  color: var(--gold) !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 0.3rem !important;
+}
+
+.fcol h4 {
+  font-family: "Jost", sans-serif !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: var(--gold) !important;
+  font-weight: 600 !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.fcol ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.65rem !important;
+}
+
+.fcol ul li a {
+  font-size: 0.8rem !important;
+  color: rgba(245, 240, 232, 0.55) !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: color 0.2s !important;
+  letter-spacing: 0.04em !important;
+}
+
+.fcol ul li a:hover {
+  color: var(--cream) !important;
+}
+
+.footer-bottom {
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-  position: relative !important;
-  width: 100vw !important;
-  z-index: 100 !important;
+  padding: 1.75rem 0 !important;
+  gap: 1rem !important;
 }
 
-/* Point 4 Fix: Clamps store hours directly to baseline across text layout spans */
-.store-footer span,
-.store-footer p,
-.store-footer div,
-.store-footer .contact-info {
-  font-family: "Jost", sans-serif !important;
-  font-size: 0.72rem !important;
-  letter-spacing: 0.15em !important;
-  text-transform: uppercase !important;
-  color: var(--cream) !important;
+.footer-bottom p {
+  font-size: 0.7rem !important;
+  color: rgba(245, 240, 232, 0.35) !important;
+  letter-spacing: 0.06em !important;
+}
+
+.f-socials {
+  display: flex !important;
+  gap: 0.75rem !important;
+}
+
+.fsoc {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  border: 1px solid rgba(200, 151, 42, 0.2) !important;
+  color: rgba(245, 240, 232, 0.5) !important;
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+}
+
+.fsoc:hover {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+  color: var(--bark) !important;
+}
+
+/* ==========================================================================
+   11. MOBILE FIRST RESPONSIVE SYSTEM
+   ========================================================================== */
+@media (max-width: 900px) {
+  .hero-content,
+  .refill-inner,
+  .about-inner,
+  .visit-inner {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+
+  .visit-inner {
+    align-items: center !important;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Footer collapse logic merged from fixes.css */
+  .footer-top {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding-top: 100px !important;
+    min-height: auto;
+  }
+
+  .products-grid,
+  .refill-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero-badges {
+    max-width: 100% !important;
+  }
+
+  /* Footer mobile stacking merged from fixes.css */
+  .footer-top {
+    grid-template-columns: 1fr !important;
+  }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
 }

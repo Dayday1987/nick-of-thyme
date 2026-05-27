@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ── HERO SECTION ──
+   ── 1. HERO SECTION ──
    ========================================================================== */
 .hero {
   min-height: 100vh;
@@ -8,8 +8,8 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding-top: 110px; /* Accounts gracefully for fixed nav + announcement height */
-  padding-bottom: 60px;
+  padding-top: 90px; /* Safe start padding to capture header blocks natively */
+  padding-bottom: 40px;
 }
 
 .hero-bg {
@@ -34,15 +34,14 @@
   z-index: 2;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 5rem;
+  padding: 0 1.5rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
-  gap: 4rem;
+  gap: 2.5rem;
   width: 100%;
 }
 
-/* Added relative structural wrapper to give floating elements a safe anchor */
 .hero-text-side {
   position: relative;
   display: flex;
@@ -75,11 +74,7 @@
 
 .hero h1 {
   font-family: "Playfair Display", serif;
-  font-size: clamp(
-    2.4rem,
-    5vw,
-    5.2rem
-  ); /* Slightly optimized low end font limit */
+  font-size: clamp(2.4rem, 5vw, 5.2rem);
   font-weight: 900;
   color: var(--cream);
   line-height: 1.04;
@@ -146,6 +141,7 @@
 
 .hero-ctas {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   width: 100%;
   max-width: 460px;
@@ -164,7 +160,7 @@
   transition: all 0.28s;
   text-decoration: none;
   display: inline-block;
-  flex: 1; /* Allows buttons to share container space equally */
+  width: 100%;
   text-align: center;
 }
 
@@ -193,7 +189,6 @@
   background: rgba(245, 240, 232, 0.07);
 }
 
-/* ── HERO VISUAL ASSETS ── */
 .hero-visual {
   display: flex;
   justify-content: center;
@@ -204,7 +199,8 @@
 
 .bottle-scene {
   position: relative;
-  width: 340px;
+  width: 100%;
+  max-width: 340px;
   height: 470px;
 }
 
@@ -227,19 +223,20 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  /* Added absolute translate vector centering alignment baseline safety anchor */
   transform: translate(-50%, -50%);
   filter: drop-shadow(0 26px 52px rgba(0, 0, 0, 0.52));
   animation: float 6s ease-in-out infinite;
+  max-width: 100%;
 }
 
 .hero-badges {
   position: absolute;
-  bottom: -45px; /* Shifted slightly to clear button bounds cleaner */
+  bottom: -35px;
   left: 0;
   right: 0;
   display: flex;
-  gap: 0.8rem;
+  flex-direction: row;
+  gap: 0.5rem;
   width: 100%;
 }
 
@@ -247,14 +244,14 @@
   background: rgba(245, 240, 232, 0.05);
   border: 1px solid rgba(200, 151, 42, 0.2);
   border-radius: 3px;
-  padding: 0.7rem 0.9rem;
+  padding: 0.5rem 0.4rem;
   text-align: center;
   flex: 1;
 }
 
 .h-badge-num {
   font-family: "Playfair Display", serif;
-  font-size: 1.55rem;
+  font-size: 1.25rem;
   color: var(--gold);
   font-weight: 700;
   display: block;
@@ -263,8 +260,8 @@
 
 .h-badge-lbl {
   font-family: "Jost", sans-serif;
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(245, 240, 232, 0.42);
   margin-top: 0.2rem;
@@ -299,11 +296,11 @@
 }
 
 /* ==========================================================================
-   ── HOURS BAND INTERSTITIAL ──
+   ── 2. HOURS BAND INTERSTITIAL ──
    ========================================================================== */
 .hours-band {
   background: var(--olive);
-  padding: 1.5rem 3rem;
+  padding: 1.5rem;
   width: 100%;
   position: relative;
   z-index: 5;
@@ -313,9 +310,9 @@
   max-width: 1280px;
   margin: 0 auto;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
+  flex-direction: column;
+  text-align: center;
+  gap: 1.25rem;
 }
 
 .hb-section {
@@ -334,14 +331,16 @@
 
 .hb-hours {
   display: flex;
-  gap: 1.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .hb-item {
   font-family: "Jost", sans-serif;
   font-size: 0.75rem;
   color: var(--cream);
-  white-space: nowrap; /* Prevents time signatures from wrapping into awkward splits */
+  white-space: nowrap;
 }
 
 .hb-item span {
@@ -350,7 +349,7 @@
 }
 
 .hb-contact {
-  text-align: right;
+  text-align: center;
 }
 
 .hb-phone {
@@ -376,38 +375,7 @@
 }
 
 /* ==========================================================================
-   ── SPECIFIC LOCAL BLOCK BREAKPOINTS ──
-   ========================================================================== */
-@media (max-width: 1024px) {
-  .hero-content {
-    padding: 0 2rem;
-    gap: 2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .hours-band {
-    padding: 1.5rem;
-  }
-
-  .hours-band-inner {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.25rem;
-  }
-
-  .hb-hours {
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .hb-contact {
-    text-align: center;
-  }
-}
-
-/* ==========================================================================
-   ── CATEGORIES GRID BLOCK ──
+   ── 3. CATEGORIES GRID BLOCK ──
    ========================================================================== */
 .cats {
   background: var(--cream);
@@ -419,11 +387,10 @@
 .cats-inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 3rem;
+  padding: 0 1rem;
   display: grid;
-  /* Swapped rigid repeat count for auto-fit baseline safety rules */
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px; /* Swapped 2px boundary gap for improved element framing definitions */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
 }
 
 .cat-card {
@@ -462,16 +429,13 @@
   transform: translateY(-2px);
 }
 
-/* Cleaner, component-safe color transitions without strict string constraints */
 .cat-card:hover .cat-icon,
 .cat-card:hover .cat-name {
   color: var(--cream);
 }
 
 .cat-card:hover .cat-sub {
-  color: var(
-    --gold-light
-  ); /* Changes copy color for enhanced visual contrast */
+  color: var(--gold-light);
 }
 
 .cat-icon {
@@ -500,11 +464,11 @@
 }
 
 /* ==========================================================================
-   ── TASTING NOTE INTERSTITIAL ──
+   ── 4. TASTING NOTE INTERSTITIAL ──
    ========================================================================== */
 .tasting-band {
   background: var(--bark);
-  padding: 2.5rem 3rem;
+  padding: 2.5rem 1.5rem;
   width: 100%;
 }
 
@@ -512,8 +476,10 @@
   max-width: 1280px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  text-align: center;
+  gap: 1rem;
 }
 
 .tasting-olive {
@@ -542,10 +508,10 @@
 }
 
 /* ==========================================================================
-   ── PROVISIONS SHOP CATALOG ──
+   ── 5. PROVISIONS SHOP CATALOG ──
    ========================================================================== */
 .shop {
-  padding: 5.5rem 0;
+  padding: 3.5rem 0;
   background: var(--warm-white);
   width: 100%;
 }
@@ -553,11 +519,11 @@
 .sec-header {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 3rem 2.8rem;
+  padding: 0 1.5rem 2rem;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
 }
 
 .sec-title-area {
@@ -592,6 +558,7 @@
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .ftab {
@@ -606,6 +573,8 @@
   cursor: pointer;
   border-radius: 2px;
   transition: all 0.22s;
+  flex-grow: 1;
+  text-align: center;
 }
 
 .ftab.active,
@@ -618,14 +587,12 @@
 .pgrid {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 3rem;
+  padding: 0 1.5rem;
   display: grid;
-  /* Automatically shifts column splits natively according to viewport restrictions */
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
 }
 
-/* --- PRODUCT COMPONENT CARDS --- */
 .pcard {
   background: var(--cream);
   border: 1px solid var(--parchment);
@@ -673,7 +640,7 @@
 
 .pimg {
   width: 100%;
-  height: 240px; /* Elevated height framework to match store display balance */
+  height: 240px;
   background: var(--parchment);
   display: flex;
   align-items: center;
@@ -740,14 +707,14 @@
   line-height: 1.6;
   margin-bottom: 1.5rem;
   font-weight: 300;
-  flex-grow: 1; /* Pushes button elements cleanly into linear bottom alignment */
+  flex-grow: 1;
 }
 
 .pfoot {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: auto; /* Forces content baseline grouping equality */
+  margin-top: auto;
 }
 
 .pprice {
@@ -789,62 +756,11 @@
 }
 
 /* ==========================================================================
-   ── RESPONSIVE LOCAL OVERRIDE RULES ──
-   ========================================================================== */
-@media (max-width: 1024px) {
-  .cats-inner {
-    padding: 0 2rem;
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .sec-header {
-    padding: 0 2rem 2rem;
-  }
-  .pgrid {
-    padding: 0 2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .tasting-band {
-    padding: 2.5rem 1.5rem;
-  }
-  .tasting-inner {
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
-  }
-  .sec-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
-    padding: 0 1.5rem 2rem;
-  }
-  .filter-row {
-    width: 100%;
-  }
-  .ftab {
-    flex-grow: 1;
-    text-align: center;
-  }
-  .pgrid {
-    padding: 0 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .cats-inner {
-    grid-template-columns: repeat(2, 1fr);
-    padding: 0 1rem;
-    gap: 8px;
-  }
-}
-
-/* ==========================================================================
-   ── REFILL PROMO BLOCK ──
+   ── 6. REFILL PROMO BLOCK ──
    ========================================================================== */
 .refill {
   background: var(--bark);
-  padding: 5rem 3rem;
+  padding: 5rem 1.5rem;
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -866,11 +782,12 @@
   max-width: 1280px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
-  gap: 5rem;
+  gap: 3rem;
   position: relative;
   z-index: 1;
+  padding: 0;
 }
 
 .re {
@@ -953,11 +870,7 @@
 
 .savings-big {
   font-family: "Playfair Display", serif;
-  font-size: clamp(
-    3.5rem,
-    8vw,
-    5rem
-  ); /* Prevents the numbers breaking boundaries */
+  font-size: clamp(3.5rem, 8vw, 5rem);
   font-weight: 900;
   color: var(--gold);
   line-height: 1;
@@ -965,7 +878,7 @@
 }
 
 .savings-big sub {
-  font-size: 0.5em; /* Cleaner scale standard calculation */
+  font-size: 0.5em;
   vertical-align: super;
 }
 
@@ -989,10 +902,10 @@
 }
 
 /* ==========================================================================
-   ── ABOUT BRAND BLOCK ──
+   ── 7. ABOUT BRAND BLOCK ──
    ========================================================================== */
 .about {
-  padding: 6.5rem 3rem;
+  padding: 5rem 1.5rem;
   background: var(--parchment);
   width: 100%;
 }
@@ -1001,14 +914,16 @@
   max-width: 1280px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 6rem;
+  grid-template-columns: 1fr;
+  gap: 4.5rem;
   align-items: center;
 }
 
 .about-img-wrap {
   position: relative;
   width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .about-img {
@@ -1024,10 +939,10 @@
 
 .about-accent {
   position: absolute;
-  bottom: -1.5rem;
-  right: -1.5rem;
-  width: 38%;
-  aspect-ratio: 1;
+  width: 110px;
+  height: 110px;
+  bottom: -1rem;
+  right: -1rem;
   background: var(--gold);
   border-radius: 3px;
   display: flex;
@@ -1148,10 +1063,10 @@
 }
 
 /* ==========================================================================
-   ── SOCIAL TESTIMONIAL REVIEWS BLOCK ──
+   ── 8. SOCIAL TESTIMONIAL REVIEWS BLOCK ──
    ========================================================================== */
 .reviews {
-  padding: 5.5rem 3rem;
+  padding: 5rem 1.5rem;
   background: var(--warm-white);
   width: 100%;
 }
@@ -1160,8 +1075,8 @@
   max-width: 1280px;
   margin: 2.5rem auto 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.4rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
 .rcard {
@@ -1219,63 +1134,10 @@
 }
 
 /* ==========================================================================
-   ── RESPONSIVE LOCAL OVERRIDE RULES ──
-   ========================================================================== */
-@media (max-width: 1024px) {
-  .refill-inner {
-    padding: 0 2rem;
-    gap: 3rem;
-  }
-  .about {
-    padding: 5rem 2rem;
-  }
-  .about-inner {
-    gap: 3.5rem;
-  }
-  .reviews {
-    padding: 5.5rem 2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .refill {
-    padding: 5rem 1.5rem;
-  }
-  .refill-inner {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    padding: 0;
-  }
-  .about {
-    padding: 5rem 1.5rem;
-  }
-  .about-inner {
-    grid-template-columns: 1fr;
-    gap: 4.5rem;
-  }
-  .about-img-wrap {
-    max-width: 500px;
-    margin: 0 auto;
-  }
-  .reviews {
-    padding: 5rem 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .about-accent {
-    width: 110px;
-    height: 110px;
-    bottom: -1rem;
-    right: -1rem;
-  }
-}
-
-/* ==========================================================================
-   ── GIFTS & SPECIAL EXPERIENCES BLOCK ──
+   ── 9. GIFTS & SPECIAL EXPERIENCES BLOCK ──
    ========================================================================== */
 .gifts {
-  padding: 5.5rem 3rem;
+  padding: 4.5rem 1.5rem;
   background: var(--olive);
   position: relative;
   overflow: hidden;
@@ -1330,9 +1192,13 @@
 
 .gift-btns {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap; /* Prevents button containers from locking horizontally */
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
 }
 
 .btn-cream,
@@ -1348,6 +1214,7 @@
   text-decoration: none;
   display: inline-block;
   text-align: center;
+  width: 100%;
 }
 
 .btn-cream {
@@ -1376,10 +1243,10 @@
 }
 
 /* ==========================================================================
-   ── NEWSLETTER FORM BLOCK ──
+   ── 10. NEWSLETTER FORM BLOCK ──
    ========================================================================== */
 .email-section {
-  padding: 4.5rem 3rem;
+  padding: 4.5rem 1.5rem;
   background: var(--bark);
   width: 100%;
 }
@@ -1413,25 +1280,25 @@
 
 .email-form {
   display: flex;
-  gap: 0;
+  flex-direction: column;
+  gap: 0.75rem;
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
 }
 
 .email-input {
-  flex: 1;
   background: rgba(245, 240, 232, 0.07);
   border: 1px solid rgba(200, 151, 42, 0.3);
-  border-right: none;
   color: var(--cream);
   padding: 0.88rem 1.2rem;
   font-family: "Jost", sans-serif;
   font-size: 0.85rem;
   outline: none;
-  border-radius: 2px 0 0 2px;
   transition: all 0.2s ease;
   width: 100%;
+  border-radius: 2px;
+  text-align: center;
 }
 
 .email-input::placeholder {
@@ -1455,8 +1322,10 @@
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.25s;
-  border-radius: 0 2px 2px 0;
   white-space: nowrap;
+  border-radius: 2px;
+  width: 100%;
+  padding: 0.88rem;
 }
 
 .email-submit:hover {
@@ -1480,10 +1349,10 @@
 }
 
 /* ==========================================================================
-   ── BRICK & MORTAR VISIT ARCHITECTURE ──
+   ── 11. BRICK & MORTAR VISIT ARCHITECTURE ──
    ========================================================================== */
 .visit {
-  padding: 5.5rem 3rem;
+  padding: 4.5rem 1.5rem;
   background: var(--parchment);
   width: 100%;
 }
@@ -1492,8 +1361,8 @@
   max-width: 1280px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
   align-items: start;
 }
 
@@ -1627,64 +1496,7 @@
 }
 
 /* ==========================================================================
-   ── RESPONSIVE LOCAL OVERRIDE RULES ──
-   ========================================================================== */
-@media (max-width: 1024px) {
-  .gifts,
-  .email-section,
-  .visit {
-    padding: 5rem 2rem;
-  }
-  .visit-inner {
-    gap: 2.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .gifts,
-  .email-section,
-  .visit {
-    padding: 4.5rem 1.5rem;
-  }
-
-  .gift-btns {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 320px;
-    margin: 0 auto;
-  }
-
-  .btn-cream,
-  .btn-ghost-c {
-    width: 100%; /* Fully scale link paths vertically */
-  }
-
-  .email-form {
-    flex-direction: column;
-    gap: 0.75rem; /* Breaks input clean from submit baseline to stack cleanly */
-  }
-
-  .email-input {
-    border-right: 1px solid rgba(200, 151, 42, 0.3);
-    border-radius: 2px;
-    text-align: center;
-  }
-
-  .email-submit {
-    border-radius: 2px;
-    width: 100%;
-    padding: 0.88rem;
-  }
-
-  .visit-inner {
-    grid-template-columns: 1fr;
-    gap: 3.5rem;
-  }
-}
-
-/* ==========================================================================
-   ── GEOGRAPHIC MAP POSITIONING ──
+   ── 12. GEOGRAPHIC MAP POSITIONING ──
    ========================================================================== */
 .map-placeholder {
   margin-top: 1.5rem;
@@ -1723,7 +1535,7 @@
 }
 
 /* ==========================================================================
-   ── ADMINISTRATIVE MODAL SYSTEM ──
+   ── 13. ADMINISTRATIVE MODAL SYSTEM ──
    ========================================================================== */
 .admin-trigger {
   position: fixed;
@@ -1757,13 +1569,12 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   z-index: 2000;
-  display: none; /* Controlled via operational class switches */
+  display: none;
   align-items: center;
   justify-content: center;
   padding: 2rem;
 }
 
-/* Modal wrapper state override */
 .admin-modal.open {
   display: flex;
 }
@@ -1793,8 +1604,8 @@
   background: var(--parchment);
   padding: 0 2rem;
   border-bottom: 1px solid rgba(74, 53, 32, 0.08);
-  overflow-x: auto; /* Gracefully handles narrow horizontal layouts */
-  scrollbar-width: none; /* Clean interface presentation */
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
 .admin-tabs::-webkit-scrollbar {
@@ -1804,7 +1615,7 @@
 .atab {
   padding: 1rem 1.5rem;
   font-family: "Jost", sans-serif;
-  font-size: 0.72rem; /* Cleaned syntax processing failure bug */
+  font-size: 0.72rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
@@ -1822,7 +1633,7 @@
 
 .admin-content {
   padding: 2.5rem;
-  max-height: 55vh; /* Retained safe balance to guard viewport sizing limits */
+  max-height: 55vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -1875,7 +1686,7 @@
 }
 
 /* ==========================================================================
-   ── GLOBAL USER INTERFACE TOAST NOTIFICATIONS ──
+   ── 14. GLOBAL USER INTERFACE TOAST NOTIFICATIONS ──
    ========================================================================== */
 .toast {
   position: fixed;
@@ -1902,4 +1713,198 @@
 
 .toast.active {
   transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   ── PROGRESSIVE TABLET BREAKPOINT ENHANCEMENTS (min-width: 768px) ──
+   ========================================================================== */
+@media (min-width: 768px) {
+  .hero-ctas {
+    flex-direction: row;
+  }
+
+  .btn-gold,
+  .btn-outline-light {
+    flex: 1;
+    width: auto;
+  }
+
+  .hero-badges {
+    bottom: -45px;
+    gap: 0.8rem;
+  }
+
+  .h-badge {
+    padding: 0.7rem 0.9rem;
+  }
+
+  .h-badge-num {
+    font-size: 1.55rem;
+  }
+
+  .h-badge-lbl {
+    font-size: 0.58rem;
+  }
+
+  .hours-band {
+    padding: 1.5rem 3rem;
+  }
+
+  .hours-band-inner {
+    flex-direction: row;
+    text-align: left;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .hb-hours {
+    justify-content: flex-start;
+    gap: 1.6rem;
+  }
+
+  .hb-contact {
+    text-align: right;
+  }
+
+  .cats-inner {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 2rem;
+    gap: 12px;
+  }
+
+  .tasting-band {
+    padding: 2.5rem 3rem;
+  }
+
+  .tasting-inner {
+    flex-direction: row;
+    text-align: left;
+    gap: 2rem;
+  }
+
+  .sec-header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 0 3rem 2.8rem;
+  }
+
+  .filter-row {
+    width: auto;
+  }
+
+  .ftab {
+    flex-grow: 0;
+    text-align: left;
+  }
+
+  .pgrid {
+    padding: 0 3rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .about-accent {
+    width: 38%;
+    height: auto;
+    aspect-ratio: 1;
+    bottom: -1.5rem;
+    right: -1.5rem;
+  }
+
+  .reviews-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.4rem;
+  }
+
+  .gift-btns {
+    flex-direction: row;
+    align-items: normal;
+    width: auto;
+    max-width: none;
+    margin: 0;
+  }
+
+  .btn-cream,
+  .btn-ghost-c {
+    width: auto;
+  }
+
+  .email-form {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .email-input {
+    border-right: none;
+    border-radius: 2px 0 0 2px;
+    text-align: left;
+  }
+
+  .email-submit {
+    border-radius: 0 2px 2px 0;
+    width: auto;
+  }
+}
+
+/* ==========================================================================
+   ── PROGRESSIVE DESKTOP BREAKPOINT ENHANCEMENTS (min-width: 1024px) ──
+   ========================================================================== */
+@media (min-width: 1024px) {
+  .hero {
+    padding-top: 110px;
+    padding-bottom: 60px;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 0 5rem;
+  }
+
+  .cats-inner {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    padding: 0 3rem;
+  }
+
+  .refill {
+    padding: 5rem 3rem;
+  }
+
+  .refill-inner {
+    grid-template-columns: 1.3fr 1fr;
+    gap: 5rem;
+    padding: 0 2rem;
+  }
+
+  .about {
+    padding: 6.5rem 3rem;
+  }
+
+  .about-inner {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 6rem;
+  }
+
+  .reviews {
+    padding: 5.5rem 3rem;
+  }
+
+  .gifts {
+    padding: 5.5rem 3rem;
+  }
+
+  .email-section {
+    padding: 4.5rem 3rem;
+  }
+
+  .visit {
+    padding: 5.5rem 3rem;
+  }
+
+  .visit-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
 }
